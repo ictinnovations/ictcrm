@@ -1,0 +1,6 @@
+# Dolibarr language file - Source file is en_US - bills
+BillShortStatusClosedUnpaid=Cerrado
+ConfirmClassifyPaidPartiallyReasonDiscountNoVat=El resto a pagar <b>(%s %s)</b> es un descuento acordado después de la factura. Acepto perder el IGV de este descuento
+AmountOfBillsByMonthHT=Importe de las facturas por mes (Sin IGV)
+VATIsNotUsedForInvoice=* IGV no aplicable  art-293B del CGI
+PDFCrabeDescription=Modelo de factura completo (IGV,  método de pago a mostrar, logotipo...)

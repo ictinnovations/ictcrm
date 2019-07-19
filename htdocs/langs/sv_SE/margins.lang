@@ -1,0 +1,44 @@
+# Dolibarr language file - Source file is en_US - marges
+
+Margin=Marginal
+Margins=Marginaler
+TotalMargin=Summa marginal
+MarginOnProducts=Marginal / Produkter
+MarginOnServices=Marginal / Tjänster
+MarginRate=Marginalsats
+MarkRate=Markera sats
+DisplayMarginRates=Visa marginalsatser
+DisplayMarkRates=Display markera hastigheter
+InputPrice=Inpris
+margin=Hantering av vinstmarginaler
+margesSetup=Inställningar för vinstmarginalhantering
+MarginDetails=Marginaldetaljer
+ProductMargins=Produktmarginaler
+CustomerMargins=Kundmarginaler
+SalesRepresentativeMargins=Återförsäljares marginaler
+UserMargins=Användarmarginaler
+ProductService=Produkt eller tjänst
+AllProducts=Alla produkter och tjänster
+ChooseProduct/Service=Välj produkt eller tjänst
+ForceBuyingPriceIfNull=Tvinga köp / kostpris till försäljningspris om det inte är definierat
+ForceBuyingPriceIfNullDetails=Om köp- / kostnadskursen inte definieras, och detta alternativ "ON" kommer marginalen att vara noll på raden (köp / kostnadskurs = försäljningspris), annars ("OFF"), marginal motsvarar föreslagen standard.
+MARGIN_METHODE_FOR_DISCOUNT=Marginalmetod för globala rabatter
+UseDiscountAsProduct=Som produkt
+UseDiscountAsService=Som tjänst
+UseDiscountOnTotal=På delsumma
+MARGIN_METHODE_FOR_DISCOUNT_DETAILS=Definierar om en global rabatt behandlas som en produkt, en tjänst, eller bara på delsumman för beräkning marginal.
+MARGIN_TYPE=Köp / Kostnadspris som föreslagits som standard för marginalberäkning
+MargeType1=Marginal på Bästa leverantörspriset
+MargeType2=Marginal på vägt genomsnittligt pris (WAP)
+MargeType3=Marginal på kostpris
+MarginTypeDesc=* Marginal på bästa köpkurs = Försäljningspris - Bästa försäljningspriset definierat på produktkort <br> * Marginal på vägt genomsnittligt pris (WAP) = Försäljningspris - Produktviktat genomsnittspris (WAP) eller bäst försäljningspris om WAP ännu inte definierats <br> * Marginal på kostnadskurs = Försäljningspris - Kostnadspris definierat på produktkort eller WAP om kostnadspris ej definierat eller bästa försäljningspris om WAP ännu inte definierats
+CostPrice=Kostnadspris
+UnitCharges=Enhetspris
+Charges=Avgifter
+AgentContactType=Handelsagentens kontakttyp
+AgentContactTypeDetails=Definiera vad kontakttyp (länkad på fakturor) kommer att användas för marginalrapport per försäljning representant
+rateMustBeNumeric=Betyg måste vara ett numeriskt värde
+markRateShouldBeLesserThan100=Mark takt bör vara lägre än 100
+ShowMarginInfos=Visa marginal information
+CheckMargins=Marginaldetaljer
+MarginPerSaleRepresentativeWarning=Rapporten för marginal per användare använder länken mellan tredje part och försäljningsrepresentanter för att beräkna marginalen för varje försäljningsrepresentant. Eftersom vissa tredje parter kanske inte har någon dedikerad försäljningsrepresentant och vissa tredje parter kan kopplas till flera, kan vissa belopp inte inkluderas i denna rapport (om det inte finns någon försäljningsrepresentant) och vissa kan förekomma på olika sätt (för varje försäljningsrepresentant) .

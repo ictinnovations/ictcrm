@@ -1,0 +1,24 @@
+# Dolibarr language file - Source file is en_US - agenda
+ToUserOfGroup=À n'importe quel utilisateur du groupe
+NewCompanyToDolibarr=Le tiers %s a été créé
+PropalClassifiedBilledInDolibarr=Proposition %s classée facturée
+InvoicePaidInDolibarr=La facture %s a changé en payé
+MemberValidatedInDolibarr=Membre %s validé
+MemberModifiedInDolibarr=Membre %s modifié
+MemberResiliatedInDolibarr=Membre %s terminé
+MemberDeletedInDolibarr=Membre %s supprimé
+ShipmentClassifyClosedInDolibarr=Expédition %s classé facturé
+ShipmentUnClassifyCloseddInDolibarr=Expédition %s classée rouverte
+ShipmentDeletedInDolibarr=Envoi %s supprimé
+OrderCreatedInDolibarr=L'ordre %s a été créé
+OrderDeliveredInDolibarr=Commande %s classée Délivrée
+ProposalDeleted=Proposition supprimée
+AgendaModelModule=Modèles de document pour l'événement
+AgendaShowBirthdayEvents=Afficher les dates d'anniversaire des contacts
+AgendaHideBirthdayEvents=Cacher les dates d'anniversaire des contacts
+ExportDataset_event1=Liste évênements de l'agenda
+VisibleTimeRange=Plage d'heures visibles
+VisibleDaysRange=Plage de jours visibles
+ConfirmCloneEvent=Êtes-vous sûr de vouloir cloner l'événement <b>%s</b>?
+RepeatEvent=Répéter événement
+DateStartPlusOne=Date de début +1 heure

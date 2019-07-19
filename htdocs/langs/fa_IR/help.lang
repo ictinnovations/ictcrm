@@ -1,0 +1,23 @@
+# Dolibarr language file - Source file is en_US - help
+CommunitySupport=انجمن / پشتیبانی از ویکی
+EMailSupport=پشتیبانی ایمیل
+RemoteControlSupport=زمان واقعی آنلاین / پشتیبانی از راه دور
+OtherSupport=پشتیبانی دیگر
+ToSeeListOfAvailableRessources=برای تماس / نگاه کنید به منابع در دسترس:
+HelpCenter=مرکز راهنما
+DolibarrHelpCenter=Dolibarr Help and Support Center
+ToGoBackToDolibarr=Otherwise, <a href="%s">click here to continue to use Dolibarr</a>.
+TypeOfSupport=Type of support
+TypeSupportCommunauty=ارتباطات (رایگان)
+TypeSupportCommercial=تجاری
+TypeOfHelp=نوع
+NeedHelpCenter=Need help or support?
+Efficiency=بهره وری
+TypeHelpOnly=راهنما تنها
+TypeHelpDev=راهنما + توسعه
+TypeHelpDevForm=Help+Development+Training
+BackToHelpCenter=Otherwise, <a href="%s">go back to Help center home page</a>.
+LinkToGoldMember=You can call one of the trainers preselected by Dolibarr for your language (%s) by clicking their Widget (status and maximum price are automatically updated):
+PossibleLanguages=زبانهای پشتیبانی شده
+SubscribeToFoundation=Help the Dolibarr project, subscribe to the foundation
+SeeOfficalSupport=برای حمایت Dolibarr رسمی در زبان شما: <br> <a href="%s" target="_blank"><b>از٪ s</b></a>

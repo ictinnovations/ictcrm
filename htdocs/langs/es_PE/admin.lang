@@ -1,0 +1,7 @@
+# Dolibarr language file - Source file is en_US - admin
+Permission91=Consultar impuestos e IGV
+Permission92=Crear/modificar impuestos e IGV
+Permission93=Eliminar impuestos e IGV
+DictionaryVAT=Tasa de IGV (Impuesto sobre ventas en EEUU)
+UnitPriceOfProduct=Precio unitario sin IGV de un producto
+OptionVatMode=Opción de carga de IGV

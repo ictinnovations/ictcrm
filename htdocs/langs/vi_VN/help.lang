@@ -1,0 +1,23 @@
+# Dolibarr language file - Source file is en_US - help
+CommunitySupport=Diễn đàn / hỗ trợ Wiki
+EMailSupport=Email hỗ trợ
+RemoteControlSupport=Trực tuyến thời gian thực / hỗ trợ từ xa
+OtherSupport=Hỗ trợ khác
+ToSeeListOfAvailableRessources=Để liên hệ / xem các nguồn lực có sẵn:
+HelpCenter=Trung tâm trợ giúp
+DolibarrHelpCenter=Dolibarr Help and Support Center
+ToGoBackToDolibarr=Otherwise, <a href="%s">click here to continue to use Dolibarr</a>.
+TypeOfSupport=Type of support
+TypeSupportCommunauty=Cộng đồng (miễn phí)
+TypeSupportCommercial=Thương mại
+TypeOfHelp=Loại
+NeedHelpCenter=Need help or support?
+Efficiency=Hiệu quả
+TypeHelpOnly=Chỉ giúp
+TypeHelpDev=Trợ giúp + Phát triển
+TypeHelpDevForm=Help+Development+Training
+BackToHelpCenter=Otherwise, <a href="%s">go back to Help center home page</a>.
+LinkToGoldMember=You can call one of the trainers preselected by Dolibarr for your language (%s) by clicking their Widget (status and maximum price are automatically updated):
+PossibleLanguages=Ngôn ngữ được hỗ trợ
+SubscribeToFoundation=Help the Dolibarr project, subscribe to the foundation
+SeeOfficalSupport=Để được hỗ trợ Dolibarr chính thức ngôn ngữ của bạn: <br> <a href="%s" target="_blank"><b>% S</b></a>

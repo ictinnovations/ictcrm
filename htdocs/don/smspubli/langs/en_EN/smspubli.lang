@@ -1,0 +1,28 @@
+# Dolibarr language file - en_EN - 
+CHARSET=UTF-8
+Module409000Name=SMS Publi
+Module409000Desc=Send SMS to your customers
+SMSPubliSetup=Setup SmsPubli module
+SMSPubliSetupPage=Setup page for SmsPubli module
+SMSPubliAccount=El teu compte de SmsPubli
+CreateSMSAcount=Create a new SmsPubli account
+ParametersAccount=Your SmsPubli account settings
+ApiKeyNotDefined=The ApiKey for SmsPubli is not defined
+CreditSMS=Remaining credit: 
+SMS=SMS
+fromSMS=Sender
+RechargeSms==Click to charge your SmsPubli account
+addFrom=Nou sender:
+existant=Existing senders:
+errorRecipient=Recipient number is incorrect
+yourMessage=Your message
+SendSMS=Send a SMS
+SendSMSSingle=One recipient sending
+SendSMSMulti=Multi recipient sending
+SendOneSMS=Send a SMS
+SendAllSMS=Send a SMS to everyone
+SMSPubliName=SMSPubli Module
+SMSPubliDesc=This module allow you to send SMS in simple sending or multi-recipients sending.
+SMSPubliSingleSend=Test one recipient sending
+SMSPubliMultiSend=Test multi recipient sending
+HistorySMSAccount=List of SMS sent

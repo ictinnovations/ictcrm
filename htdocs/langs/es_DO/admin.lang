@@ -1,0 +1,9 @@
+# Dolibarr language file - Source file is en_US - admin
+OldVATRates=Tasa de ITBIS antigua
+NewVATRates=Tasa de ITBIS nueva
+Permission91=Consultar impuestos e ITBIS
+Permission92=Crear/modificar impuestos e ITBIS
+Permission93=Eliminar impuestos e ITBIS
+DictionaryVAT=Tasa de ITBIS (Impuesto sobre ventas en EEUU)
+UnitPriceOfProduct=Precio unitario sin ITBIS de un producto
+OptionVatMode=Opción de carga de ITBIS

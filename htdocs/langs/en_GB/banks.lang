@@ -1,0 +1,16 @@
+# Dolibarr language file - Source file is en_US - banks
+CheckTransmitter=Drawer
+BankChecks=Bank cheques
+ShowCheckReceipt=Show cheque deposit receipt
+InputReceiptNumber=Identify the bank statement to reconcile. Use a sortable numeric value: YYYYMM or YYYYMMDD
+EventualyAddCategory=Specify a category in which to classify the records, if required
+ThenCheckLinesAndConciliate=Select the lines shown on the bank statement and click
+DefaultRIB=Default bank account
+AllRIB=All bank accounts
+LabelRIB=Bank account Label
+NoBANRecord=No bank account record
+DeleteARib=Delete bank account record
+RejectCheck=Cheque returned
+RejectCheckDate=Date the cheque was returned
+CheckRejected=Cheque returned
+CheckRejectedAndInvoicesReopened=Cheque returned and invoices reopened

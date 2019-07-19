@@ -1,0 +1,13 @@
+# Dolibarr language file - Source file is en_US - bills
+PaymentTypeCHQ=Cheque
+PaymentTypeShortCHQ=Cheque
+BankCode=BSB
+ChequeNumber=Cheque N°
+ChequeOrTransferNumber=Cheque/Transfer N°
+ChequeMaker=Cheque/Transfer transmitter
+ChequeBank=Bank of Cheque
+CheckBank=Cheque
+MenuCheques=Cheques
+NewChequeDeposit=New Cheque deposit
+Cheques=Cheques
+NbCheque=Number of cheques

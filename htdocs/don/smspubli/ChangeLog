@@ -1,0 +1,7 @@
+--------------------------------------------------------------
+English Dolibarr SMS Publi ChangeLog
+--------------------------------------------------------------
+
+***** Initial version 1.0 *****
+- Connection with SmsPubli account
+- Send SMS from Thirdparties tab
