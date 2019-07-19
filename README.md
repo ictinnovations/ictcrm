@@ -2,7 +2,7 @@
 
 ICTCRM is an  ERP & CRM modern software package to manage your organization's daily buisness activity  for small, medium and large companies . It is open source application written in php  and uses  ICTCore at backend for its communications needs . 
 
-ICTCRM  has been developed by ICT Innovations http://www.ictinnovations.org using open source Dolibarr ERP & CRM software https://github.com/Dolibarr/dolibarr and open source unified communications framework ICTCore http://www.ictcore.org .  we have enhanced  its functionality  by  adding  computer telephony integeration (CTI ) functionality and features  by integerating  this  modern CRM and ERP solution with unified communications platform  ICTCore http://www.ictcore.org  .
+ICTCRM  has been developed by ICT Innovations http://www.ictinnovations.com using open source Dolibarr ERP & CRM software https://github.com/Dolibarr/dolibarr and open source unified communications framework ICTCore http://www.ictcore.org .  we have enhanced  its functionality  by  adding  computer telephony integeration (CTI ) functionality and features  by integerating  this  modern CRM and ERP solution with unified communications platform  ICTCore http://www.ictcore.org  .
 
 ## ICTCore
 
