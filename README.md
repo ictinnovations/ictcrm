@@ -1,8 +1,8 @@
 ## ICTCRM
 
-ICTCRM is an  ERP & CRM modern software package to manage your organization's daily buisness activity  for small, medium and large companies . It is open source application written in php  and uses  ICTCore at backend for its communications needs . 
+ICTCRM is an  ERP & CRM modern software package to manage your organization's daily buisness activity  for small, medium and large companies . manage your  telamarketing campaigns either through sms, voice, email or fax . It is open source application written in php  and uses  ICTCore at backend for its communications needs . 
 
-ICTCRM  has been developed by ICT Innovations http://www.ictinnovations.com using open source Dolibarr ERP & CRM software https://github.com/Dolibarr/dolibarr and open source unified communications framework ICTCore http://www.ictcore.org .  we have enhanced  its functionality  by  adding  computer telephony integeration (CTI ) functionality and features  by integerating  this  modern CRM and ERP solution with unified communications platform  ICTCore http://www.ictcore.org  .
+ICTCRM  has been developed by ICT Innovations http://www.ictinnovations.com using open source Dolibarr ver 10.0.0 which is known open sourxe ERP & CRM software https://github.com/Dolibarr/dolibarr and open source unified communications framework ICTCore http://www.ictcore.org .  we have enhanced  its functionality  by  adding  computer telephony integeration (CTI ) functionality by adding  both indiviudal as well as mass communications capability either through sms, voice , email or fax based technologies  by integerating  this  modern CRM and ERP solution with unified communications platform  ICTCore http://www.ictcore.org  .
 
 ## ICTCore
 
@@ -10,8 +10,15 @@ ICTCore http://www.ictcore.org   is open source unified communications framework
 
 ## CTI Features.
 
-SMS Messaging through  ICTCore platform
-Automated individual & bulk voice calling of contacts through ICTCore Platform
+SMS , Voice and Fax communication  through  ICTCore platform
+Contact based communication as well as Group based communications features through ICTCore Platform. 
+Automataed and intelligence  communication solutions  through ICTCore Platform
+
+campaigns  (user base)
+transmissions (user base)
+send project wise transmission
+specific contact in project or contact list send transmission
+
 
 
 ## FEATURES
