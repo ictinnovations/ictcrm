@@ -1,6 +1,5 @@
 User-agent: *
-Disallow: /build
-Disallow: /dev
-Disallow: /doc
-Disallow: /scripts
-Disallow: /test
+Disallow: /
+
+User-agent: Googlebot
+Allow: /ical_server.php

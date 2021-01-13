@@ -1,4 +1,0 @@
-# Dolibarr language file - Source file is en_US - sms
-SmsSuccessfulySent=SMS korekkte gesendet (von %s an %s)
-ConfirmValidSms=Freigabe dieser Kampagne?
-SmsNoPossibleSenderFound=Kein Absender verfügbar. Prüfen Sie die Einstellungen Ihres SMS Anbieters.

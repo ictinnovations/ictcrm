@@ -1,8 +1,0 @@
-# Dolibarr language file - Source file is en_US - banks
-BankAccounts=cuentas bancarias
-BankBalance=Equilibrar
-StatusAccountOpened=Activo
-StatusAccountClosed=Cerrado
-SocialContributionPayment=Pago de impuestos sociales / fiscales
-BankTransfer=transferencia bancaria
-TransferTo=A
