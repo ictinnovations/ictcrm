@@ -465,8 +465,8 @@ $mod_strings = array(
     'LBL_PROSPECT_LISTS' => 'Prospect Lists',
     'LBL_SURVEYRESPONSES_CAMPAIGNS_FROM_SURVEYRESPONSES_TITLE' => 'Survey Responses',
     'LBL_CAMPAIGN_SURVEY' => "Survey",
-    'LBL_EMAIL_HREF' => 'http://216.128.135.199/#/pages/campaigns/campaigns/sendemail/new',
-    'LBL_SMS_HREF' => 'http://216.128.135.199/#/pages/campaigns/campaigns/sendsms/new',
-    'LBL_VOICE_HREF' => 'http://216.128.135.199/#/pages/campaigns/campaigns/voicemessage/new',
-    'LBL_FAX_HREF' => 'http://216.128.135.199/#/pages/campaigns/campaigns/sendfax/new'
+    'LBL_EMAIL_HREF' => 'http://ictdialeripaddress/#/pages/campaigns/campaigns/sendemail/new',
+    'LBL_SMS_HREF' => 'http://ictdialeripaddress/#/pages/campaigns/campaigns/sendsms/new',
+    'LBL_VOICE_HREF' => 'http://ictdialeripaddress/#/pages/campaigns/campaigns/voicemessage/new',
+    'LBL_FAX_HREF' => 'http://ictdialeripaddress/#/pages/campaigns/campaigns/sendfax/new'
 );
