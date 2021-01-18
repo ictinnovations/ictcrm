@@ -122,3 +122,66 @@ Open the `modules/Campaigns/language/en_us.lang.php` file and find the following
         LBL_SMS_HREF => 'http://ictdialeripaddress/#/pages/campaigns/campaigns/sendsms/new'
 
 Here replace the `ictdialeripaddress` with IP address of the server on which ICTDialer is running.
+
+Now visit your IP Address your\_ip\_address/install.php and you will see the following screen:
+
+Accept the license and click the **Next** button.
+
+<div style="text-align:center">
+  <img src="doc/accept_license.png" width="870"/>
+</div>
+
+<br><br>
+
+After accepting the license following screen will be displayed. Here it will check the environment and will see that the required modules are writeable and will display the errors.
+
+<br><br>
+
+<div style="text-align:center">
+  <img src="doc/check_env.png" width="870"/>
+</div>
+
+<br><br>
+
+If this page does not display any error, click the **Next** button. Here it will show you the following system environment.
+
+<br><br>
+
+<div style="text-align:center">
+  <img src="doc/view_system_env.png" width="870"/>
+</div>
+
+<br><br>
+
+Check the configuration and click the **Next** button. Next, setup the database configuration
+
+<br><br>
+
+<div style="text-align:center">
+  <img src="doc/db_config.png" width="870"/>
+</div>
+
+<br><br>
+
+Enter all of the required fields and than click the **Next** button. Here it will check the database configuration and will make sure they are correct and than after verifying it will create the ICTCRM default data configuration and following screen will be displayed
+
+<br><br>
+
+<div style="text-align:center">
+  <img src="doc/db_config_check.png" width="870"/>
+</div>
+
+<br><br>
+
+Here click the Next button and you will be redirected to the ICTCRM login page.
+
+<br><br>
+
+<div style="text-align:center">
+  <img src="doc/sign_in.png" width="870"/>
+</div>
+
+<br><br>
+
+Congratulations ICTCRM is successfully installed. Login by providing the username and password and start using ICTCRM.
+
