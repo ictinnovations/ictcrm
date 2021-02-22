@@ -1,10 +1,10 @@
 ## ICTCRM
 
-ICTCRM has been developed using open source SuiteCRM software https://suitecrm.com/ and open source communications framwork ICTCore http://www.ictcore.org and we have enhanced its functionality by adding computer telephony integeration (CTI ) features and functionlity .
+ICTCRM has been developed using open source SuiteCRM software https://suitecrm.com/ and open source communications framwork ICTCore http://www.ictcore.org.
 
 ICTCRM is a modern CRM software integerated with CTI to manage your organization's daily buisness and communications needs, It is suiteable for small, medium and large companies . You can manage your telamarketing campaigns either through sms, voice, email or fax .
 
-ICTCRM has been promoted by ICT Innovations http://www.ictinnovations.com, It is customized version of renown open source CRM SuiteCRM https://suitecrm.com/ also integerated with open source unified communications framework ICTCore http://www.ictcore.org . we have enhanced its functionality by adding computer telephony integeration (CTI ) functionality by adding both personal as well as mass communications capability either through sms, voice , email or fax based technologies by integerating this modern CRM and ERP solution with unified communications platform ICTCore http://www.ictcore.org.
+ICTCRM has been promoted by ICT Innovations http://www.ictinnovations.com, It is customized version of renown open source CRM SuiteCRM https://suitecrm.com/ with unified communications integerations using open source unified communications framework ICTCore http://www.ictcore.org . we have enhanced its functionality by adding computer telephony integeration (CTI ) functionality by adding both personal as well as mass communications capability either through sms, voice , email or fax based technologies by integerating this modern CRM and ERP solution with unified communications platform ICTCore http://www.ictcore.org.
 
 ## ICTCore
 
