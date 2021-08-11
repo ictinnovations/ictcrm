@@ -1,6 +1,6 @@
 ## ICTCRM
 
-ICTCRM is a modern CRM software integerated with CTI to manage your organization's daily buisness and communications needs, It is suiteable for small, medium and large companies . You can manage your telamarketing campaigns either through sms, voice, email or fax .
+ICTCRM https://www.ictcrm.org is a modern CRM software integerated with CTI to manage your organization's daily buisness and communications needs, It is suiteable for small, medium and large companies . You can manage your telamarketing campaigns either through sms, voice, email or fax .
 
 ICTCRM has been promoted by ICT Innovations http://www.ictinnovations.com, It is customized version of renown open source CRM SuiteCRM https://suitecrm.com/ with unified communications integerations using open source unified communications framework ICTCore http://www.ictcore.org . we have enhanced its functionality by adding computer telephony integeration (CTI ) functionality by adding both personal as well as mass communications capability either through sms, voice , email or fax based technologies by integerating this modern CRM and ERP solution with unified communications platform ICTCore http://www.ictcore.org.
 
@@ -73,3 +73,7 @@ APIs.
 ICTCRM has been developed using open source SuiteCRM software https://suitecrm.com/ and open source communications framwork ICTCore http://www.ictcore.org and we have enhanced its functionality by adding computer telephony integeration (CTI ) features and functionlity .
 
 ICTCRM is an ERP & CRM modern software package to manage your organization's daily buisness activity  for small, medium and large companies. Manage your telamarketing campaigns either through sms, voice, email or fax. It is open source application written in php and uses ICTCore at backend for its communications needs. 
+## WebSite
+
+project website is https://www.ictcrm.org ,  user guides and support content available on site 
+
