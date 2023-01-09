@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 if (!defined('sugarEntry') || !sugarEntry) {
@@ -103,7 +103,7 @@ $setup_site_url                     = $_SESSION['setup_site_url'];
 $parsed_url                         = parse_url($setup_site_url);
 $setup_site_host_name               = $parsed_url['host'];
 $setup_site_log_dir                 = isset($_SESSION['setup_site_custom_log_dir']) ? $_SESSION['setup_site_log_dir'] : '.';
-$setup_site_log_file                = 'ictcrm.log';  // may be an option later
+$setup_site_log_file                = 'suitecrm.log';  // may be an option later
 $setup_site_session_path            = isset($_SESSION['setup_site_custom_session_path']) ? $_SESSION['setup_site_session_path'] : '';
 $setup_site_log_level				='fatal';
 
@@ -137,7 +137,7 @@ $out =<<<EOQ
     <link rel="stylesheet" href="themes/SuiteP/css/animation.css"><!--[if IE 7]><link rel="stylesheet" href="css/fontello-ie7.css"><![endif]-->
 </head>
 <body onload="javascript:document.getElementById('button_next2').focus();">
-<!--ICTCRM installer-->
+<!--SuiteCRM installer-->
 <div id="install_container">
 <div id="install_box">
 <header id="install_header">
@@ -147,7 +147,7 @@ $out =<<<EOQ
                         <i class="icon-progress-1" id="complete"></i>
                         <i class="icon-progress-2"></i>
                     </div>
-            <div class="install_img"><a href="https://ictcrm.com" target="_blank"><img src="{$sugar_md}" alt="ICTCRM"></a></div>
+            <div class="install_img"><a href="https://suitecrm.com" target="_blank"><img src="{$sugar_md}" alt="SuiteCRM"></a></div>
 </header>
 EOQ;
 echo $out;
@@ -401,7 +401,7 @@ installLog("Installation has completed *********");
 
 
     $errTcpip = '';
-    $fp = @fsockopen("www.ictcrm.com", 80, $errno, $errstr, 3);
+    $fp = @fsockopen("www.suitecrm.com", 80, $errno, $errstr, 3);
     if (!$fp) {
         $errTcpip = "<p>{$mod_strings['ERR_PERFORM_NO_TCPIP']}</p>";
     }
@@ -465,12 +465,7 @@ FP;
     $enabled_tabs[] = 'AOS_Products';
     $enabled_tabs[] = 'AOS_Product_Categories';
     $enabled_tabs[] = 'AOS_PDF_Templates';
-    $enabled_tabs[] = 'jjwg_Maps';
-    $enabled_tabs[] = 'jjwg_Markers';
-    $enabled_tabs[] = 'jjwg_Areas';
-    $enabled_tabs[] = 'jjwg_Address_Cache';
     $enabled_tabs[] = 'AOR_Reports';
-    $enabled_tabs[] = 'AOW_WorkFlow';
     $enabled_tabs[] = 'AOK_KnowledgeBase';
     $enabled_tabs[] = 'AOK_Knowledge_Base_Categories';
     $enabled_tabs[] = 'EmailTemplates';
@@ -535,16 +530,12 @@ if (!is_null($_SESSION['scenarios'])) {
 
 
 //Write the tabstructure to custom so that the grouping are not shown for the un-selected scenarios
-$fp = sugar_fopen('custom/include/tabConfig.php', 'w');
 $fileContents = "<?php \n" .'$GLOBALS["tabStructure"] ='.var_export($GLOBALS['tabStructure'], true).';';
-fwrite($fp, $fileContents);
-fclose($fp);
+sugar_file_put_contents('custom/include/tabConfig.php', $fileContents);
 
 //Write the dashlets to custom so that the dashlets are not shown for the un-selected scenarios
-$fp = sugar_fopen('custom/modules/Home/dashlets.php', 'w');
 $fileContents = "<?php \n" .'$defaultDashlets ='.var_export($defaultDashlets, true).';';
-fwrite($fp, $fileContents);
-fclose($fp);
+sugar_file_put_contents('custom/modules/Home/dashlets.php', $fileContents);
 
 
 // End of the scenario implementations
@@ -755,7 +746,7 @@ $out =<<<EOQ
 <p><b>{$fpResult}</b></p>
 </div>
 <footer id="install_footer">
-    <p id="footer_links"><a href="https://ictcrm.com" target="_blank">Visit ictcrm.com</a> | <a href="https://ictcrm.com/ictcrm/forum" target="_blank">Support Forums</a> | <a href="https://docs.ictcrm.com/admin/installation-guide/" target="_blank">Installation Guide</a> | <a href="LICENSE.txt" target="_blank">License</a>
+    <p id="footer_links"><a href="https://suitecrm.com" target="_blank">Visit suitecrm.com</a> | <a href="https://suitecrm.com/suitecrm/forum" target="_blank">Support Forums</a> | <a href="https://docs.suitecrm.com/admin/installation-guide/" target="_blank">Installation Guide</a> | <a href="LICENSE.txt" target="_blank">License</a>
 </footer>
 </div>
 </body>

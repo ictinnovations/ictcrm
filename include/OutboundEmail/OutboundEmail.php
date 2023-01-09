@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 if (!defined('sugarEntry') || !sugarEntry) {
@@ -97,19 +97,7 @@ class OutboundEmail
         $this->db = DBManagerFactory::getInstance();
     }
 
-    /**
-     * @deprecated deprecated since version 7.6, PHP4 Style Constructors are deprecated and will be remove in 7.8, please update your code, use __construct instead
-     */
-    public function OutboundEmail()
-    {
-        $deprecatedMessage = 'PHP4 Style Constructors are deprecated and will be remove in 7.8, please update your code';
-        if (isset($GLOBALS['log'])) {
-            $GLOBALS['log']->deprecated($deprecatedMessage);
-        } else {
-            trigger_error($deprecatedMessage, E_USER_DEPRECATED);
-        }
-        self::__construct();
-    }
+
 
 
     /**
@@ -196,7 +184,7 @@ class OutboundEmail
 
         //Now add the system default or user override default to the response.
         if (!empty($system->id)) {
-            if ($system->mail_sendtype == 'SMTP') {
+            if (isSmtp($system->mail_sendtype ?? '')) {
                 $systemErrors = "";
                 $userSystemOverride = $this->getUsersMailerForSystemOverride($user->id);
 
@@ -244,7 +232,7 @@ class OutboundEmail
 
         while ($a = $this->db->fetchByAssoc($r)) {
             $oe = array();
-            if ($a['mail_sendtype'] != 'SMTP') {
+            if (isSmtp($a['mail_sendtype'] ?? '')) {
                 continue;
             }
             $oe['id'] = $a['id'];
@@ -512,6 +500,8 @@ class OutboundEmail
      */
     public function save()
     {
+        $this->checkSavePermissions();
+
         require_once('include/utils/encryption_utils.php');
         if (empty($this->id)) {
             $this->id = create_guid();
@@ -668,5 +658,45 @@ class OutboundEmail
         }
 
         return $this->retrieve($a['id']);
+    }
+
+    /**
+     * @return void
+     */
+    protected function checkSavePermissions(): void
+    {
+        global $log;
+
+
+        $original = null;
+
+        if (!empty($this->id)) {
+            $original = new OutboundEmail();
+            $original->retrieve($this->id);
+        }
+
+        if (empty($original)) {
+            $original = $this;
+        }
+
+        $type = $this->type ?? '';
+
+        $authenticatedUser = get_authenticated_user();
+        if ($authenticatedUser === null) {
+            $log->security("OutboundEmail::checkSavePermissions - not logged in - skipping check");
+            return;
+        }
+
+        if ($type === 'system' && !is_admin($authenticatedUser)) {
+            $log->security("OutboundEmail::checkSavePermissions - trying to save a system outbound email with non-admin user");
+            throw new RuntimeException('Access denied');
+        }
+
+        $oeUserId = $original->user_id ?? '';
+
+        if (!empty($oeUserId) && $oeUserId !== $authenticatedUser->id && !is_admin($authenticatedUser)) {
+            $log->security("OutboundEmail::checkSavePermissions - trying to save a outbound email for another user");
+            throw new RuntimeException('Access denied');
+        }
     }
 }

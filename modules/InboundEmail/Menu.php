@@ -7,7 +7,7 @@ if (!defined('sugarEntry') || !sugarEntry) {
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -36,17 +36,22 @@ if (!defined('sugarEntry') || !sugarEntry) {
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 
 global $mod_strings;
 $module_menu = array();
-$module_menu[]= array("index.php?module=InboundEmail&action=EditView", $mod_strings['LNK_LIST_CREATE_NEW_GROUP'],"Setup_Email");
-$module_menu[]= array("index.php?module=InboundEmail&action=EditView&mailbox_type=bounce", $mod_strings['LNK_LIST_CREATE_NEW_BOUNCE'],"List");
+$module_menu[]= array("index.php?module=InboundEmail&action=EditView&is_personal=1&type=personal", $mod_strings['LNK_LIST_CREATE_NEW_PERSONAL'],"Create");
+if (is_admin($GLOBALS['current_user'])) {
+    $module_menu[]= array("index.php?module=InboundEmail&action=EditView&type=group", $mod_strings['LNK_LIST_CREATE_NEW_GROUP'],"Create");
+    $module_menu[]= array("index.php?module=InboundEmail&action=EditView&mailbox_type=bounce&type=bounce", $mod_strings['LNK_LIST_CREATE_NEW_BOUNCE'],"Create");
+}
 $module_menu[]= array("index.php?module=InboundEmail&action=index", $mod_strings['LNK_LIST_MAILBOXES'],"List");
+$module_menu[]= array("index.php?module=OutboundEmailAccounts&action=index", $mod_strings['LNK_LIST_OUTBOUND_EMAILS'],"List");
+$module_menu[]= array("index.php?module=ExternalOAuthConnection&action=index", $mod_strings['LNK_EXTERNAL_OAUTH_CONNECTIONS'],"List");
 
 if (is_admin($GLOBALS['current_user'])) {
     $module_menu[]= array("index.php?module=Schedulers&action=index", $mod_strings['LNK_LIST_SCHEDULER'],"Schedulers");

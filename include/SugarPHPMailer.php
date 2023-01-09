@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 
@@ -69,7 +69,7 @@ class SugarPHPMailer extends PHPMailer
      * @var string
      */
     public $Body_html;
-    
+
     private static $FromNameOrigin = null;
 
     /**
@@ -110,21 +110,7 @@ class SugarPHPMailer extends PHPMailer
         $this->SMTPAutoTLS = false;
     }
 
-    /**
-     * @deprecated deprecated since version 7.6, PHP4 Style Constructors are deprecated and will be remove in 7.8,
-     *     please update your code, use __construct instead
-     */
-    public function SugarPHPMailer()
-    {
-        $deprecatedMessage =
-            'PHP4 Style Constructors are deprecated and will be remove in 7.8, please update your code';
-        if (isset($GLOBALS['log'])) {
-            $GLOBALS['log']->deprecated($deprecatedMessage);
-        } else {
-            trigger_error($deprecatedMessage, E_USER_DEPRECATED);
-        }
-        self::__construct();
-    }
+
 
     /**
      * Prefills outbound details
@@ -140,7 +126,7 @@ class SugarPHPMailer extends PHPMailer
         // ssl or tcp - keeping outside isSMTP b/c a default may inadvertently set ssl://
         $this->protocol = $oe->mail_smtpssl ? 'ssl://' : 'tcp://';
 
-        if ($oe->mail_sendtype === 'SMTP') {
+        if (isSmtp($oe->mail_sendtype ?? '')) {
             //Set mail send type information
             $this->Mailer = 'smtp';
             $this->Host = $oe->mail_smtpserver;
@@ -174,7 +160,7 @@ class SugarPHPMailer extends PHPMailer
         // ssl or tcp - keeping outside isSMTP b/c a default may inadvertantly set ssl://
         $this->protocol = $oe->mail_smtpssl ? 'ssl://' : 'tcp://';
 
-        if ($oe->mail_sendtype === 'SMTP') {
+        if (isSmtp($oe->mail_sendtype ?? '')) {
             //Set mail send type information
             $this->Mailer = 'smtp';
             $this->Host = $oe->mail_smtpserver;
@@ -235,9 +221,9 @@ class SugarPHPMailer extends PHPMailer
 eoq;
                 $this->Body = $head . $this->Body . '</body></html>';
             }
-            
+
             $fromName = $this->FromName;
-            
+
             // checking if username already set for phpmailer and
             // using that as username instead fromname
             if ($this->FromName == self::$FromNameOrigin && !empty($this->Username)) {
@@ -455,10 +441,10 @@ eoq;
         //$this->Sender   = 'me@here.com';
         //$this->Password = 'wrong';
         //$GLOBALS['log']->debug("PHPMailer Send Function: { FromName: $this->FromName From: $this->From Host: $this->Host UserName: $this->Username }");
-       
-        
+
+
         $ret = null;
-        
+
         $this->fullSmtpLog='';
         $phpMailerExceptionMsg='';
 
@@ -493,7 +479,7 @@ eoq;
             }
         }
 
-        /* uncomment this to send full log into ictcrm.log:
+        /* uncomment this to send full log into suitecrm.log:
         $line = strtok($this->fullSmtpLog, "\n");
         while ($line !== false) {
              $GLOBALS['log']->debug("smtp send: { $line }");

@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2019 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 if (!defined('sugarEntry') || !sugarEntry) {
@@ -86,19 +86,7 @@ class Sugar_Smarty extends Smarty
         $this->assign("VERSION_MARK", getVersionedPath(''));
     }
 
-    /**
-     * @deprecated deprecated since version 7.6, PHP4 Style Constructors are deprecated and will be remove in 7.8, please update your code, use __construct instead
-     */
-    public function Sugar_Smarty()
-    {
-        $deprecatedMessage = 'PHP4 Style Constructors are deprecated and will be remove in 7.8, please update your code';
-        if (isset($GLOBALS['log'])) {
-            $GLOBALS['log']->deprecated($deprecatedMessage);
-        } else {
-            trigger_error($deprecatedMessage, E_USER_DEPRECATED);
-        }
-        self::__construct();
-    }
+
 
     /**
      * Override default _unlink method call to fix Bug 53010
@@ -178,6 +166,22 @@ class Sugar_Smarty extends Smarty
     {
         $params['smarty_include_tpl_file'] = get_custom_file_if_exists($params['smarty_include_tpl_file']);
         parent::_smarty_include($params);
+    }
+
+    /**
+     * compile the template and clear opcache
+     *
+     * @param string $resource_name
+     * @param string $compile_path
+     * @return boolean
+     */
+    function _compile_resource($resource_name, $compile_path)
+    {
+        if(parent::_compile_resource($resource_name, $compile_path)) {
+            SugarCache::cleanFile($compile_path);
+            return true;
+        }
+        return false;
     }
 
     /**

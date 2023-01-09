@@ -52,7 +52,7 @@ if (!class_exists(OneLogin_Saml2_Auth::class)) {
 /**
  * Backwards compatibility for Zend
  */
-class_alias('ICTCRM\\Zend_Oauth_Provider', 'Zend\\Oauth\\Provider');
+class_alias('SuiteCRM\\Zend_Oauth_Provider', 'Zend\\Oauth\\Provider');
 
 if (!class_exists(Provider::class)) {
     /** @deprecated this is an alias for Zend_Oauth_Provider */

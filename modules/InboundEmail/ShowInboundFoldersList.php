@@ -7,7 +7,7 @@ if (!defined('sugarEntry') || !sugarEntry) {
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -36,9 +36,9 @@ if (!defined('sugarEntry') || !sugarEntry) {
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 /**
@@ -111,8 +111,8 @@ if (!empty($searchField)) {
     } // else
 } // else
 
-
-$ie                 = BeanFactory::newBean('InboundEmail');
+/** @var InboundEmail $ie */
+$ie = BeanFactory::newBean('InboundEmail');
 if (!empty($_REQUEST['ie_id'])) {
     $ie->retrieve($_REQUEST['ie_id']);
 }
@@ -126,6 +126,18 @@ if (!empty($_REQUEST['email_password'])) {
     $ie->email_password = str_rot13($ie->email_password);
 }
 //$ie->mailbox      = $_REQUEST['mailbox'];
+
+if (!empty($_REQUEST['external_oauth_connection_id'])) {
+    $ie->external_oauth_connection_id = $_REQUEST['external_oauth_connection_id'];
+}
+
+if (!empty($_REQUEST['auth_type'])) {
+    $ie->auth_type = $_REQUEST['auth_type'];
+}
+
+if (!empty($_REQUEST['connection_string'])) {
+    $ie->connection_string = $_REQUEST['connection_string'];
+}
 
 $ie->mailbox        = 'INBOX';
 

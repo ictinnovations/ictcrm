@@ -7,7 +7,7 @@ if (!defined('sugarEntry') || !sugarEntry) {
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -36,9 +36,9 @@ if (!defined('sugarEntry') || !sugarEntry) {
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 
@@ -403,19 +403,21 @@ background-position: -{$offset_x}px -{$offset_y}px;
                 if ($this->cssMinify) {
                     $css_content = cssmin::minify($css_content);
                 }
-                $fh = fopen("$outputDir/$cssFileName", $fileMode);
-                fwrite($fh, $css_content);
-                fclose($fh);
+                sugar_file_put_contents(
+                    "$outputDir/$cssFileName",
+                    $css_content,
+                    $fileMode == 'a' ? FILE_APPEND : 0
+                );
 
                 /* save metadata */
                 $add_php_tag = (file_exists("$outputDir/$metaFileName") && $isRepeat) ? false : true;
-                $fh = fopen("$outputDir/$metaFileName", $fileMode);
+                $fh = sugar_fopen("$outputDir/$metaFileName", $fileMode);
                 if ($add_php_tag) {
                     fwrite($fh, '<?php');
                 }
                 fwrite($fh, "\n/* sprites metadata - $name */\n");
                 fwrite($fh, $metadata."\n");
-                fclose($fh);
+                sugar_fclose($fh);
 
             // if width & height
             } else {

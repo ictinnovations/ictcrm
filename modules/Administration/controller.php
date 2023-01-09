@@ -7,7 +7,7 @@ if (!defined('sugarEntry') || !sugarEntry) {
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -36,9 +36,9 @@ if (!defined('sugarEntry') || !sugarEntry) {
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 
@@ -66,8 +66,9 @@ class AdministrationController extends SugarController
         // handle the subpanels
         if (isset($_REQUEST['disabled_tabs'])) {
             $disabledTabs = json_decode(html_entity_decode($_REQUEST['disabled_tabs'], ENT_QUOTES));
-            $disabledTabsKeyArray = TabController::get_key_array($disabledTabs);
-            SubPanelDefinitions::set_hidden_subpanels($disabledTabsKeyArray);
+            $disabledTabsKeyArray = $tabs->get_key_array($disabledTabs);
+            $subPanelDefinition = new SubPanelDefinitions($this->bean);
+            $subPanelDefinition->set_hidden_subpanels($disabledTabsKeyArray);
         }
 
         header("Location: index.php?module=Administration&action=ConfigureTabs");

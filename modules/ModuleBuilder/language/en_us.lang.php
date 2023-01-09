@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2019 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 if (!defined('sugarEntry') || !sugarEntry) {
@@ -159,7 +159,7 @@ $mod_strings = array(
 
         ),
         'exportcustom' => array(
-            'exportHelp' => 'Export customizations made in Studio by creating packages that can be uploaded into another ICTCRM instance through the <b>Module Loader</b>.<br><br>  First, provide a <b>Package Name</b>. You can provide <b>Author</b> and <b>Description</b> information for package as well.<br><br>Select the module(s) that contain the customizations you wish to export. Only modules containing customizations will appear for you to select.<br><br>Then click <b>Export</b> to create a .zip file for the package containing the customizations.',
+            'exportHelp' => 'Export customizations made in Studio by creating packages that can be uploaded into another SuiteCRM instance through the <b>Module Loader</b>.<br><br>  First, provide a <b>Package Name</b>. You can provide <b>Author</b> and <b>Description</b> information for package as well.<br><br>Select the module(s) that contain the customizations you wish to export. Only modules containing customizations will appear for you to select.<br><br>Then click <b>Export</b> to create a .zip file for the package containing the customizations.',
             'exportCustomBtn' => 'Click <b>Export</b> to create a .zip file for the package containing the customizations that you wish to export.',
             'name' => 'This is the <b>Name</b> of the package. This name will be displayed during installation.',
             'author' => 'This is the <b>Author</b> that is displayed during installation as the name of the entity that created the package. The Author can be either an individual or a company.',
@@ -169,7 +169,7 @@ $mod_strings = array(
             'mainHelp' => 'Welcome to the <b>Developer Tools</b> area. <br/><br/>Use the tools within this area to create and manage standard and custom modules and fields.',
             'studioBtn' => 'Use <b>Studio</b> to customize deployed modules.',
             'mbBtn' => 'Use <b>Module Builder</b> to create new modules.',
-            'sugarPortalBtn' => 'Use <b>ICTCRM Portal Editor</b> to manage and customize the ICTCRM Portal.',
+            'sugarPortalBtn' => 'Use <b>SuiteCRM Portal Editor</b> to manage and customize the SuiteCRM Portal.',
             'dropDownEditorBtn' => 'Use <b>Dropdown Editor</b> to add and edit global dropdowns for dropdown fields.',
             'appBtn' => 'Application mode is where you can customize various properties of the program, such as how many TPS reports are displayed on the homepage',
             'backBtn' => 'Return to the previous step.',
@@ -181,7 +181,7 @@ $mod_strings = array(
             'relationshipsBtn' => 'Add new or view existing <b>Relationships</b> for the module.',
             'layoutsBtn' => 'Customize the module <b>Layouts</b>. The layouts are the different views of the module containing fields.<br><br>You can determine which fields appear and how they are organized in each layout.',
             'subpanelBtn' => 'Determine which fields appear in the <b>Subpanels</b> in the module.',
-            'portalBtn' => 'Customize the module <b>Layouts</b> that appear in the <b>ICTCRM Portal</b>.',
+            'portalBtn' => 'Customize the module <b>Layouts</b> that appear in the <b>SuiteCRM Portal</b>.',
             'layoutsHelp' => 'The module <b>Layouts</b> that can be customized appear here.<br><br>The layouts display fields and field data.<br><br>Click an icon to select the layout to edit.',
             'subpanelHelp' => 'The <b>Subpanels</b> in the module that can be customized appear here.<br><br>Click an icon to select the module to edit.',
             'newPackage' => 'Click <b>New Package</b> to create a new package.',
@@ -189,25 +189,25 @@ $mod_strings = array(
             'mbHelp' => 'Use <b>Module Builder</b> to create packages containing custom modules based on standard or custom objects.',
             'viewBtnEditView' => 'Customize the module\'s <b>EditView</b> layout.<br><br>The EditView is the form containing input fields for capturing user-entered data.',
             'viewBtnDetailView' => 'Customize the module\'s <b>DetailView</b> layout.<br><br>The DetailView displays user-entered field data.',
-            'viewBtnDashlet' => 'Customize the module\'s <b>ICTCRM Dashlet</b>, including the ICTCRM Dashlet\'s ListView and Search.<br><br>The ICTCRM Dashlet will be available to add to the pages in the Home module.',
+            'viewBtnDashlet' => 'Customize the module\'s <b>SuiteCRM Dashlet</b>, including the SuiteCRM Dashlet\'s ListView and Search.<br><br>The SuiteCRM Dashlet will be available to add to the pages in the Home module.',
             'viewBtnListView' => 'Customize the module\'s <b>ListView</b> layout.<br><br>The Search results appear in the ListView.',
             'searchBtn' => 'Customize the module\'s <b>Search</b> layouts.<br><br>Determine what fields can be used to filter records that appear in the ListView.',
             'viewBtnQuickCreate' => 'Customize the module\'s <b>QuickCreate</b> layout.<br><br>The QuickCreate form appears in subpanels and in the Emails module.',
             'addLayoutHelp' => "To create a custom layout for a Security Group select the appropriate Security Group and the layout from which to copy from as a starting point.",
             'searchHelp' => 'The <b>Search</b> forms that can be customized appear here.<br><br>Search forms contain fields for filtering records.<br><br>Click an icon to select the search layout to edit.',
-            'dashletHelp' => 'The <b>ICTCRM Dashlet</b> layouts that can be customized appear here.<br><br>The ICTCRM Dashlet will be available to add to the pages in the Home module.',
-            'DashletListViewBtn' => 'The <b>ICTCRM Dashlet ListView</b> displays records based on the ICTCRM Dashlet search filters.',
-            'DashletSearchViewBtn' => 'The <b>ICTCRM Dashlet Search</b> filters records for the ICTCRM Dashlet listview.',
+            'dashletHelp' => 'The <b>SuiteCRM Dashlet</b> layouts that can be customized appear here.<br><br>The SuiteCRM Dashlet will be available to add to the pages in the Home module.',
+            'DashletListViewBtn' => 'The <b>SuiteCRM Dashlet ListView</b> displays records based on the SuiteCRM Dashlet search filters.',
+            'DashletSearchViewBtn' => 'The <b>SuiteCRM Dashlet Search</b> filters records for the SuiteCRM Dashlet listview.',
             'popupHelp' => 'The <b>Popup</b> layouts that can be customized appear here.<br>',
             'PopupListViewBtn' => 'The <b>Popup ListView</b> displays records based on the Popup search views.',
             'PopupSearchViewBtn' => 'The <b>Popup Search</b> views records for the Popup listview.',
             'BasicSearchBtn' => 'Customize the <b>Quick Filter</b> form that appears in the Quick Filter tab in the Search area for the module.',
             'AdvancedSearchBtn' => 'Customize the <b>Advanced Filter</b> form that appears in the Advanced Search tab in the Search area for the module.',
-            'portalHelp' => 'Manage and customize the <b>ICTCRM Portal</b>.',
-            'SPUploadCSS' => 'Upload a <b>Style Sheet</b> for the ICTCRM Portal.',
-            'SPSync' => '<b>Sync</b> customizations to the ICTCRM Portal instance.',
-            'Layouts' => 'Customize the <b>Layouts</b> of the ICTCRM Portal modules.',
-            'portalLayoutHelp' => 'The modules within the ICTCRM Portal appear in this area.<br><br>Select a module to edit the <b>Layouts</b>.',
+            'portalHelp' => 'Manage and customize the <b>SuiteCRM Portal</b>.',
+            'SPUploadCSS' => 'Upload a <b>Style Sheet</b> for the SuiteCRM Portal.',
+            'SPSync' => '<b>Sync</b> customizations to the SuiteCRM Portal instance.',
+            'Layouts' => 'Customize the <b>Layouts</b> of the SuiteCRM Portal modules.',
+            'portalLayoutHelp' => 'The modules within the SuiteCRM Portal appear in this area.<br><br>Select a module to edit the <b>Layouts</b>.',
             'relationshipsHelp' => 'All of the <b>Relationships</b> that exist between the module and other deployed modules appear here.<br><br>The relationship <b>Name</b> is the system-generated name for the relationship.<br><br>The <b>Primary Module</b> is the module that owns the relationships. For example, all of the properties of the relationships for which the Accounts module is the primary module are stored in the Accounts database tables.<br><br>The <b>Type</b> is the type of relationship exists between the Primary module and the <b>Related Module</b>.<br><br>Click a column title to sort by the column.<br><br>Click a row in the relationship table to view the properties associated with the relationship.<br><br>Click <b>Add Relationship</b> to create a new relationship.<br><br>Relationships can be created between any two deployed modules.',
             'relationshipHelp' => '<b>Relationships</b> can be created between the module and another deployed module.<br><br> Relationships are visually expressed through subpanels and relate fields in the module records.<br><br>Select one of the following relationship <b>Types</b> for the module:<br><br> <b>One-to-One</b> - Both modules\' records will contain relate fields.<br><br> <b>One-to-Many</b> - The Primary Module\'s record will contain a subpanel, and the Related Module\'s record will contain a relate field.<br><br> <b>Many-to-Many</b> - Both modules\' records will display subpanels.<br><br> Select the <b>Related Module</b> for the relationship. <br><br>If the relationship type involves subpanels, select the subpanel view for the appropriate modules.<br><br> Click <b>Save</b> to create the relationship.',
             'convertLeadHelp' => 'Here you can add modules to the convert layout screen and modify the layouts of existing ones.<br/>
@@ -237,10 +237,10 @@ $mod_strings = array(
             'publishBtn' => 'Click <b>Save & Deploy</b> to save all changes and make them active.',
         ),
         'portalSync' => array(
-            'default' => 'Enter the <b>ICTCRM Portal URL</b> of the portal instance to update, and click <b>Go</b>.<br><br>Then enter a valid ICTCRM user name and password, and then click <b>Begin Sync</b>.<br><br>The customizations made to the ICTCRM Portal <b>Layouts</b>, along with the <b>Style Sheet</b> if one was uploaded, will be transferred to specified the portal instance.',
+            'default' => 'Enter the <b>SuiteCRM Portal URL</b> of the portal instance to update, and click <b>Go</b>.<br><br>Then enter a valid SuiteCRM user name and password, and then click <b>Begin Sync</b>.<br><br>The customizations made to the SuiteCRM Portal <b>Layouts</b>, along with the <b>Style Sheet</b> if one was uploaded, will be transferred to specified the portal instance.',
         ),
         'portalStyle' => array(
-            'default' => 'You can customize the look of the ICTCRM Portal by using a style sheet.<br><br>Select a <b>Style Sheet</b> to upload.<br><br>The style sheet will be implemented in the ICTCRM Portal the next time a sync is performed.',
+            'default' => 'You can customize the look of the SuiteCRM Portal by using a style sheet.<br><br>Select a <b>Style Sheet</b> to upload.<br><br>The style sheet will be implemented in the SuiteCRM Portal the next time a sync is performed.',
         ),
     ),
 
@@ -249,7 +249,7 @@ $mod_strings = array(
             //custom begin
             'nopackages' => 'To get started on a project, click <b>New Package</b> to create a new package to house your custom module(s). <br/><br/>Each package can contain one or more modules.<br/><br/>For instance, you might want to create a package containing one custom module that is related to the standard Accounts module. Or, you might want to create a package containing several new modules that work together as a project and that are related to each other and to other modules already in the application.',
             'somepackages' => 'A <b>package</b> acts as a container for custom modules, all of which are part of one project. The package can contain one or more custom <b>modules</b> that can be related to each other or to other modules in the application.<br/><br/>After creating a package for your project, you can create modules for the package right away, or you can return to the Module Builder at a later time to complete the project.<br><br>When the project is complete, you can <b>Deploy</b> the package to install the custom modules within the application.',
-            'afterSave' => 'Your new package should contain at least one module. You can create one or more custom modules for the package.<br/><br/>Click <b>New Module</b> to create a custom module for this package.<br/><br/> After creating at least one module, you can publish or deploy the package to make it available for your instance and/or other users\' instances.<br/><br/> To deploy the package in one step within your ICTCRM instance, click <b>Deploy</b>.<br><br>Click <b>Publish</b> to save the package as a .zip file. After the .zip file is saved to your system, use the <b>Module Loader</b> to upload and install the package within your ICTCRM instance. <br/><br/>You can distribute the file to other users to upload and install within their own ICTCRM instances.',
+            'afterSave' => 'Your new package should contain at least one module. You can create one or more custom modules for the package.<br/><br/>Click <b>New Module</b> to create a custom module for this package.<br/><br/> After creating at least one module, you can publish or deploy the package to make it available for your instance and/or other users\' instances.<br/><br/> To deploy the package in one step within your SuiteCRM instance, click <b>Deploy</b>.<br><br>Click <b>Publish</b> to save the package as a .zip file. After the .zip file is saved to your system, use the <b>Module Loader</b> to upload and install the package within your SuiteCRM instance. <br/><br/>You can distribute the file to other users to upload and install within their own SuiteCRM instances.',
             'create' => 'A <b>package</b> acts as a container for custom modules, all of which are part of one project. The package can contain one or more custom <b>modules</b> that can be related to each other or to other modules in the application.<br/><br/>After creating a package for your project, you can create modules for the package right away, or you can return to the Module Builder at a later time to complete the project.',
         ),
         'main' => array(
@@ -257,7 +257,7 @@ $mod_strings = array(
             'studioWelcome' => 'All of the currently installed modules, including standard and module-loaded objects, are customizable within Studio.'
         ),
         'module' => array(
-            'somemodules' => "Since the current package contains at least one module, you can <b>Deploy</b> the modules in the package within your ICTCRM instance or <b>Publish</b> the package to be installed in the current ICTCRM instance or another instance using the <b>Module Loader</b>.<br/><br/>To install the package directly within your ICTCRM instance, click <b>Deploy</b>.<br><br>To create a .zip file for the package that can be loaded and installed within the current ICTCRM instance and other instances using the <b>Module Loader</b>, click <b>Publish</b>.<br/><br/> You can build the modules for this package in stages, and publish or deploy when you are ready to do so. <br/><br/>After publishing or deploying a package, you can make changes to the package properties and customize the modules further. Then re-publish or re-deploy the package to apply the changes.",
+            'somemodules' => "Since the current package contains at least one module, you can <b>Deploy</b> the modules in the package within your SuiteCRM instance or <b>Publish</b> the package to be installed in the current SuiteCRM instance or another instance using the <b>Module Loader</b>.<br/><br/>To install the package directly within your SuiteCRM instance, click <b>Deploy</b>.<br><br>To create a .zip file for the package that can be loaded and installed within the current SuiteCRM instance and other instances using the <b>Module Loader</b>, click <b>Publish</b>.<br/><br/> You can build the modules for this package in stages, and publish or deploy when you are ready to do so. <br/><br/>After publishing or deploying a package, you can make changes to the package properties and customize the modules further. Then re-publish or re-deploy the package to apply the changes.",
             'editView' => 'Here you can edit the existing fields. You can remove any of the existing fields or add available fields in the left panel.',
             'create' => 'When choosing the type of <b>Type</b> of module that you wish to create, keep in mind the types of fields you would like to have within the module. <br/><br/>Each module template contains a set of fields pertaining to the type of module described by the title.<br/><br/><b>Basic</b> - Provides basic fields that appear in standard modules, such as the Name, Assigned to, Team, Date Created and Description fields.<br/><br/> <b>Company</b> - Provides organization-specific fields, such as Company Name, Industry and Billing Address. Use this template to create modules that are similar to the standard Accounts module.<br/><br/> <b>Person</b> - Provides individual-specific fields, such as Salutation, Title, Name, Address and Phone Number. Use this template to create modules that are similar to the standard Contacts and Leads modules.<br/><br/><b>Issue</b> - Provides case- and bug-specific fields, such as Number, Status, Priority and Description. Use this template to create modules that are similar to the standard Cases and Bugs modules.<br/><br/>Note: After you create the module, you can edit the labels of the fields provided by the template, as well as create custom fields to add to the module layouts.',
             'afterSave' => 'Customize the module to suit your needs by editing and creating fields, establishing relationships with other modules and arranging the fields within the layouts.<br/><br/>To view the template fields and manage custom fields within the module, click <b>View Fields</b>.<br/><br/>To create and manage relationships between the module and other modules, whether modules already in the application or other custom modules within the same package, click <b>View Relationships</b>.<br/><br/>To edit the module layouts, click <b>View Layouts</b>. You can change the Detail View, Edit View and List View layouts for the module just as you would for modules already in the application within Studio.<br/><br/> To create a module with the same properties as the current module, click <b>Duplicate</b>. You can further customize the new module.',
@@ -331,7 +331,7 @@ $mod_strings = array(
     'LBL_STUDIO' => 'Studio',
     'LBL_DROPDOWNEDITOR' => 'Dropdown Editor',
     'LBL_DEVELOPER_TOOLS' => 'Developer Tools',
-    'LBL_SUITEPORTAL' => 'ICTCRM Portal Editor',
+    'LBL_SUITEPORTAL' => 'SuiteCRM Portal Editor',
     'LBL_PACKAGE_LIST' => 'Package List',
     'LBL_HOME' => 'Home',
     'LBL_NONE' => '-None-',
@@ -344,12 +344,12 @@ $mod_strings = array(
     'LBL_BASIC_SEARCH' => 'Quick Filter',
     'LBL_CURRENT_LAYOUT' => 'Layout',
     'LBL_CURRENCY' => 'Currency',
-    'LBL_DASHLET' => 'ICTCRM Dashlet',
-    'LBL_DASHLETLISTVIEW' => 'ICTCRM Dashlet ListView',
+    'LBL_DASHLET' => 'SuiteCRM Dashlet',
+    'LBL_DASHLETLISTVIEW' => 'SuiteCRM Dashlet ListView',
     'LBL_POPUP' => 'Popup View',
     'LBL_POPUPLISTVIEW' => 'Popup ListView',
     'LBL_POPUPSEARCH' => 'Popup Search',
-    'LBL_DASHLETSEARCHVIEW' => 'ICTCRM Dashlet Search',
+    'LBL_DASHLETSEARCHVIEW' => 'SuiteCRM Dashlet Search',
     'LBL_DETAILVIEW' => 'Detail View',
     'LBL_DROP_HERE' => '[Drop Here]',
     'LBL_EDIT' => 'Edit',
@@ -615,6 +615,10 @@ $mod_strings = array(
 
 //POPUP HELP
     'LBL_POPHELP_FIELD_DATA_TYPE' => 'Select the appropriate data type based on the type of data that will be entered into the field.',
+    'LBL_POPHELP_IMPORTABLE' => '<b>Yes</b>: The field will be included in an import operation.<br><b>No</b>: The field will not be included in an import.<br><b>Required</b>: A value for the field must be provided in any import.',
+    'LBL_POPHELP_IMAGE_WIDTH' => 'Enter a number for Width, as measured in pixels.<br> The uploaded image will be scaled to this Width.',
+    'LBL_POPHELP_IMAGE_HEIGHT' => 'Enter a number for the Height, as measured in pixels.<br> The uploaded image will be scaled to this Height.',
+    'LBL_POPHELP_DUPLICATE_MERGE' => '<b>Enabled</b>: The field will appear in the Merge Duplicates feature, but will not be available to use for the filter conditions in the Find Duplicates feature.<br><b>Disabled</b>: The field will not appear in the Merge Duplicates feature, and will not be available to use for the filter conditions in the Find Duplicates feature.<br><b>Filter</b>: The field will appear in the Merge Duplicates feature, and will be available to use for the filter conditions in the Find Duplicates feature.<br><b>Default selected filter</b>: The field will appear in the Merge Duplicates feature, and will be used by default for the filter conditions in the Find Duplicates feature.<br><b>Only filter</b>: The field will not appear in the Merge Duplicates feature, but will be available to use for the filter conditions in the Find Duplicates feature.',
 
 //Revert Module labels
     'LBL_RESET' => 'Reset',

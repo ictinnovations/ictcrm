@@ -7,7 +7,7 @@ if (!defined('sugarEntry') || !sugarEntry) {
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -36,9 +36,9 @@ if (!defined('sugarEntry') || !sugarEntry) {
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 
@@ -64,7 +64,7 @@ $role_name = '';
 $return= array('module'=>'ACLRoles', 'action'=>'index', 'record'=>'');
 if (!empty($_REQUEST['record'])) {
     $role->retrieve($_REQUEST['record']);
-    $categories = ACLRole::getRoleActions($_REQUEST['record']);
+    $categories = $role->getRoleActions($_REQUEST['record']);
     
     $role_name =  $role->name;
     if (!empty($_REQUEST['isDuplicate'])) {
@@ -75,7 +75,7 @@ if (!empty($_REQUEST['record'])) {
         $return['action']='DetailView';
     }
 } else {
-    $categories = ACLRole::getRoleActions('');
+    $categories = $role->getRoleActions('');
 }
 $sugar_smarty->assign('ROLE', $role->toArray());
 $tdwidth = 10;
@@ -99,7 +99,7 @@ $sugar_smarty->assign('CATEGORIES', $categories);
 $sugar_smarty->assign('CATEGORY_NAME', $_REQUEST['category_name']);
 $sugar_smarty->assign('TDWIDTH', $tdwidth);
 $sugar_smarty->assign('ACTION_NAMES', $names);
-$actions = $categories[$_REQUEST['category_name']]['module'];
+$actions = !empty($categories[$_REQUEST['category_name']]['module']) ? $categories[$_REQUEST['category_name']]['module'] : '' ;
 $sugar_smarty->assign('ACTIONS', $actions);
 ob_clean();
 

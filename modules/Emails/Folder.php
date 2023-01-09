@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,16 +33,16 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 if (!defined('sugarEntry') || !sugarEntry) {
     die('Not A Valid Entry Point');
 }
 
-use ICTCRM\Utility\SuiteValidator;
+use SuiteCRM\Utility\SuiteValidator;
 
 /**
  * Class Folder
@@ -67,6 +67,11 @@ class Folder
     public $id;
 
     /**
+     * @var string
+     */
+    public $mailbox;
+
+    /**
      * private, use Folder::getType() instead
      * @var string folder type
      */
@@ -84,8 +89,6 @@ class Folder
 
     /**
      * @param int|string $folderId - (should be string, int type is legacy)
-     * @param bool $encode (legacy, unused)
-     * @param bool $deleted (legacy, unused)
      * @return null|string (folder ID)
      * @throws SuiteException
      */
@@ -98,16 +101,13 @@ class Folder
 
             // get the root of the tree
             // is the id of the root node is the same as the inbound email id
-
             if (empty($row['parent_folder'])) {
-
                 // root node (inbound)
-
                 $this->id = $row['id'];
+                $this->type = $row['folder_type'];
+                $this->mailbox = 'INBOX'; // Top level IMAP folder
             } else {
-
                 // child node
-
                 $this->id = $row['parent_folder'];
                 $this->type = $row['folder_type'];
                 $this->mailbox = $row['name'];
@@ -129,11 +129,45 @@ class Folder
         if (isset($request['folders_id']) && !empty($request['folders_id'])) {
             $foldersId = $request['folders_id'];
             $this->retrieve($foldersId);
+            $_SESSION['CURRENT_IMAP_MAILBOX_ID'] = $request['folders_id'];
         } else {
             $GLOBALS['log']->warn("Empty or undefined Email Folder ID");
         }
 
         return $this;
+    }
+
+    /**
+     * @param array|null $request
+     * @throws SuiteException
+     */
+    public function loadMailboxFolder(?array $request): void
+    {
+        global $current_user;
+
+        $inboundEmailID = $current_user->getPreference('defaultIEAccount', 'Emails');
+        $folderId = '';
+        if (isset($request['folders_id']) && !empty($request['folders_id'])) {
+            $folderId = $request['folders_id'];
+        } elseif (!empty($_SESSION['CURRENT_IMAP_MAILBOX_ID'])) {
+            $folderId = $_SESSION['CURRENT_IMAP_MAILBOX_ID'];
+        } elseif (!empty($inboundEmailID)) {
+            $folderId = $inboundEmailID;
+        }
+
+        if (!$this->isSelectedForDisplay($folderId)) {
+            $folderId = $this->getFirstDisplayFolder();
+        }
+
+        if (!empty($folderId)) {
+            $this->retrieve($folderId);
+            $_SESSION['CURRENT_IMAP_MAILBOX_ID'] = $folderId;
+
+            return;
+        }
+
+        $_SESSION['CURRENT_IMAP_MAILBOX_ID'] = '';
+        $GLOBALS['log']->warn("Empty or undefined Email Folder ID");
     }
 
     /**
@@ -151,4 +185,39 @@ class Folder
     {
         return $this->id;
     }
+
+    /**
+     * @return string
+     */
+    public function getMailbox()
+    {
+        return $this->mailbox;
+    }
+
+    /**
+     * Check if folder is to display
+     * @param $folderId
+     * @return bool
+     */
+    public function isSelectedForDisplay($folderId): bool
+    {
+        return (new SugarFolder())->isToDisplay($folderId);
+    }
+
+    /**
+     * @return mixed|string
+     */
+    protected function getFirstDisplayFolder(): ?string
+    {
+        $folder = new SugarFolder();
+        $folder = $folder->getFirstDisplayFolders();
+
+        if ($folder === null) {
+            return null;
+        }
+
+        return $folder['id'] ?? '';
+    }
+
+
 }

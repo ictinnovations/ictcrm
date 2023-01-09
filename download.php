@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 if (!defined('sugarEntry') || !sugarEntry) {
@@ -206,7 +206,7 @@ if ((!isset($_REQUEST['isProfile']) && empty($_REQUEST['id'])) || empty($_REQUES
                 $mime_type = 'application/octet-stream';
             break;
         }
-        
+
         if ($doQuery && isset($query)) {
             $rs = DBManagerFactory::getInstance()->query($query);
             $row = DBManagerFactory::getInstance()->fetchByAssoc($rs);
@@ -261,11 +261,27 @@ if ((!isset($_REQUEST['isProfile']) && empty($_REQUEST['id'])) || empty($_REQUES
             }
         } else {
             header('Content-type: ' . $mime_type);
-            if (isset($_REQUEST['preview']) && $_REQUEST['preview'] === 'yes' && $mime_type !== 'text/html') {
+
+            $showPreview = false;
+
+            global $sugar_config;
+
+            $allowedPreview = $sugar_config['allowed_preview'] ?? [];
+
+            if (empty($row['file_ext'])) {
+                $row['file_ext'] = pathinfo($name, PATHINFO_EXTENSION);
+            }
+
+            if (in_array($row['file_ext'], $allowedPreview, true)) {
+                $showPreview = isset($_REQUEST['preview']) && $_REQUEST['preview'] === 'yes' && $mime_type !== 'text/html';
+            }
+
+            if ($showPreview === true) {
                 header('Content-Disposition: inline; filename="' . $name . '";');
             } else {
                 header('Content-Disposition: attachment; filename="' . $name . '";');
             }
+
         }
         // disable content type sniffing in MSIE
         header("X-Content-Type-Options: nosniff");
@@ -281,8 +297,8 @@ if ((!isset($_REQUEST['isProfile']) && empty($_REQUEST['id'])) || empty($_REQUES
 
         ob_start();
         echo clean_file_output(file_get_contents($download_location), $mime_type);
-        
+
         $output = ob_get_contents();
         ob_end_clean();
-        
+
         echo $output;

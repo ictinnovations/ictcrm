@@ -7,7 +7,7 @@ if (!defined('sugarEntry') || !sugarEntry) {
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -36,9 +36,9 @@ if (!defined('sugarEntry') || !sugarEntry) {
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 /*********************************************************************************
@@ -60,7 +60,7 @@ class SugarLogger implements LoggerTemplate
     /**
      * properties for the SugarLogger
      */
-    protected $logfile = 'ictcrm';
+    protected $logfile = 'suitecrm';
     protected $ext = '.log';
     protected $dateFormat = '%c';
     protected $logSize = '10MB';
@@ -68,6 +68,7 @@ class SugarLogger implements LoggerTemplate
     protected $filesuffix = "";
     protected $date_suffix = "";
     protected $log_dir = '.';
+    protected $defaultPerms = 0664;
 
 
     /**
@@ -127,6 +128,7 @@ class SugarLogger implements LoggerTemplate
         $this->logSize = $config->get('logger.file.maxSize', $this->logSize);
         $this->maxLogs = $config->get('logger.file.maxLogs', $this->maxLogs);
         $this->filesuffix = $config->get('logger.file.suffix', $this->filesuffix);
+        $this->defaultPerms = $config->get('logger.file.perms', $this->defaultPerms);
         $log_dir = $config->get('log_dir', $this->log_dir);
         $this->log_dir = $log_dir . (empty($log_dir)?'':'/');
         unset($config);
@@ -149,22 +151,25 @@ class SugarLogger implements LoggerTemplate
 
     /**
      * Checks to see if the SugarLogger file can be created and written to
+     * @noinspection PhpUndefinedFieldInspection
+     * @return bool
      */
     protected function _fileCanBeCreatedAndWrittenTo()
     {
-        $this->_attemptToCreateIfNecessary();
-        return file_exists($this->full_log_file) && is_writable($this->full_log_file);
-    }
-
-    /**
-     * Creates the SugarLogger file if it doesn't exist
-     */
-    protected function _attemptToCreateIfNecessary()
-    {
-        if (file_exists($this->full_log_file)) {
-            return;
+        if (is_writable($this->full_log_file)) {
+            return true;
         }
-        @touch($this->full_log_file);
+
+        if (!is_file($this->full_log_file)) {
+            @touch($this->full_log_file);
+            if ($this->defaultPerms !== false) {
+                @chmod($this->full_log_file, $this->defaultPerms);
+            }
+
+            return is_writable($this->full_log_file);
+        }
+
+        return false;
     }
 
     /**

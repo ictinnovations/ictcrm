@@ -5,7 +5,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -34,9 +34,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 
@@ -79,12 +79,12 @@ $out =<<<EOQ
 </head>
 
 <body onload="javascript:toggleNextButton();document.getElementById('button_next2').focus();">
-    <!--ICTCRM installer-->
+    <!--SuiteCRM installer-->
     <div id="install_container">
     <div id="install_box">
         <div id='licenseDiv'>
         <header id="install_header">
-            <div class="install_img"><a href="https://ictcrm.com" target="_blank"><img src="{$sugar_md}" alt="ICTCRM"></a></div>
+            <div class="install_img"><a href="https://suitecrm.com" target="_blank"><img src="{$sugar_md}" alt="SuiteCRM"></a></div>
             <div id="steps"><p>{$mod_strings['LBL_STEP2']}</p><i class="icon-progress-0" id="complete"></i><i class="icon-progress-1"></i><i class="icon-progress-2"></i><i class="icon-progress-3"></i><i class="icon-progress-4"></i><i class="icon-progress-5"></i><i class="icon-progress-6"></i><i class="icon-progress-7"></i></div>        <form action="install.php" method="post" name="setConfig" id="form">
         </header>
             <textarea class="licensetext" cols="80" rows="20" readonly>{$license_file}</textarea>
@@ -206,7 +206,7 @@ function callSysCheck(){
             </div>
 
 <footer id="install_footer">
-    <p id="footer_links"><a href="https://ictcrm.com" target="_blank">Visit ictcrm.com</a> | <a href="https://ictcrm.com/ictcrm/forum" target="_blank">Support Forums</a> | <a href="https://docs.ictcrm.com/admin/installation-guide/" target="_blank">Installation Guide</a> | <a href="LICENSE.txt" target="_blank">License</a>
+    <p id="footer_links"><a href="https://suitecrm.com" target="_blank">Visit suitecrm.com</a> | <a href="https://suitecrm.com/suitecrm/forum" target="_blank">Support Forums</a> | <a href="https://docs.suitecrm.com/admin/installation-guide/" target="_blank">Installation Guide</a> | <a href="LICENSE.txt" target="_blank">License</a>
 </footer>
 </div>
 </body>

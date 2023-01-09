@@ -7,7 +7,7 @@ if (!defined('sugarEntry') || !sugarEntry) {
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -36,9 +36,9 @@ if (!defined('sugarEntry') || !sugarEntry) {
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 // EmailTemplate is used to store email email_template information.
@@ -108,26 +108,14 @@ class EmailTemplate extends SugarBean
      */
     protected $storedVariables = array();
 
-    private $imageLinkReplaced = false;
+    protected $imageLinkReplaced = false;
 
     public function __construct()
     {
         parent::__construct();
     }
 
-    /**
-     * @deprecated deprecated since version 7.6, PHP4 Style Constructors are deprecated and will be remove in 7.8, please update your code, use __construct instead
-     */
-    public function EmailTemplate()
-    {
-        $deprecatedMessage = 'PHP4 Style Constructors are deprecated and will be remove in 7.8, please update your code';
-        if (isset($GLOBALS['log'])) {
-            $GLOBALS['log']->deprecated($deprecatedMessage);
-        } else {
-            trigger_error($deprecatedMessage, E_USER_DEPRECATED);
-        }
-        self::__construct();
-    }
+
 
 
     /**
@@ -177,9 +165,9 @@ class EmailTemplate extends SugarBean
                     ) {
                         continue;
                     }
-                    if (!isset($field_def['vname'])) {
-                        //echo $key;
-                    }
+                    /* if (!isset($field_def['vname'])) {
+                        echo $key;
+                    } */
                     // valid def found, process
                     $optionKey = strtolower("{$prefixes[$collectionKey]}{$key}");
                     if (!isset($field_def['vname'])) {
@@ -305,7 +293,7 @@ class EmailTemplate extends SugarBean
 
             $bodyCleanup = html_entity_decode($bodyCleanup, ENT_COMPAT, $sugar_config['default_charset']);
 
-            // Template contents should contains at least one
+            // Template contents should contain at least one
             // white space character at after the variable names
             // to recognise it when parsing and replacing variables
             $bodyCleanup = preg_replace('/(\$\w+\b)([^\s\/&"\'])/', '$1 $2', $bodyCleanup);
@@ -327,7 +315,7 @@ class EmailTemplate extends SugarBean
     //function all string that match the pattern {.} , also catches the list of found strings.
     //the cache will get refreshed when the template bean instance changes.
     //The found url key patterns are replaced with name value pairs provided as function parameter. $tracked_urls.
-    //$url_template is used to construct the url for the email message. the template should have place holder for 1 variable parameter, represented by %1
+    //$url_template is used to construct the url for the email message. The template should have placeholder for 1 variable parameter, represented by %1
     //$template_text_array is a list of text strings that need to be searched. usually the subject, html body and text body of the email message.
     //$removeme_url_template, if the url has is_optout property checked then use this template.
     public function parse_tracker_urls($template_text_array, $url_template, $tracked_urls, $removeme_url_template)
@@ -388,7 +376,7 @@ class EmailTemplate extends SugarBean
      * @param $text string String in which we need to search all string that match the pattern {.}
      * @return array result of search
      */
-    private function _preg_match_tracker_url($text)
+    protected function _preg_match_tracker_url($text)
     {
         $result = array();
         $ind = 0;
@@ -907,7 +895,7 @@ class EmailTemplate extends SugarBean
         return $ret;
     }
 
-    private function repairMozaikClears()
+    protected function repairMozaikClears()
     {
         // repair tinymce auto correction in mozaik clears
         $this->body_html = str_replace('&lt;div class=&quot;mozaik-clear&quot;&gt;&nbsp;&lt;br&gt;&lt;/div&gt;', '&lt;div class=&quot;mozaik-clear&quot;&gt;&lt;/div&gt;', $this->body_html);
@@ -915,9 +903,9 @@ class EmailTemplate extends SugarBean
 
 
 
-    private function repairEntryPointImages()
+    protected function repairEntryPointImages()
     {
-        global $sugar_config;
+        global $sugar_config, $log;
 
         // repair the images url at entry points, change to a public direct link for remote email clients..
 
@@ -926,8 +914,17 @@ class EmailTemplate extends SugarBean
         $regex = '#<img[^>]*[\s]+src=[\s]*["\'](' . preg_quote($siteUrl) . '\/index\.php\?entryPoint=download&type=Notes&id=([a-f0-9]{8}\-[a-f0-9]{4}\-[a-f0-9]{4}\-[a-f0-9]{4}\-[a-f0-9]{12})&filename=.+?)["\']#si';
 
         if (preg_match($regex, $html, $match)) {
+
             $splits = explode('.', $match[1]);
+
             $fileExtension = end($splits);
+
+            $toFile = $match[2] . '.' . $fileExtension;
+            if (is_string($toFile) && !has_valid_image_extension('repair-entrypoint-images-fileext', $toFile)){
+                $log->error("repairEntryPointImages | file with invalid extension '$toFile'");
+                return;
+            }
+
             $this->makePublicImage($match[2], $fileExtension);
             $newSrc = $sugar_config['site_url'] . '/public/' . $match[2] . '.' . $fileExtension;
             $this->body_html = to_html(str_replace($match[1], $newSrc, $html));
@@ -936,7 +933,7 @@ class EmailTemplate extends SugarBean
         }
     }
 
-    private function makePublicImage($id, $ext = 'jpg')
+    protected function makePublicImage($id, $ext = 'jpg')
     {
         $toFile = 'public/' . $id . '.' . $ext;
         if (file_exists($toFile)) {

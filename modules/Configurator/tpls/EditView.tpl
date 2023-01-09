@@ -5,7 +5,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -34,9 +34,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 
@@ -365,7 +365,10 @@
 </tr>
 	<tr>
 		<td  scope="row" valign='middle'>{$MOD.LBL_LOGGER_FILENAME}</td>
-		<td   valign='middle' ><input type='text' name = 'logger_file_name'  value="{$config.logger.file.name}"></td>
+		<td   valign='middle' >
+			<input type='text' name = 'logger_file_name'  value="{$config.logger.file.name}">
+			<div><span class="small">{$APP.LBL_LOGGER_VALID_FILENAME_CHARACTERS}</span></div>
+		</td>
 		<td  scope="row">{$MOD.LBL_LOGGER_FILE_EXTENSION}</td>
 		<td ><input name ="logger_file_ext" type="text" size="5" value="{$config.logger.file.ext}"></td>
 		<td scope="row">{$MOD.LBL_LOGGER_FILENAME_SUFFIX}</td>
@@ -380,6 +383,13 @@
 	<tr>
 		<td scope="row">{$MOD.LBL_LOGGER_LOG_LEVEL} </td>
 		<td > <select name="logger_level">{$log_levels}</select></td>
+		<td  scope="row">{$MOD.LBL_STACK_TRACE}: </td>
+		{if !empty($config.stackTrace)}
+			{assign var='stackTraceChecked' value='CHECKED'}
+		{else}
+			{assign var='stackTraceChecked' value=''}
+		{/if}
+		<td ><input type='hidden' name='stackTrace' value='false'><input name='stackTrace'  type="checkbox" value='true' {$stackTraceChecked}></td>
 		<td scope="row">{$MOD.LBL_LOGGER_MAX_LOGS} </td>
 		<td > <input name="logger_file_maxLogs" value="{$config.logger.file.maxLogs}"></td>
 	</tr>

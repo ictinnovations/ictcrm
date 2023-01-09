@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 
@@ -78,9 +78,9 @@ class SugarThemeRegistry
         array $themedef
         ) {
         // make sure the we know the sugar version
-        global $ictcrm_version;
-        if (empty($ictcrm_version)) {
-            include('ictcrm_version.php');
+        global $suitecrm_version;
+        if (empty($suitecrm_version)) {
+            include('suitecrm_version.php');
         }
 
         if (!isset($themedef['version']['regex_matches'])) {
@@ -93,7 +93,7 @@ class SugarThemeRegistry
         if (isset($themedef['version']['exact_matches'])) {
             $matches_empty = false;
             foreach ($themedef['version']['exact_matches'] as $match) {
-                if ($match == $GLOBALS['ictcrm_version']) {
+                if ($match == $GLOBALS['suitecrm_version']) {
                     $versionOk = true;
                 }
             }
@@ -101,7 +101,7 @@ class SugarThemeRegistry
         if (!$versionOk && isset($themedef['version']['regex_matches'])) {
             $matches_empty = false;
             foreach ($themedef['version']['regex_matches'] as $match) {
-                if (preg_match("/$match/", $GLOBALS['ictcrm_version'])) {
+                if (preg_match("/$match/", $GLOBALS['suitecrm_version'])) {
                     $versionOk = true;
                 }
             }

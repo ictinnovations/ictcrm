@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 *}
 <div id='recaptcha-container' class="g-recaptcha"></div>
@@ -151,10 +151,10 @@
     };
 
     /**
-     * Callback to handle when ICTCRM has responded to the browser
+     * Callback to handle when SuiteCRM has responded to the browser
      * @param {XMLHttpRequest} request
      */
-    var verifyICTCRMUserCallback = function (request) {
+    var verifySuiteCrmUserCallback = function (request) {
       if (
         request.responseText !== undefined
         && request.responseText === 'Success'
@@ -166,13 +166,13 @@
     };
 
     var callback2 = {
-      success: verifyICTCRMUserCallback,
-      failure: verifyICTCRMUserCallback
+      success: verifySuiteCrmUserCallback,
+      failure: verifySuiteCrmUserCallback
     };
 
     /**
-     * Send recaptcha response to ICTCRM with the user's details from the login screen
-     * @see verifyICTCRMUserCallback
+     * Send recaptcha response to SuiteCRM with the user's details from the login screen
+     * @see verifySuiteCrmUserCallback
      * @return {boolean}
      */
     var validateAndSubmit = function () {
@@ -198,7 +198,7 @@
     };
 
     /**
-     * Send recaptcha response to ICTCRM with the user's details from the change password screen
+     * Send recaptcha response to SuiteCRM with the user's details from the change password screen
      * @return {boolean}
      */
     var validateCaptchaAndSubmit = function() {

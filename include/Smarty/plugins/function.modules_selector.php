@@ -1,6 +1,6 @@
 <?php
 
-use ICTCRM\Search\SearchModules;
+use SuiteCRM\Search\SearchModules;
 
 /**
  * Prints a panel that allows you to select modules.

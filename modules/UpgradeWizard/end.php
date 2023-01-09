@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 if (!defined('sugarEntry') || !sugarEntry) {
@@ -96,9 +96,9 @@ foreach ($beanFiles as $bean => $file) {
 }
 
 // add suite version into upgrade pack!
-if (isset($repairedTables['reminders']) && $repairedTables['reminders'] && isset($_SESSION['ictcrm_version_before_upgrade']) && version_compare($_SESSION['ictcrm_version_before_upgrade'], Reminder::UPGRADE_VERSION, '<')) {
+if (isset($repairedTables['reminders']) && $repairedTables['reminders'] && isset($_SESSION['suitecrm_version_before_upgrade']) && version_compare($_SESSION['suitecrm_version_before_upgrade'], Reminder::UPGRADE_VERSION, '<')) {
     Reminder::upgrade();
-    unset($_SESSION['ictcrm_version_before_upgrade']);
+    unset($_SESSION['suitecrm_version_before_upgrade']);
 }
 
 $olddictionary = $dictionary;
@@ -133,7 +133,7 @@ if (!isset($sugar_config['logger'])) {
         'level' => 'fatal',
         'file' => array(
                 'ext' => '.log',
-                'name' => 'ictcrm',
+                'name' => 'suitecrm',
                 'dateFormat' => '%c',
                 'maxSize' => '10MB',
                 'maxLogs' => 10,

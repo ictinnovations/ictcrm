@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,16 +33,16 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 if (!defined('sugarEntry') || !sugarEntry) {
     die('Not A Valid Entry Point');
 }
 
-use ICTCRM\Utility\SuiteValidator;
+use SuiteCRM\Utility\SuiteValidator;
 
 /**
  * handle requested subscriptions
@@ -103,11 +103,12 @@ $ie = BeanFactory::newBean('InboundEmail');
 $ie->email = $email;
 $json = getJSONobj();
 
+global $current_user;
 
 $showFolders = sugar_unserialize(base64_decode($current_user->getPreference('showFolders', 'Emails')));
 
 if (isset($_REQUEST['emailUIAction'])) {
-    if (isset($_REQUEST['user']) && $_REQUEST['user']) {
+    if (isset($_REQUEST['user']) && $_REQUEST['user'] && is_admin($current_user)) {
         $cid = $current_user->id;
         $current_user = BeanFactory::getBean('Users', $_REQUEST['user']);
     } else {
@@ -1329,14 +1330,13 @@ eoq;
             $oe->user_id = $current_user->id;
             $oe->mail_sendtype = "SMTP";
 
-            $oe->smtp_from_name = $_REQUEST['smtp_from_name'];
-            $oe->smtp_from_addr = $_REQUEST['smtp_from_addr'];
-            $oe->mail_smtpserver = $_REQUEST['mail_smtpserver'];
+            $oe->smtp_from_name = trim($_REQUEST['smtp_from_name']);
+            $oe->smtp_from_addr = trim($_REQUEST['smtp_from_addr']);
+            $oe->mail_smtpserver = trim($_REQUEST['mail_smtpserver']);
             $oe->mail_smtpport = $_REQUEST['mail_smtpport'];
             $oe->mail_smtpssl = $_REQUEST['mail_smtpssl'];
             $oe->mail_smtpauth_req = isset($_REQUEST['mail_smtpauth_req']) ? 1 : 0;
-            $oe->mail_smtpuser = $_REQUEST['mail_smtpuser'];
-            $oe->mail_smtpuser = $_REQUEST['mail_smtpuser'];
+            $oe->mail_smtpuser = trim($_REQUEST['mail_smtpuser']);
             if (!empty($_REQUEST['mail_smtppass'])) {
                 $oe->mail_smtppass = $_REQUEST['mail_smtppass'];
             }

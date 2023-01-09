@@ -3,7 +3,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -32,12 +32,12 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
-namespace ICTCRM\Search\Index;
+namespace SuiteCRM\Search\Index;
 
 if (!defined('sugarEntry') || !sugarEntry) {
     die('Not A Valid Entry Point');
@@ -47,11 +47,11 @@ use InvalidArgumentException;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use ReflectionClass;
-use ICTCRM\Log\CliLoggerHandler;
-use ICTCRM\Log\SugarLoggerHandler;
-use ICTCRM\Search\Index\Documentify\AbstractDocumentifier;
-use ICTCRM\Search\Index\Documentify\JsonSerializerDocumentifier;
-use ICTCRM\Search\SearchWrapper;
+use SuiteCRM\Log\CliLoggerHandler;
+use SuiteCRM\Log\SugarLoggerHandler;
+use SuiteCRM\Search\Index\Documentify\AbstractDocumentifier;
+use SuiteCRM\Search\Index\Documentify\JsonSerializerDocumentifier;
+use SuiteCRM\Search\SearchWrapper;
 
 /**
  * This class defines common methods and fields for a search indexer.
@@ -61,7 +61,7 @@ use ICTCRM\Search\SearchWrapper;
  *
  * It also offers logging facilities on a separate file using Monolog, and also colored console output if configured.
  *
- * @see \ICTCRM\Search\ElasticSearch\ElasticSearchIndexer
+ * @see \SuiteCRM\Search\ElasticSearch\ElasticSearchIndexer
  */
 abstract class AbstractIndexer
 {
@@ -161,9 +161,11 @@ abstract class AbstractIndexer
     /**
      * Deletes all the records from the index.
      *
+     * @param string $index
+     *
      * @return void
      */
-    abstract public function removeIndex();
+    abstract public function removeIndex(string $index);
 
     /**
      * Returns whether the next indexing should be performed differentially or not.

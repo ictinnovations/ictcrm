@@ -7,7 +7,7 @@ if (!defined('sugarEntry') || !sugarEntry) {
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -36,9 +36,9 @@ if (!defined('sugarEntry') || !sugarEntry) {
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 global $sugar_version, $js_custom_version;
@@ -57,11 +57,28 @@ if (empty($sugar_config['upload_maxsize'])) {
     $sugar_config['upload_maxsize'] = 8192000;
 }
 if (empty($sugar_config['upload_badext'])) {
-    $sugar_config['upload_badext'] = array('php', 'php3', 'php4', 'php5', 'pl', 'cgi', 'py', 'asp', 'cfm', 'js', 'vbs', 'html', 'htm');
+    $sugar_config['upload_badext'] = [
+        'php',
+        'php3',
+        'php4',
+        'php5',
+        'pl',
+        'cgi',
+        'py',
+        'asp',
+        'cfm',
+        'js',
+        'vbs',
+        'html',
+        'htm',
+        'phtml',
+        'phar',
+    ];
+
 }
 ////    END PREFILL $sugar_config VARS
 ///////////////////////////////////////////////////////////////////////////////
-require_once('include/utils/zip_utils.php');
+require_once('include/utils/php_zip_utils.php');
 
 require_once('include/upload_file.php');
 

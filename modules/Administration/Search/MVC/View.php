@@ -3,7 +3,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -32,21 +32,21 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
-namespace ICTCRM\Modules\Administration\Search\MVC;
+namespace SuiteCRM\Modules\Administration\Search\MVC;
 
 if (!defined('sugarEntry') || !sugarEntry) {
     die('Not A Valid Entry Point');
 }
 
 use LoggerManager;
-use ICTCRM\Search\SearchWrapper;
-use ICTCRM\Search\UI\MVC\View as BaseView;
-use ICTCRM\Utility\StringUtils;
+use SuiteCRM\Search\SearchWrapper;
+use SuiteCRM\Search\UI\MVC\View as BaseView;
+use SuiteCRM\Utility\StringUtils;
 
 /**
  * Class View holds utilities for rendering a template file.
@@ -58,7 +58,7 @@ abstract class View extends BaseView
      *
      * Extend to assign more variable.
      */
-    public function preDisplay()
+    public function preDisplay(): void
     {
         global $mod_strings;
         global $app_list_strings;
@@ -74,10 +74,11 @@ abstract class View extends BaseView
         $this->smarty->assign('error', $errors);
         $this->smarty->assign('BUTTONS', $this->getButtons());
 
-        if (!isset($sugar_config['search']) || !$sugar_config['search']) {
+        if (empty($sugar_config['search'])) {
             LoggerManager::getLogger()->warn('Configuration does not contains default search settings.');
         }
-        $search = isset($sugar_config['search']) ? $sugar_config['search'] : null;
+
+        $search = $sugar_config['search'] ?? null;
         $this->smarty->assign('config', $search);
     }
 
@@ -86,7 +87,7 @@ abstract class View extends BaseView
      *
      * @return string
      */
-    protected function getButtons()
+    protected function getButtons(): string
     {
         global $mod_strings;
         global $app_strings;
@@ -113,7 +114,7 @@ EOQ;
      *
      * @return array
      */
-    protected function getEngines()
+    protected function getEngines(): array
     {
         $engines = [];
 

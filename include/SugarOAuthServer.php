@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 
@@ -80,16 +80,16 @@ class SugarOAuthServer
     public function lookupConsumer($provider)
     {
         // check $provider->consumer_key
-        // on unknown: ICTCRM\Zend_Oauth_Provider::CONSUMER_KEY_UNKNOWN
-        // on bad key: ICTCRM\Zend_Oauth_Provider::CONSUMER_KEY_REFUSED
+        // on unknown: SuiteCRM\Zend_Oauth_Provider::CONSUMER_KEY_UNKNOWN
+        // on bad key: SuiteCRM\Zend_Oauth_Provider::CONSUMER_KEY_REFUSED
         $GLOBALS['log']->debug("OAUTH: lookupConsumer, key={$provider->consumer_key}");
         $consumer = OAuthKey::fetchKey($provider->consumer_key);
         if (!$consumer) {
-            return ICTCRM\Zend_Oauth_Provider::CONSUMER_KEY_UNKNOWN;
+            return SuiteCRM\Zend_Oauth_Provider::CONSUMER_KEY_UNKNOWN;
         }
         $provider->consumer_secret = $consumer->c_secret;
         $this->consumer = $consumer;
-        return ICTCRM\Zend_Oauth_Provider::OK;
+        return SuiteCRM\Zend_Oauth_Provider::OK;
     }
 
     /**
@@ -100,10 +100,10 @@ class SugarOAuthServer
     {
         // FIXME: add ts/nonce verification
         if (empty($provider->nonce)) {
-            return ICTCRM\Zend_Oauth_Provider::BAD_NONCE;
+            return SuiteCRM\Zend_Oauth_Provider::BAD_NONCE;
         }
         if (empty($provider->timestamp)) {
-            return ICTCRM\Zend_Oauth_Provider::BAD_TIMESTAMP;
+            return SuiteCRM\Zend_Oauth_Provider::BAD_TIMESTAMP;
         }
         return OAuthToken::checkNonce($provider->consumer_key, $provider->nonce, $provider->timestamp);
     }
@@ -118,26 +118,26 @@ class SugarOAuthServer
 
         $token = OAuthToken::load($provider->token);
         if (empty($token)) {
-            return ICTCRM\Zend_Oauth_Provider::TOKEN_REJECTED;
+            return SuiteCRM\Zend_Oauth_Provider::TOKEN_REJECTED;
         }
         if ($token->consumer != $this->consumer->id) {
-            return ICTCRM\Zend_Oauth_Provider::TOKEN_REJECTED;
+            return SuiteCRM\Zend_Oauth_Provider::TOKEN_REJECTED;
         }
         $GLOBALS['log']->debug("OAUTH: tokenHandler, found token=".var_export($token->id, true));
         if ($token->tstate == OAuthToken::REQUEST) {
             if (!empty($token->verify) && $provider->verifier == $token->verify) {
                 $provider->token_secret = $token->secret;
                 $this->token = $token;
-                return ICTCRM\Zend_Oauth_Provider::OK;
+                return SuiteCRM\Zend_Oauth_Provider::OK;
             }
-            return ICTCRM\Zend_Oauth_Provider::TOKEN_USED;
+            return SuiteCRM\Zend_Oauth_Provider::TOKEN_USED;
         }
         if ($token->tstate == OAuthToken::ACCESS) {
             $provider->token_secret = $token->secret;
             $this->token = $token;
-            return ICTCRM\Zend_Oauth_Provider::OK;
+            return SuiteCRM\Zend_Oauth_Provider::OK;
         }
-        return ICTCRM\Zend_Oauth_Provider::TOKEN_REJECTED;
+        return SuiteCRM\Zend_Oauth_Provider::TOKEN_REJECTED;
     }
 
     /**
@@ -164,7 +164,7 @@ class SugarOAuthServer
     {
         $GLOBALS['log']->debug("OAUTH: __construct($req_path): ".var_export($_REQUEST, true));
         $this->check();
-        $this->provider = new ICTCRM\Zend_Oauth_Provider();
+        $this->provider = new SuiteCRM\Zend_Oauth_Provider();
         try {
             $this->provider->setConsumerHandler(array($this,'lookupConsumer'));
             $this->provider->setTimestampNonceHandler(array($this,'timestampNonceChecker'));

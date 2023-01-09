@@ -1,6 +1,6 @@
 <?php
 
-use ICTCRM\Utility\CurrentLanguage;
+use SuiteCRM\Utility\CurrentLanguage;
 
 /**
  * @param \Psr\Container\ContainerInterface $container

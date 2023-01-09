@@ -7,7 +7,7 @@ if (!defined('sugarEntry') || !sugarEntry) {
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -36,9 +36,9 @@ if (!defined('sugarEntry') || !sugarEntry) {
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 /*********************************************************************************
@@ -91,12 +91,14 @@ class Currency extends SugarBean
      * convertToDollar
      * This method accepts a currency amount and converts it to the US Dollar amount
      *
-     * @param $amount The currency amount to convert to US Dollars
-     * @param $precision The rounding precision scale
-     * @return currency value in US Dollars from conversion
+     * @param $amount string|float The currency amount to convert to US Dollars
+     * @param $precision int The rounding precision scale
+     * @return float currency value in US Dollars from conversion
      */
     public function convertToDollar($amount, $precision = 6)
     {
+        $amount = is_string($amount) ? (float)$amount : $amount;
+
         return $this->conversion_rate ? round(($amount / $this->conversion_rate), $precision) : 0;
     }
 
@@ -105,12 +107,14 @@ class Currency extends SugarBean
      * This method accepts a US Dollar amount and returns a currency amount
      * with the conversion rate applied to it.
      *
-     * @param $amount The currency amount in US Dollars
-     * @param $precision The rounding precision scale
-     * @return currency value from US Dollar conversion
+     * @param $amount string|float The currency amount in US Dollars
+     * @param $precision int The rounding precision scale
+     * @return float currency value from US Dollar conversion
      */
     public function convertFromDollar($amount, $precision = 6)
     {
+        $amount = is_string($amount) ? (float)$amount : $amount;
+
         return round(($amount * $this->conversion_rate), $precision);
     }
 
@@ -311,10 +315,10 @@ function currency_format_number($amount, $params = array())
  * are responsible for passing in the appropriate decimal and number rounding digits
  * as well as parameters to control displaying the currency symbol or not.
  *
- * @param $amount The currency amount to apply formatting to
+ * @param $amount float|string The currency amount to apply formatting to
  * @param $round Integer value for number of places to round to
  * @param $decimals Integer value for number of decimals to round to
- * @param $params Array of additional parameter values
+ * @param $params array of additional parameter values
  *
  *
  * The following are passed in as an array of params:
@@ -336,6 +340,8 @@ function format_number($amount, $round = null, $decimals = null, $params = array
     static $last_override_currency = null;
     static $override_currency_id = null;
     static $currency;
+
+    $amount = is_string($amount) ? (float)$amount : $amount;
 
     $seps = get_number_separators();
     $num_grp_sep = $seps[0];
@@ -411,7 +417,7 @@ function format_number($amount, $round = null, $decimals = null, $params = array
         if ($checkAmount >= 1000 || $checkAmount <= -1000) {
             $amount = round(($amount / 1000), 0);
             $amount = number_format($amount, 0, $dec_sep, $num_grp_sep); // add for SI bug 52498
-            $amount = $amount . 'k';
+            $amount .= 'k';
             $amount = format_place_symbol($amount, $symbol, (empty($params['symbol_space']) ? false : true));
         } else {
             $amount = format_place_symbol($amount, $symbol, (empty($params['symbol_space']) ? false : true));

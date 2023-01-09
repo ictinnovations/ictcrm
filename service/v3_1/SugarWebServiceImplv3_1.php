@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,13 +33,13 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 if (!defined('sugarEntry') || !sugarEntry) {
-    die('Not A Valid Entry Point');
+    die('Not A Valid Entry Point');
 }
 
 
@@ -263,6 +263,13 @@ class SugarWebServiceImplv3_1 extends SugarWebServiceImplv3
         $class_name = $beanList[$module_name];
         require_once($beanFiles[$class_name]);
         $seed = new $class_name();
+
+        $valid = $this->validateFields($name_value_list, $module_name);
+        if ($valid === false) {
+            $GLOBALS['log']->info('End: SugarWebServiceImpl->set_entry');
+            return;
+        }
+
         foreach ($name_value_list as $name => $value) {
             if (is_array($value) && $value['name'] == 'id') {
                 $seed->retrieve($value['value']);
@@ -1033,6 +1040,98 @@ class SugarWebServiceImplv3_1 extends SugarWebServiceImplv3
 
         return array('entry_list' => $output_list);
     } // fn
+
+    /**
+     * Validate fields
+     * @param array $name_value_list
+     * @param string $module
+     * @return bool
+     */
+    protected function validateFields(array $name_value_list, string $module): bool {
+        global $log;
+
+        $bean = BeanFactory::newBean($module);
+        $errors = [];
+        foreach ($name_value_list as $field => $value) {
+
+            $fieldName = $field;
+            $fieldValue = $value;
+
+            if (is_array($value)) {
+                $fieldName = $value['name'];
+                $fieldValue = $value['value'];
+            }
+
+            if (empty($fieldValue)) {
+                continue;
+            }
+
+            if ($fieldName === 'id' || $this->isIdField($bean, $fieldName)){
+                $error = $this->validateId($fieldName, $fieldValue);
+
+                if (!empty($error)) {
+                    $errors[] = $error;
+                }
+            }
+        }
+
+        if (empty($errors)) {
+            return true;
+        }
+
+        foreach ($errors as $error) {
+            $log->fatal('V4 API field validation | Error: ' . $error);
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if field is of id type
+     *
+     * @param SugarBean $bean
+     * @param mixed $field
+     * @return bool
+     */
+    protected function isIdField(SugarBean $bean, $field): bool {
+        $fieldDefinition = $bean->field_defs[$field] ?? [];
+        $fieldType = $fieldDefinition ?? '';
+
+        $isId = false;
+        if ($fieldType === 'id') {
+            $isId = true;
+        }
+
+        return $isId;
+    }
+
+    /**
+     * Check if it is a valid id field
+     *
+     * @param SugarBean $bean
+     * @param string $field
+     * @param mixed $valud
+     * @return string
+     */
+    protected function validateId(string $field, $value): string {
+
+        if (!is_string($value) && !is_numeric($value)) {
+            return "Invalid id field '$field'. Value not a string nor a number";
+        }
+
+        if (empty($value)) {
+            return '';
+        }
+
+        $idValidator = new \SuiteCRM\Utility\SuiteValidator();
+        if ($idValidator->isValidId($value)) {
+            return '';
+        }
+
+        $pattern = $idValidator->getIdValidationPattern();
+
+        return "Invalid id field '$field' with value '$value'. Id must follow pattern '$pattern'";
+    }
 }
 
 SugarWebServiceImplv3_1::$helperObject = new SugarWebServiceUtilv3_1();

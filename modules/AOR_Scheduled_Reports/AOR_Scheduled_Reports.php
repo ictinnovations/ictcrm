@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 require_once 'modules/AOR_Scheduled_Reports/lib/Cron/includeCron.php';
@@ -70,19 +70,7 @@ class AOR_Scheduled_Reports extends basic
         parent::__construct();
     }
 
-    /**
-     * @deprecated deprecated since version 7.6, PHP4 Style Constructors are deprecated and will be remove in 7.8, please update your code, use __construct instead
-     */
-    public function AOR_Scheduled_Reports()
-    {
-        $deprecatedMessage = 'PHP4 Style Constructors are deprecated and will be remove in 7.8, please update your code';
-        if (isset($GLOBALS['log'])) {
-            $GLOBALS['log']->deprecated($deprecatedMessage);
-        } else {
-            trigger_error($deprecatedMessage, E_USER_DEPRECATED);
-        }
-        self::__construct();
-    }
+
 
 
     public function bean_implements($interface)
@@ -95,9 +83,7 @@ class AOR_Scheduled_Reports extends basic
 
     public function save($check_notify = false)
     {
-        if (isset($_POST['email_recipients']) && is_array($_POST['email_recipients'])) {
-            $this->email_recipients = base64_encode(serialize($_POST['email_recipients']));
-        }
+        $this->parseRecipients();
 
         return parent::save($check_notify);
     }
@@ -191,7 +177,8 @@ class AOR_Scheduled_Reports extends basic
             return true;
         }
 
-        $lastRun = $timedate->fromDb($this->last_run);
+        $lastRun = $this->last_run ? $timedate->fromDb($this->last_run) : $timedate->fromDb($this->date_entered);
+
         $this->handleTimeZone($lastRun);
         $next = $cron->getNextRunDate($lastRun);
 
@@ -209,6 +196,28 @@ class AOR_Scheduled_Reports extends basic
         $timezone = new DateTimeZone($timezone);
         $offset = $timezone->getOffset($date);
         $date->modify($offset . 'second');
+    }
+
+    /**
+     * Parse and set recipients
+     * @return void
+     */
+    protected function parseRecipients(): void
+    {
+        $recipients = $_POST['email_recipients'] ?? null;
+        unset($_POST['email_recipients'], $_REQUEST['email_recipients'], $_GET['email_recipients']);
+        $this->email_recipients = null;
+
+        if (is_array($recipients)) {
+            $types = $recipients['email_target_type'] ?? [];
+            $emailInfo = $recipients['email'] ?? [];
+            $recipients = [
+                'email_target_type' => $types,
+                'email' => $emailInfo,
+            ];
+
+            $this->email_recipients = base64_encode(serialize($recipients));
+        }
     }
 
 }

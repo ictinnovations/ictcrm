@@ -7,7 +7,7 @@ if (!defined('sugarEntry') || !sugarEntry) {
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -36,9 +36,9 @@ if (!defined('sugarEntry') || !sugarEntry) {
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 require_once('include/SubPanel/SubPanel.php');
@@ -60,7 +60,7 @@ class SubPanelTiles
     public $show_tabs = false;
 
     /**
-     * @var \ICTCRM\SubPanel\SubPanelRowCounter
+     * @var \SuiteCRM\SubPanel\SubPanelRowCounter
      */
     protected $rowCounter;
 
@@ -76,7 +76,7 @@ class SubPanelTiles
         $this->module = $focus->module_dir;
         $this->layout_def_key = $layout_def_key;
         $this->subpanel_definitions=new SubPanelDefinitions($focus, $layout_def_key, $layout_def_override);
-        $this->rowCounter = new \ICTCRM\SubPanel\SubPanelRowCounter($focus);
+        $this->rowCounter = new \SuiteCRM\SubPanel\SubPanelRowCounter($focus);
     }
 
     /*
@@ -190,10 +190,12 @@ class SubPanelTiles
         $tabs_properties = array();
         $tab_names = array();
 
+        $module_sub_panels = [];
+
         $default_div_display = 'inline';
         if (!empty($sugar_config['hide_subpanels_on_login'])) {
             if (!isset($_SESSION['visited_details'][$this->focus->module_dir])) {
-                setcookie($this->focus->module_dir . '_divs', '', 0, null, null, isSSL(), true);
+                SugarApplication::setCookie($this->focus->module_dir . '_divs', '', 0, null, null, isSSL(), true);
                 unset($_COOKIE[$this->focus->module_dir . '_divs']);
                 $_SESSION['visited_details'][$this->focus->module_dir] = true;
             }
@@ -373,7 +375,7 @@ class SubPanelTiles
                     $countStr = '...';
                     $extraClass = ' incomplete';
                 }
-                
+
                 $tabs_properties[$t]['title'] .= ' (<span class="subPanelCountHint' . $extraClass . '" data-subpanel="' . $tab . '" data-module="' . $layout_def_key . '" data-record="' . $_REQUEST['record'] . '">' . $countStr . '</span>)';
             }
 
@@ -452,6 +454,7 @@ class SubPanelTiles
             [
                 'buttons' => $buttons,
                 'class' => 'clickMenu fancymenu',
+                'flat' => $thisPanel->get_inst_prop_value('flat')
             ],
             $this->xTemplate
         );

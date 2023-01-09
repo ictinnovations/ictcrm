@@ -8,7 +8,7 @@ if (!defined('sugarEntry') || !sugarEntry) {
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -37,9 +37,9 @@ if (!defined('sugarEntry') || !sugarEntry) {
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 require_once 'include/SugarLogger/SugarLogger.php';
@@ -330,7 +330,7 @@ eoq;
                 'level' => 'fatal',
                 'file' => array(
                         'ext' => '.log',
-                        'name' => 'ictcrm',
+                        'name' => 'suitecrm',
                         'dateFormat' => '%c',
                         'maxSize' => '10MB',
                         'maxLogs' => 10,
@@ -411,14 +411,14 @@ eoq;
     if (!didThisStepRunBefore('commit', 'upgradeHistory')) {
         set_upgrade_progress('commit', 'in_progress', 'upgradeHistory', 'in_progress');
         if (empty($errors)) {
-            require 'ictcrm_version.php';
+            require 'suitecrm_version.php';
             $file_action = 'copied';
             // if error was encountered, script should have died before now
             $new_upgrade = new UpgradeHistory();
             $new_upgrade->filename = $install_file;
             $new_upgrade->md5sum = md5_file($install_file);
             $new_upgrade->type = 'patch';
-            $new_upgrade->version = $ictcrm_version;
+            $new_upgrade->version = $suitecrm_version;
             $new_upgrade->status = 'installed';
             $new_upgrade->manifest = (!empty($_SESSION['install_manifest']) ? $_SESSION['install_manifest'] : '');
             $new_upgrade->processed = true;

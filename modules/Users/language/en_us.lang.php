@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2019 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 if (!defined('sugarEntry') || !sugarEntry) {
@@ -70,7 +70,7 @@ $mod_strings = array(
     'ERR_RULES_NOT_MET' => 'The password you entered did not meet the password requirements. Please try again.',
     'ERR_USER_NAME_EXISTS_1' => 'The user name ',
     'ERR_USER_NAME_EXISTS_2' => ' already exists. Duplicate user names are not allowed. Please change the user name to be unique.',
-    'ERR_USER_IS_LOCKED_OUT' => 'This user is locked out of the ICTCRM application and cannot log in using their existing password.',
+    'ERR_USER_IS_LOCKED_OUT' => 'This user is locked out of the SuiteCRM application and cannot log in using their existing password.',
     'ERR_PASSWORD_MINPWDLENGTH' => 'Password should contain at least %d characters.',
     'ERR_PASSWORD_ONEUPPER' => 'Password should contain uppercase characters.',
     'ERR_PASSWORD_ONELOWER' => 'Password should contain lowercase characters.',
@@ -137,7 +137,7 @@ $mod_strings = array(
     'LBL_EMAIL' => 'Email Address',
     'LBL_EMAIL_CHARSET' => 'Outbound Character Set',
     'LBL_EMAIL_LINK_TYPE' => 'Email Client',
-    'LBL_EMAIL_LINK_TYPE_HELP' => '<b>ICTCRM Mail Client:</b> Send emails using the email client in the ICTCRM application.<br><b>External Mail Client:</b> Send email using an email client outside of the ICTCRM application, such as Microsoft Outlook.',
+    'LBL_EMAIL_LINK_TYPE_HELP' => '<b>SuiteCRM Mail Client:</b> Send emails using the email client in the SuiteCRM application.<br><b>External Mail Client:</b> Send email using an email client outside of the SuiteCRM application, such as Microsoft Outlook.',
     'LBL_EMAIL_NOT_SENT' => 'System is unable to process your request. Please contact the system administrator.',
     'LBL_EMAIL_SIGNATURE_ERROR1' => 'This signature requires a name.',
     'LBL_EMAIL_TEMPLATE_MISSING' => 'No email template is selected for the email containing the password that will be sent to the user. Please select an email template in the Password Management page.',
@@ -154,7 +154,7 @@ $mod_strings = array(
     'LBL_FIRST_NAME' => 'First Name',
     'LBL_SYSTEM_GENERATED_PASSWORD' => 'System Generated Password',
     'LBL_GENERATE_PASSWORD_BUTTON_LABEL' => 'Reset Password',
-    'LBL_GROUP_DESC' => 'Use for assigning items to a group (example: for Inbound Email). This type cannot login through the ICTCRM web interface.',
+    'LBL_GROUP_DESC' => 'Use for assigning items to a group (example: for Inbound Email). This type cannot login through the SuiteCRM web interface.',
     'LBL_GROUP_USER' => 'Group User',
     'LBL_HIDE_TABS' => 'Hide Modules',
     'LBL_HOME_PHONE' => 'Home Phone',
@@ -232,7 +232,7 @@ $mod_strings = array(
     'LBL_PSW_MODIFIED' => 'Password Last Changed',
     'LBL_PHONE' => 'Phone',
     'LBL_PICK_TZ_DESCRIPTION' => 'Before continuing, please confirm your time zone. Select the appropriate time zone from the list below, and click Save to continue. The time zone can be changed at any time in your user settings.',
-    'LBL_PORTAL_ONLY_DESC' => 'Use for the Portal API. This type cannot login through the ICTCRM web interface.',
+    'LBL_PORTAL_ONLY_DESC' => 'Use for the Portal API. This type cannot login through the SuiteCRM web interface.',
     'LBL_PORTAL_ONLY_USER' => 'Portal API User',
     'LBL_POSTAL_CODE' => 'Postal Code',
     'LBL_PRIMARY_ADDRESS' => 'Primary Address',
@@ -252,7 +252,7 @@ $mod_strings = array(
     'LBL_RECEIVE_NOTIFICATIONS_TEXT' => 'Receive an email notification when a record is assigned to you.',
     'LBL_RECEIVE_NOTIFICATIONS' => 'Notify on Assignment',
     'LBL_REGULAR_USER' => 'Regular User',
-    'LBL_REMINDER_TEXT' => 'Set a default for reminders for calls and meetings. Pop-up notifications appear for all invitees using ICTCRM. Email reminders are sent to all invitees.',
+    'LBL_REMINDER_TEXT' => 'Set a default for reminders for calls and meetings. Pop-up notifications appear for all invitees using SuiteCRM. Email reminders are sent to all invitees.',
     'LBL_REMINDER' => 'Reminders',
     'LBL_REMINDER_POPUP' => 'Popup',
     'LBL_REMINDER_EMAIL_ALL_INVITEES' => 'Email all invitees',
@@ -281,7 +281,7 @@ $mod_strings = array(
     'LBL_SEARCH_URL' => 'Search location',
     'LBL_SELECT_CHECKED_BUTTON_LABEL' => 'Select Checked Users',
     'LBL_SELECT_CHECKED_BUTTON_TITLE' => 'Select Checked Users',
-    'LBL_SETTINGS_URL_DESC' => 'Use this URL when establishing login settings for the ICTCRM Plug-in for Microsoft&reg; Outlook&reg; and the ICTCRM Plug-in for Microsoft&reg; Word&reg;.',
+    'LBL_SETTINGS_URL_DESC' => 'Use this URL when establishing login settings for the SuiteCRM Plug-in for Microsoft&reg; Outlook&reg; and the SuiteCRM Plug-in for Microsoft&reg; Word&reg;.',
     'LBL_SETTINGS_URL' => 'URL',
     'LBL_SIGNATURE' => 'Signature',
     'LBL_SIGNATURE_HTML' => 'HTML signature',
@@ -294,7 +294,7 @@ $mod_strings = array(
     'LBL_SORT_MODULES_DESCRIPTION' => 'Order modules by name in the navigation drop down.',
     'LBL_COUNT_COLLAPSED_SUBPANELS' => 'Show collapsed subpanel hint',
     'LBL_COUNT_COLLAPSED_SUBPANELS_DESCRIPTION' => 'When subpanels are collapsed, shows a hint to indicate if the subpanel is empty or contains records.',
-    'LBL_SUITE_LOGIN' => 'Is ICTCRM User',
+    'LBL_SUITE_LOGIN' => 'Is SuiteCRM User',
     'LBL_THEME' => 'Themes',
     'LBL_TIME_FORMAT_TEXT' => 'Set the display format for time stamps',
     'LBL_TIME_FORMAT' => 'Time Format',
@@ -312,7 +312,7 @@ $mod_strings = array(
     'LBL_WORK_PHONE' => 'Work Phone',
     'LBL_YOUR_PUBLISH_URL' => 'Publish at my location',
     'LBL_ICAL_PUB_URL' => 'iCal integration URL',
-    'LBL_ICAL_PUB_URL_HELP' => 'Use this URL to subscribe to the ICTCRM calendar within iCal.',
+    'LBL_ICAL_PUB_URL_HELP' => 'Use this URL to subscribe to the SuiteCRM calendar within iCal.',
     'LNK_NEW_USER' => 'Create New User',
     'LNK_NEW_GROUP_USER' => 'Create Group User',
     'LNK_USER_LIST' => 'View Users',
@@ -368,22 +368,22 @@ $mod_strings = array(
     // Wizard
     'LBL_WIZARD_TITLE' => 'User Wizard',
     'LBL_WIZARD_WELCOME_TAB' => 'Welcome',
-    'LBL_WIZARD_WELCOME_TITLE' => 'Welcome to ICTCRM!',
-    'LBL_WIZARD_WELCOME' => 'Click <b>Next</b> to configure a few basic settings for using ICTCRM.',
-    'LBL_WIZARD_WELCOME_NOSMTP' => 'Click <b>Next</b> to configure a few basic settings for using ICTCRM.',
+    'LBL_WIZARD_WELCOME_TITLE' => 'Welcome to SuiteCRM!',
+    'LBL_WIZARD_WELCOME' => 'Click <b>Next</b> to configure a few basic settings for using SuiteCRM.',
+    'LBL_WIZARD_WELCOME_NOSMTP' => 'Click <b>Next</b> to configure a few basic settings for using SuiteCRM.',
     'LBL_WIZARD_NEXT_BUTTON' => 'Next >',
     'LBL_WIZARD_BACK_BUTTON' => '< Back',
     'LBL_WIZARD_SKIP_BUTTON' => 'Skip',
     'LBL_WIZARD_FINISH_BUTTON' => 'Finish',
-    'LBL_WIZARD_FINISH_TITLE' => 'You are ready to use ICTCRM!',
-    'LBL_WIZARD_FINISH' => 'Click <b>Finish</b> below to save your settings and to begin using ICTCRM. For more information on using ICTCRM:<br /><br />
+    'LBL_WIZARD_FINISH_TITLE' => 'You are ready to use SuiteCRM!',
+    'LBL_WIZARD_FINISH' => 'Click <b>Finish</b> below to save your settings and to begin using SuiteCRM. For more information on using SuiteCRM:<br /><br />
 <table cellpadding=0 cellspacing=0>
-<tr><td><!--not_in_theme!-->Visit www.ictcrm.com
-<img src=include/images/ictcrm_login.png style="margin-right: 5px;">
-</td><td><a href="http://www.ictcrm.com/" target="_blank"><b>ICTCRM</b></a></td></tr>
+<tr><td><!--not_in_theme!-->Visit www.suitecrm.com
+<img src=include/images/suitecrm_login.png style="margin-right: 5px;">
+</td><td><a href="https://www.suitecrm.com/" target="_blank"><b>SuiteCRM</b></a></td></tr>
 </table>',
     'LBL_WIZARD_FINISH1' => 'What would you like to do next?',
-    'LBL_WIZARD_FINISH2' => 'Start Using ICTCRM',
+    'LBL_WIZARD_FINISH2' => 'Start Using SuiteCRM',
     'LBL_WIZARD_FINISH3' => 'Import Data',
     'LBL_WIZARD_FINISH4' => 'Import data from external sources into the application.',
     'LBL_WIZARD_FINISH5' => 'Create Users',
@@ -392,14 +392,14 @@ $mod_strings = array(
     'LBL_WIZARD_FINISH8' => 'Manage advanced settings, including default application settings.',
     'LBL_WIZARD_FINISH9' => 'Configure the Application',
     'LBL_WIZARD_FINISH10' => 'Use Studio to create and manage application fields and layouts.',
-    'LBL_WIZARD_FINISH11' => 'Visit ICTCRM Site',
+    'LBL_WIZARD_FINISH11' => 'Visit SuiteCRM Site',
     'LBL_WIZARD_FINISH12' => 'Find training materials and classes that will help you get started as a system administrator or end user of the application.',
     'LBL_WIZARD_FINISH14' => 'Documentation',
     'LBL_WIZARD_FINISH15' => 'Product Guides and Release Notes',
     'LBL_WIZARD_FINISH16' => 'Knowledge Base',
-    'LBL_WIZARD_FINISH17' => 'Tips from ICTCRM',
+    'LBL_WIZARD_FINISH17' => 'Tips from SuiteCRM',
     'LBL_WIZARD_FINISH18' => 'Forums',
-    'LBL_WIZARD_FINISH19' => 'Forums dedicated to the ICTCRM Community to discuss topics of interest with each other and with ICTCRM Developers',
+    'LBL_WIZARD_FINISH19' => 'Forums dedicated to the SuiteCRM Community to discuss topics of interest with each other and with SuiteCRM Developers',
     'LBL_WIZARD_FINISH2DESC' => 'Go directly to the application Home page.',
     'LBL_WIZARD_PERSONALINFO' => 'Your Information',
     'LBL_WIZARD_LOCALE' => 'Your Locale',
@@ -407,7 +407,7 @@ $mod_strings = array(
     'LBL_WIZARD_SCENARIOS' => 'Your Scenarios',
     'LBL_WIZARD_SCENARIOS_EMPTY_LIST' => 'No scenarios have been configured',
     'LBL_WIZARD_SCENARIOS_DESC' => 'Choose which scenarios are appropriate for your installation. These options can be changed post-install.',
-    'LBL_WIZARD_LOCALE_DESC' => 'Specify your time zone and how you would like dates, currencies and names to appear in ICTCRM.',
+    'LBL_WIZARD_LOCALE_DESC' => 'Specify your time zone and how you would like dates, currencies and names to appear in SuiteCRM.',
     'LBL_WIZARD_SMTP_DESC' => 'Provide your email account username and password for the default outbound email server.',
     'LBL_EAPM_SUBPANEL_TITLE' => 'External Accounts',
     'LBL_EDITLAYOUT' => 'Edit Layout' /* for 508 compliance fix */,
@@ -442,7 +442,7 @@ $mod_strings = array(
     'LBL_ERROR_SELECT_MODULE' => 'Please select a module for the Related to field',
     'ERR_ARCHIVE_EMAIL' => 'Error: Select emails to archive.',
     'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'Accounts',
-    'LBL_ADD_DASHLETS' => 'Add ICTCRM Dashlets',
+    'LBL_ADD_DASHLETS' => 'Add SuiteCRM Dashlets',
     'LBL_ADD_DOCUMENT' => 'Add Documents',
     'LBL_ADD_ENTRIES' => 'Add Entries',
     'LBL_ADD_FILE' => 'Add Files',
@@ -645,11 +645,11 @@ $mod_strings = array(
     'LBL_EMAIL_INBOUND_TYPE_HELP' => '<b>Personal</b>: Email account accessible by you. Only you can manage and import emails from this account.<br><b>Group</b>: Email account accessible by members of specified teams. Team members can manage and import emails from this account.<br><b>Group - auto-import</b>: Email account accessible by members of specified teams. Emails are automatically imported as records.',
     'LBL_ADDRESS_BOOK_SEARCH_HELP' => 'Enter an email address, First Name, Last Name or Account Name to find recipients.',
     'LBL_EMPTY_EMAIL_BODY' => '<p><span style="color: #888888;"><em>This Message Has No Content</em></span></p>',
-    'LBL_TEST_EMAIL_SUBJECT' => 'Test Email from ICTCRM',
+    'LBL_TEST_EMAIL_SUBJECT' => 'Test Email from SuiteCRM',
     'LBL_NO_SUBJECT' => '(no subject)',
     'LBL_CHECKING_ACCOUNT' => 'Checking Account',
     'LBL_OF' => 'of',
-    'LBL_TEST_EMAIL_BODY' => 'This email was sent in order to test the outgoing mail server information provided in the ICTCRM application. A successful receipt of this email indicates that the outgoing mail server information provided is valid.',
+    'LBL_TEST_EMAIL_BODY' => 'This email was sent in order to test the outgoing mail server information provided in the SuiteCRM application. A successful receipt of this email indicates that the outgoing mail server information provided is valid.',
     // for outbound email dialog
     'LBL_MAIL_SMTPAUTH_REQ' => 'Use SMTP Authentication?',
     'LBL_EDIT_LAYOUT' => 'Edit Layout' /* for 508 compliance fix */,
@@ -685,9 +685,13 @@ $mod_strings = array(
     // for Google Token/Synchronization settings
     'LBL_GOOGLE_API_SETTINGS' => 'Google Account Synchronization',
     'LBL_GOOGLE_API_TOKEN' => 'Google API Token',
-    'LBL_GOOGLE_API_TOKEN_HELP' => 'Use this to authorize ICTCRM to access your Google Calendar. This is required for synchronization. Don\'t forget to check the "Enable Calendar Sync" checkbox when done.',
+    'LBL_GOOGLE_API_TOKEN_HELP' => 'Use this to authorize SuiteCRM to access your Google Calendar. This is required for synchronization. Don\'t forget to check the "Enable Calendar Sync" checkbox when done.',
     'LBL_GOOGLE_API_TOKEN_BTN' => 'Get Token',
     'LBL_GSYNC_CAL' => 'Enable Calendar Sync',
     // END Google Token/Synchronization settings
+
+    'LNK_LIST_OUTBOUND_EMAIL_ACCOUNTS' => 'Outbound Email Accounts',
+    'LNK_LIST_INBOUND_EMAIL_ACCOUNTS' => 'Inbound Email Accounts',
+    'LNK_EXTERNAL_OAUTH_CONNECTIONS' => 'External OAuth Connections',
 
 ); // END STRINGS DEFS

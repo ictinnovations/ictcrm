@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 *}
 <!-- END METADATA GENERATED CONTENT -->
@@ -112,7 +112,7 @@
                                     </td>
                                     <td>
                                         <input name='old_password' id='old_password' type='password' tabindex='2'
-                                               onkeyup="password_confirmation();">
+                                               onkeyup="password_confirmation();" autocomplete="new-password">
                                     </td>
                                     <td width='40%'>
                                     </td>
@@ -235,8 +235,10 @@
                     </slot>&nbsp;{sugar_help text=$MOD.LBL_RECEIVE_NOTIFICATIONS_TEXT}
                 </td>
                 <td width="33%">
-                    <slot><input name='receive_notifications' class="checkbox" tabindex='12' type="checkbox"
-                                 value="12" {$RECEIVE_NOTIFICATIONS}></slot>
+                    <slot>
+                        <input type='hidden' value='0' name='receive_notifications'>
+                        <input name='receive_notifications' class="checkbox" tabindex='12' type="checkbox" value="1" {$RECEIVE_NOTIFICATIONS}>
+                    </slot>
                 </td>
             </tr>
 

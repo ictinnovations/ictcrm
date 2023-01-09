@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 if (!defined('sugarEntry') || !sugarEntry) {
@@ -75,7 +75,7 @@ $entry_point_registry = array(
     'SAML'=>  array('file' => 'modules/Users/authentication/SAMLAuthenticate/index.php', 'auth' => false),
     'SAML2Metadata'=>  array('file' => 'modules/Users/authentication/SAML2Authenticate/SAML2Metadata.php', 'auth' => false),
     'jslang'=> array('file' => 'include/language/getJSLanguage.php', 'auth' => true),
-    'deleteAttachment' => array('file' => 'include/SugarFields/Fields/Image/deleteAttachment.php', 'auth' => false),
+    'deleteAttachment' => array('file' => 'include/SugarFields/Fields/Image/deleteAttachment.php', 'auth' => true),
     'responseEntryPoint' => array('file' => 'modules/FP_events/responseEntryPoint.php', 'auth' => false),
     'formLetter' => array('file' => 'modules/AOS_PDF_Templates/formLetterPdf.php' , 'auth' => true),
     'generatePdf' => array('file' => 'modules/AOS_PDF_Templates/generatePdf.php' , 'auth' => true),
@@ -98,4 +98,6 @@ $entry_point_registry = array(
     'sendConfirmOptInEmail' => array('file' => 'include/entryPointConfirmOptInConnector.php', 'auth' => true),
     'saveGoogleApiKey' => array('file' => 'modules/Users/entryPointSaveGoogleApiKey.php', 'auth' => true),
     'setImapTestSettings' => ['file' => 'include/Imap/ImapTestSettingsEntry.php', 'auth' => true],
+    'redirectToExternalOAuth' => ['file' => 'modules/ExternalOAuthConnection/entrypoint/redirectToExternalOAuth.php', 'auth' => true],
+    'setExternalOAuthToken' => ['file' => 'modules/ExternalOAuthConnection/entrypoint/setExternalOAuthToken.php', 'auth' => true],
 );

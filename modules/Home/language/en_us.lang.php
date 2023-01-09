@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2019 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 if (!defined('sugarEntry') || !sugarEntry) {
@@ -70,7 +70,7 @@ $mod_strings = array(
     'LBL_NO_RESULTS' => '<h2>There were no results found. Please search again.</h2><br>',
     'LBL_NO_RESULTS_TIPS' => '<h3>Search Tips:</h3><ul><li>Make sure you have the proper categories selected above.</li><li>Broaden your search criteria.</li><li>If you still cannot find any results try the advanced search option.</li></ul>',
 
-    'LBL_ADD_DASHLETS' => 'Add ICTCRM Dashlets',
+    'LBL_ADD_DASHLETS' => 'Add SuiteCRM Dashlets',
     'LBL_WEBSITE_TITLE' => 'Website',
     'LBL_RSS_TITLE' => 'News Feed',
     'LBL_CLOSE_DASHLETS' => 'Close',
@@ -105,23 +105,23 @@ $mod_strings = array(
         'Tools' => 'Tools',
         'Miscellaneous' => 'Miscellaneous'
     ),
-    'LBL_ADDING_DASHLET' => 'Adding ICTCRM Dashlet...',
-    'LBL_ADDED_DASHLET' => 'ICTCRM Dashlet Added',
-    'LBL_REMOVE_DASHLET_CONFIRM' => 'Are you sure you want to remove this ICTCRM Dashlet?',
-    'LBL_REMOVING_DASHLET' => 'Removing ICTCRM Dashlet...',
-    'LBL_REMOVED_DASHLET' => 'ICTCRM Dashlet Removed',
+    'LBL_ADDING_DASHLET' => 'Adding SuiteCRM Dashlet...',
+    'LBL_ADDED_DASHLET' => 'SuiteCRM Dashlet Added',
+    'LBL_REMOVE_DASHLET_CONFIRM' => 'Are you sure you want to remove this SuiteCRM Dashlet?',
+    'LBL_REMOVING_DASHLET' => 'Removing SuiteCRM Dashlet...',
+    'LBL_REMOVED_DASHLET' => 'SuiteCRM Dashlet Removed',
     'LBL_DASHLET_CONFIGURE_GENERAL' => 'General',
     'LBL_DASHLET_CONFIGURE_FILTERS' => 'Filters',
     'LBL_DASHLET_CONFIGURE_MY_ITEMS_ONLY' => 'Only My Items',
     'LBL_DASHLET_CONFIGURE_TITLE' => 'Title',
     'LBL_DASHLET_CONFIGURE_DISPLAY_ROWS' => 'Display Rows',
 
-    'LBL_DASHLET_DELETE' => 'Delete ICTCRM Dashlet',
-    'LBL_DASHLET_REFRESH' => 'Refresh ICTCRM Dashlet',
-    'LBL_DASHLET_EDIT' => 'Edit ICTCRM Dashlet',
+    'LBL_DASHLET_DELETE' => 'Delete SuiteCRM Dashlet',
+    'LBL_DASHLET_REFRESH' => 'Refresh SuiteCRM Dashlet',
+    'LBL_DASHLET_EDIT' => 'Edit SuiteCRM Dashlet',
 
     // Default out-of-box names for tabs
-    'LBL_HOME_PAGE_1_NAME' => 'My ICTCRM',
+    'LBL_HOME_PAGE_1_NAME' => 'My SuiteCRM',
     'LBL_CLOSE_SITEMAP' => 'Close',
 
     'LBL_SEARCH' => 'Search',
@@ -129,7 +129,7 @@ $mod_strings = array(
 
     'LBL_BASIC_CHARTS' => 'Basic Charts',
 
-    'LBL_DASHLET_SEARCH' => 'Find ICTCRM Dashlet',
+    'LBL_DASHLET_SEARCH' => 'Find SuiteCRM Dashlet',
 
 //ABOUT page
     'LBL_VERSION' => 'Version',
@@ -142,8 +142,8 @@ $mod_strings = array(
     'LBL_DASHLET_INCORRECT_URL' => 'Incorrect website location is specified',
     'LBL_DASHLET_OPT_URL' => 'Website Location',
     'LBL_DASHLET_OPT_HEIGHT' => 'Dashlet Height (in pixels)',
-    'LBL_DASHLET_SUITE_NEWS' => 'ICTCRM News',
-    'LBL_DASHLET_DISCOVER_SUITE' => 'Discover ICTCRM',
+    'LBL_DASHLET_SUITE_NEWS' => 'SuiteCRM News',
+    'LBL_DASHLET_DISCOVER_SUITE' => 'Discover SuiteCRM',
     'LBL_BASIC_SEARCH' => 'Quick Filter' /*for 508 compliance fix*/,
     'LBL_ADVANCED_SEARCH' => 'Advanced Filter' /*for 508 compliance fix*/,
     'LBL_TOUR_HOME' => 'Home Icon',
@@ -155,7 +155,7 @@ $mod_strings = array(
     'LBL_TOUR_SEARCH' => 'Full Text Search',
     'LBL_TOUR_SEARCH_DESCRIPTION' => 'Search just got a whole lot better.',
     'LBL_TOUR_NOTIFICATIONS' => 'Notifications',
-    'LBL_TOUR_NOTIFICATIONS_DESCRIPTION' => 'ICTCRM application notifications would go here.',
+    'LBL_TOUR_NOTIFICATIONS_DESCRIPTION' => 'SuiteCRM application notifications would go here.',
     'LBL_TOUR_PROFILE' => 'Profile',
     'LBL_TOUR_PROFILE_DESCRIPTION' => 'Access profile, settings and logout.',
     'LBL_TOUR_QUICKCREATE' => 'Quick Create',
@@ -166,37 +166,40 @@ $mod_strings = array(
     'LBL_TOUR_CUSTOM_DESCRIPTION' => 'Custom integrations would go here.',
     'LBL_TOUR_BRAND' => 'Your Brand',
     'LBL_TOUR_BRAND_DESCRIPTION' => 'Your logo goes here. You can mouse over for more info.',
-    'LBL_TOUR_WELCOME' => 'Welcome to ICTCRM',
-    'LBL_TOUR_WATCH' => 'Watch What\'s New in ICTCRM',
+    'LBL_TOUR_WELCOME' => 'Welcome to SuiteCRM',
+    'LBL_TOUR_WATCH' => 'Watch What\'s New in SuiteCRM',
     'LBL_TOUR_FEATURES' => '<ul style=""><li class="icon-ok">New simplifed navigation bar</li><li class="icon-ok">New collapsible footer</li><li class="icon-ok">Improved Search</li><li class="icon-ok">Updated actions menu</li></ul><p>and much more!</p>',
     'LBL_TOUR_VISIT' => 'For more information please visit our application',
     'LBL_TOUR_DONE' => 'You\'re Done!',
     'LBL_TOUR_REFERENCE_1' => 'You can always reference our',
     'LBL_TOUR_REFERENCE_2' => 'through the "Support Forum" link under the profile tab.',
     'LNK_TOUR_DOCUMENTATION' => 'documentation',
-    'LBL_TOUR_CALENDAR_URL_1' => 'Do you share your ICTCRM calendar with 3rd party applications, such as Microsoft Outlook or Exchange? If so, you have a new URL. This new, more secure URL includes a personal key which will prevent unauthorized publishing of your calendar.',
+    'LBL_TOUR_CALENDAR_URL_1' => 'Do you share your SuiteCRM calendar with 3rd party applications, such as Microsoft Outlook or Exchange? If so, you have a new URL. This new, more secure URL includes a personal key which will prevent unauthorized publishing of your calendar.',
     'LBL_TOUR_CALENDAR_URL_2' => 'Retrieve your new shared calendar URL.',
     'LBL_CONTRIBUTORS' => 'Contributors',
-    'LBL_ABOUT_SUITE' => 'About ICTCRM',
+    'LBL_ABOUT_SUITE' => 'About SuiteCRM',
     'LBL_PARTNERS' => 'Partners',
     'LBL_FEATURING' => 'AOS, AOW, AOR, AOP, AOE and Reschedule modules by SalesAgility.',
+    'LBL_EDIT_ALL_RECURRENCES' => 'Edit All Recurrences',
+    'LBL_REMOVE_ALL_RECURRENCES' => 'Delete All Recurrences',
+    'LBL_CONFIRM_REMOVE' => 'Are you sure you want to remove the record?',
 
-    'LBL_CONTRIBUTOR_ICTCRM' => 'ICTCRM - Open source CRM for the world',
+    'LBL_CONTRIBUTOR_SUITECRM' => 'SuiteCRM - Open source CRM for the world',
     'LBL_CONTRIBUTOR_SECURITY_SUITE' => 'SecuritySuite by Jason Eggers',
     'LBL_CONTRIBUTOR_JJW_GMAPS' => 'JJWDesign Google Maps by Jeffrey J. Walters',
-    'LBL_CONTRIBUTOR_CONSCIOUS' => 'ICTCRM LOGO Provided by Conscious Solutions',
-    'LBL_CONTRIBUTOR_RESPONSETAP' => 'Contribution to ICTCRM 7.3 release by ResponseTap',
+    'LBL_CONTRIBUTOR_CONSCIOUS' => 'SuiteCRM LOGO Provided by Conscious Solutions',
+    'LBL_CONTRIBUTOR_RESPONSETAP' => 'Contribution to SuiteCRM 7.3 release by ResponseTap',
     'LBL_CONTRIBUTOR_GMBH' => 'Workflow Calculated Fields contributed by diligent technology & business consulting GmbH',
 
-    'LBL_LANGUAGE_ABOUT' => 'About ICTCRM Translations',
-    'LBL_LANGUAGE_COMMUNITY_ABOUT' => 'Collaborative translation by the ICTCRM Community',
+    'LBL_LANGUAGE_ABOUT' => 'About SuiteCRM Translations',
+    'LBL_LANGUAGE_COMMUNITY_ABOUT' => 'Collaborative translation by the SuiteCRM Community',
     'LBL_LANGUAGE_COMMUNITY_PACKS' => 'Translation created using Crowdin',
 
-    'LBL_ABOUT_SUITE_2' => 'ICTCRM is published under an open source licence - AGPLv3',
-    'LBL_ABOUT_SUITE_4' => 'All ICTCRM code managed and developed by the project will be released as open source - AGPLv3',
-    'LBL_ABOUT_SUITE_5' => 'ICTCRM support is available in both free and paid-for options',
+    'LBL_ABOUT_SUITE_2' => 'SuiteCRM is published under an open source licence - AGPLv3',
+    'LBL_ABOUT_SUITE_4' => 'All SuiteCRM code managed and developed by the project will be released as open source - AGPLv3',
+    'LBL_ABOUT_SUITE_5' => 'SuiteCRM support is available in both free and paid-for options',
 
-    'LBL_SUITE_PARTNERS' => 'We have loyal ICTCRM partners who are passionate about open source. To view our full partner list, see our website.',
+    'LBL_SUITE_PARTNERS' => 'We have loyal SuiteCRM partners who are passionate about open source. To view our full partner list, see our website.',
 
     'LBL_SAVE_BUTTON' => 'Save',
     'LBL_DELETE_BUTTON' => 'Delete',
@@ -245,5 +248,7 @@ $mod_strings = array(
     'LBL_ELASTIC_SEARCH_EXCEPTION_DEFAULT' => 'An unknown error has occurred while performing the search.',
     'LBL_ELASTIC_SEARCH_EXCEPTION_END_MESSAGE' => 'Contact an administrator if the problem persists. More information available in the logs.',
 
-    'LBL_ELASTIC_SEARCH_DEFAULT' => 'No results matching your search criteria. Try broadening your search.'
+    'LBL_ELASTIC_SEARCH_DEFAULT' => 'No results matching your search criteria. Try broadening your search.',
+
+    'LNK_TASK_VIEW' => 'View Task',
 );

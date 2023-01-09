@@ -9,7 +9,7 @@ if (!defined('sugarEntry') || !sugarEntry) {
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -38,9 +38,9 @@ if (!defined('sugarEntry') || !sugarEntry) {
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 require_once 'data/SugarBean.php';
@@ -56,6 +56,11 @@ class BeanFactory
      * @var array
      */
     protected static $loadedBeans = [];
+
+    /**
+     * @var array
+     */
+    protected static $shallowBeans = [];
 
     /**
      * @var int
@@ -143,6 +148,37 @@ class BeanFactory
             return false;
         }
 
+        return $bean;
+    }
+
+    /**
+     * Shallow beans are created by SugarBean during the fill_in_relationship_fields method, and they differ from
+     * 'complete' bean in that they do not have their own relate fields completed.
+     *
+     * We can use these beans for filling relate fields, but we should not be caching them and serving them anywhere
+     * else.
+     *
+     * @param $module
+     * @param null $id
+     * @param array $params
+     * @param bool $deleted
+     * @return bool|mixed|SugarBean
+     */
+    public static function getShallowBean($module, $id = null, $params = array(), $deleted = true)
+    {
+        if (isset(self::$loadedBeans[$module][$id])) {
+            return self::getBean($module, $id, $params, $deleted);
+        }
+        $key = $module . $id;
+        if (isset(self::$shallowBeans[$key])) {
+            return self::$shallowBeans[$key];
+        }
+        if (count(self::$shallowBeans) > self::$maxLoaded) {
+            array_shift(self::$shallowBeans);
+        }
+        $bean = self::getBean($module, $id, $params, $deleted);
+        self::$shallowBeans[$key] = $bean;
+        self::unregisterBean($module, $id);
         return $bean;
     }
 

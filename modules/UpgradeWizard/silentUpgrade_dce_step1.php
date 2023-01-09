@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,15 +33,15 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 
 //////////////////////////////////////////////////////////////////////////////////////////
 //// This is a stand alone file that can be run from the command prompt for upgrading a
-//// ICTCRM Instance. Three parameters are required to be defined in order to execute this file.
+//// SuiteCRM Instance. Three parameters are required to be defined in order to execute this file.
 //// php.exe -f silentUpgrade.php [Path to Upgrade Package zip] [Path to Log file] [Path to Instance]
 //// See below the Usage for more details.
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -384,7 +384,7 @@ $_SERVER['PHP_SELF'] = 'silentUpgrade.php';
 ///////////////////////////////////////////////////////////////////////////////
 ////	USAGE
 $usage_dce =<<<eoq1
-Usage: php.exe -f silentUpgrade.php [upgradeZipFile] [logFile] [pathToICTCRMInstance]
+Usage: php.exe -f silentUpgrade.php [upgradeZipFile] [logFile] [pathToSuiteCRMInstance]
 
 On Command Prompt Change directory to where silentUpgrade.php resides. Then type path to
 php.exe followed by -f silentUpgrade.php and the arguments.
@@ -405,7 +405,7 @@ Arguments:
 eoq1;
 
 $usage_regular =<<<eoq2
-Usage: php.exe -f silentUpgrade.php [upgradeZipFile] [logFile] [pathToICTCRMInstance] [admin-user]
+Usage: php.exe -f silentUpgrade.php [upgradeZipFile] [logFile] [pathToSuiteCRMInstance] [admin-user]
 
 On Command Prompt Change directory to where silentUpgrade.php resides. Then type path to
 php.exe followed by -f silentUpgrade.php and the arguments.
@@ -416,7 +416,7 @@ Example:
 Arguments:
     upgradeZipFile                       : Upgrade package file.
     logFile                              : Silent Upgarde log file.
-    pathToICTCRMInstance                  : Suite Instance instance being upgraded.
+    pathToSuiteCRMInstance                  : Suite Instance instance being upgraded.
     admin-user                           : admin user performing the upgrade
 eoq2;
 ////	END USAGE
@@ -496,7 +496,7 @@ if ($upgradeType == constant('DCE_INSTANCE')) {
 
     //load up entrypoint from original template
     require_once("{$argv[4]}/include/entryPoint.php");
-    require_once("{$argv[4]}/include/utils/zip_utils.php");
+    require_once("{$argv[4]}/include/utils/php_zip_utils.php");
     require_once("{$argv[4]}/modules/Administration/UpgradeHistory.php");
     // We need to run the silent upgrade as the admin user,
     global $current_user;

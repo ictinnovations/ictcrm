@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2019 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 if (!defined('sugarEntry') || !sugarEntry) {
@@ -51,7 +51,7 @@ $mod_strings = array(
     'LBL_OOTB_CAMPAIGN' => 'Run Nightly Mass Email Campaigns',
     'LBL_OOTB_PRUNE' => 'Prune Database on 1st of Month',
     'LBL_OOTB_TRACKER' => 'Prune Tracker Tables',
-    'LBL_OOTB_SUITEFEEDS' => 'Prune ICTCRM Feed Tables',
+    'LBL_OOTB_SUITEFEEDS' => 'Prune SuiteCRM Feed Tables',
     'LBL_OOTB_LUCENE_INDEX' => 'Perform Lucene Index',
     'LBL_OOTB_OPTIMISE_INDEX' => 'Optimise AOD Index',
     'LBL_OOTB_SEND_EMAIL_REMINDERS' => 'Run Email Reminder Notifications',
@@ -104,7 +104,7 @@ $mod_strings = array(
     'LBL_JOB' => 'Job',
     'LBL_JOB_URL' => 'Job URL',
     'LBL_LAST_RUN' => 'Last Successful Run',
-    'LBL_MODULE_NAME' => 'ICTCRM Scheduler',
+    'LBL_MODULE_NAME' => 'SuiteCRM Scheduler',
     'LBL_MODULE_TITLE' => 'Schedulers',
     'LBL_NAME' => 'Job Name',
     'LBL_NEVER' => 'Never',
@@ -130,10 +130,10 @@ $mod_strings = array(
     'NTC_LIST_ORDER' => 'Set the order this schedule will appear in the Scheduler dropdown lists',
     'LBL_CRON_INSTRUCTIONS_WINDOWS' => 'To Setup Windows Scheduler',
     'LBL_CRON_INSTRUCTIONS_LINUX' => 'To Setup Crontab',
-    'LBL_CRON_LINUX_DESC1' => 'In order to run ICTCRM Schedulers, edit your web server user\'s crontab file with this command:',
+    'LBL_CRON_LINUX_DESC1' => 'In order to run SuiteCRM Schedulers, edit your web server user\'s crontab file with this command:',
     'LBL_CRON_LINUX_DESC2' => '... and add the following line to the crontab file:',
     'LBL_CRON_LINUX_DESC3' => 'You should do this only after the installation is concluded.',
-    'LBL_CRON_WINDOWS_DESC' => 'In order to run the ICTCRM schedulers, create a batch file to run using Windows Scheduled Tasks. The batch file should include the following commands:',
+    'LBL_CRON_WINDOWS_DESC' => 'In order to run the SuiteCRM schedulers, create a batch file to run using Windows Scheduled Tasks. The batch file should include the following commands:',
 // Subpanels
     'LBL_JOBS_SUBPANEL_TITLE' => 'Job Log',
     'LBL_EXECUTE_TIME' => 'Execute Time',
@@ -147,6 +147,7 @@ $mod_strings = array(
     'LBL_POLLMONITOREDINBOXESFORBOUNCEDCAMPAIGNEMAILS' => 'Run Nightly Process Bounced Campaign Emails',
     'LBL_PRUNEDATABASE' => 'Prune Database on 1st of Month',
     'LBL_TRIMTRACKER' => 'Prune Tracker Tables',
+    'LBL_TRIMSUGARFEEDS' => 'Prune SuiteCRM Feed Tables',
     'LBL_SENDEMAILREMINDERS' => 'Run Email Reminders Sending',
     'LBL_CLEANJOBQUEUE' => 'Cleanup Job Queue',
     'LBL_REMOVEDOCUMENTSFROMFS' => 'Removal of documents from filesystem',

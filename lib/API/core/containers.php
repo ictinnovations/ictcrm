@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 // file has been separated out for testing and mocking purposes
@@ -43,7 +43,7 @@ $version = 8;
 
 $container = new \Slim\Container;
 // Load Containers
-$paths = new \ICTCRM\Utility\Paths();
+$paths = new \SuiteCRM\Utility\Paths();
 $containerFiles = (array)glob($paths->getLibraryPath() . '/API/v8/container/*.php');
 $customContainerFiles = (array)glob($paths->getCustomLibraryPath() . '/API/v8/container/*.php');
 
@@ -64,10 +64,10 @@ foreach ($customContainerFiles as $containerFile) {
 $container['notAllowedHandler'] = function ($container) {
     return function ($request, $response) use ($container) {
         /**
-         * @var \ICTCRM\API\v8\Controller\ApiController $ApiController
+         * @var \SuiteCRM\API\v8\Controller\ApiController $ApiController
          */
         $ApiController = $container->get('ApiController');
-        $exception = new \ICTCRM\API\v8\Exception\NotAllowedException();
+        $exception = new \SuiteCRM\API\v8\Exception\NotAllowedException();
 
         return $ApiController->generateJsonApiErrorResponse($request, $response, $exception);
     };
@@ -80,9 +80,9 @@ $container['notAllowedHandler'] = function ($container) {
 $container['notFoundHandler'] = function ($container) {
     return function ($request, $response) use ($container) {
         /**
-         * @var \ICTCRM\API\v8\Controller\ApiController $ApiController
+         * @var \SuiteCRM\API\v8\Controller\ApiController $ApiController
          */
-        $exception = new \ICTCRM\API\v8\Exception\NotFoundException('[Resource]');
+        $exception = new \SuiteCRM\API\v8\Exception\NotFoundException('[Resource]');
         $ApiController = $container->get('ApiController');
 
         return $ApiController->generateJsonApiErrorResponse($request, $response, $exception);
@@ -96,7 +96,7 @@ $container['notFoundHandler'] = function ($container) {
 $container['errorHandler'] = function ($container) {
     return function ($request, $response, $exception) use ($container) {
         /**
-         * @var \ICTCRM\API\v8\Controller\ApiController $ApiController
+         * @var \SuiteCRM\API\v8\Controller\ApiController $ApiController
          */
         $ApiController = $container->get('ApiController');
 
@@ -112,7 +112,7 @@ $container['errorHandler'] = function ($container) {
 $container['phpErrorHandler'] = function ($container) {
     return function ($request, $response, $exception) use ($container) {
         /**
-         * @var \ICTCRM\API\v8\Controller\ApiController $ApiController
+         * @var \SuiteCRM\API\v8\Controller\ApiController $ApiController
          */
         $ApiController = $container->get('ApiController');
 

@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 if (!defined('sugarEntry') || !sugarEntry) {
@@ -45,6 +45,9 @@ if (!defined('sugarEntry') || !sugarEntry) {
 require_once('include/externalAPI/ExternalAPIFactory.php');
 require_once 'include/UploadStream.php';
 
+use SuiteCRM\Exception\MalwareFoundException;
+use SuiteCRM\Utility\AntiMalware\AntiMalwareTrait;
+
 /**
  * @api
  * Manage uploaded files with multi-file support
@@ -52,6 +55,8 @@ require_once 'include/UploadStream.php';
  */
 class UploadMultipleFiles
 {
+    use AntiMalwareTrait;
+
     public $field_name;
     public $stored_file_name;
     public $uploaded_file_name;
@@ -107,10 +112,10 @@ class UploadMultipleFiles
 
     /**
      * Get URL for a document
-     * @deprecated
      * @param string stored_file_name File name in filesystem
      * @param string bean_id note bean ID
      * @return string path with file name
+     * @deprecated
      */
     public static function get_url($stored_file_name, $bean_id)
     {
@@ -286,6 +291,14 @@ class UploadMultipleFiles
 
         if (!UploadStream::writable()) {
             $GLOBALS['log']->fatal("ERROR: cannot write to upload directory");
+
+            return false;
+        }
+
+        try {
+            $this->scanPathForMalware($_FILES[$this->field_name]['tmp_name'][$this->index]);
+        } catch (MalwareFoundException $exception) {
+            LoggerManager::getLogger()->security("Malware found, unable to save file: {$_FILES[$this->field_name]['name'][$this->index]}");
 
             return false;
         }

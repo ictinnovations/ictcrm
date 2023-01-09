@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 if (!defined('sugarEntry') || !sugarEntry) {
@@ -380,6 +380,11 @@ class SugarBean
     public $in_save;
 
     /**
+     * @var array $bean_fields_to_save
+     */
+    public $bean_fields_to_save;
+
+    /**
      * @var integer $logicHookDepth
      */
     public $logicHookDepth;
@@ -414,6 +419,16 @@ class SugarBean
      */
     public $old_modified_by_name;
 
+    /**
+     * @var bool $createdAuditRecords
+     */
+    public $createdAuditRecords;
+
+    /**
+     * Keeps track of emails sent to notify_user ids to avoid duplicate emails
+     * @var array $sentAssignmentNotifications
+     */
+    public $sentAssignmentNotifications = array();
 
     /**
      * SugarBean constructor.
@@ -501,23 +516,6 @@ class SugarBean
     }
 
     /**
-     * @deprecated deprecated since version 7.6, PHP4 Style Constructors are deprecated and will be remove in 7.8,
-     * please update your code, use __construct instead
-     * @see SugarBean::__construct
-     */
-    public function SugarBean()
-    {
-        $deprecatedMessage = 'PHP4 Style Constructors are deprecated and will be remove in 7.8, ' .
-            'please update your code';
-        if (isset($GLOBALS['log'])) {
-            $GLOBALS['log']->deprecated($deprecatedMessage);
-        } else {
-            trigger_error($deprecatedMessage, E_USER_DEPRECATED);
-        }
-        self::__construct();
-    }
-
-    /**
      * Loads the definition of custom fields defined for the module.
      * Local file system cache is created as needed.
      *
@@ -545,7 +543,7 @@ class SugarBean
     public function populateDefaultValues($force = false)
     {
         if (!is_array($this->field_defs)) {
-            $GLOBALS['log']->fatal('SugarBean::populateDefaultValues $field_defs should be an array');
+            $GLOBALS['log']->warn($this->module_name.'::populateDefaultValues $field_defs should be an array');
             return;
         }
         foreach ($this->field_defs as $field => $value) {
@@ -2436,6 +2434,70 @@ class SugarBean
     }
 
     /**
+     * Saves only the listed fields. Does not create record, existing records only.
+     * @param array $fieldToSave
+     * @return void
+     */
+    public function saveFields(array $fieldToSave): void
+    {
+        global $current_user, $action, $timedate;
+
+        if (empty($this->id) || $this->new_with_id || empty($fieldToSave)) {
+            return;
+        }
+
+        $this->in_save = true;
+
+        // cn: SECURITY - strip XSS potential vectors
+        $this->cleanBean();
+
+        // This is used so custom/3rd-party code can be upgraded with fewer issues,
+        // this will be removed in a future release
+        $this->fixUpFormatting();
+
+        $isUpdate = true;
+
+        $this->bean_fields_to_save = $fieldToSave;
+
+        if (empty($this->date_modified) || $this->update_date_modified) {
+            $this->date_modified = $timedate->nowDb();
+            $this->bean_fields_to_save[] = 'date_modified';
+        }
+
+        $this->_checkOptimisticLocking($action, $isUpdate);
+
+        if (!empty($this->modified_by_name)) {
+            $this->old_modified_by_name = $this->modified_by_name;
+        }
+
+        if ($this->update_modified_by) {
+            $this->modified_user_id = 1;
+            $this->bean_fields_to_save[] = 'modified_user_id';
+
+            if (!empty($current_user)) {
+                $this->modified_user_id = $current_user->id;
+
+                $this->modified_by_name = $current_user->user_name;
+                $this->bean_fields_to_save[] = 'modified_by_name';
+            }
+        }
+
+        if ($this->deleted != 1) {
+            $this->deleted = 0;
+        }
+
+        if (isset($this->custom_fields)) {
+            $this->custom_fields->bean = $this;
+            $this->custom_fields->save($isUpdate);
+        }
+
+        $this->db->update($this);
+
+        $this->bean_fields_to_save = null;
+        $this->in_save = false;
+    }
+
+    /**
      * Cleans char, varchar, text, etc. fields of XSS type materials
      */
     public function cleanBean()
@@ -2571,6 +2633,11 @@ class SugarBean
                             break;
                         default:
                             //do nothing
+                    }
+
+
+                    if ($def['type'] !== 'encrypt' && isTrue($def['db_encrypted'] ?? false)) {
+                        $this->$field = $this->encrpyt_before_save($this->$field);
                     }
                 }
                 if ($reformatted) {
@@ -3080,10 +3147,10 @@ class SugarBean
      * function NAME(&$bean, $event, $arguments)
      *        $bean - $this bean passed in by reference.
      *        $event - The string for the current event (i.e. before_save)
-     *        $arguments - An array of arguments that are specific to the event.
+     *        $arguments - An object or array of arguments that are specific to the event.
      *
      * @param string $event
-     * @param array $arguments
+     * @param object|array $arguments
      */
     public function call_custom_logic($event, $arguments = null)
     {
@@ -3200,7 +3267,7 @@ class SugarBean
     {
         global $current_user;
 
-        if (($this->object_name == 'Meeting' || $this->object_name == 'Call') || $notify_user->receive_notifications) {
+        if ((($this->object_name == 'Meeting' || $this->object_name == 'Call') || $notify_user->receive_notifications) && !in_array($notify_user->id, $this->sentAssignmentNotifications, true)) {
             $sendToEmail = $notify_user->emailAddress->getPrimaryAddress($notify_user);
             $sendEmail = true;
             if (empty($sendToEmail)) {
@@ -3265,6 +3332,7 @@ class SugarBean
                     $GLOBALS['log']->fatal("Notifications: error sending e-mail (method: {$notify_mail->Mailer}), " .
                         "(error: {$notify_mail->ErrorInfo})");
                 } else {
+                    $this->sentAssignmentNotifications[] = $notify_user->id;
                     $GLOBALS['log']->info("Notifications: e-mail successfully sent");
                 }
             }
@@ -3443,22 +3511,7 @@ class SugarBean
         if (isset($_SESSION['show_deleted'])) {
             $show_deleted = 1;
         }
-
-        if ($this->bean_implements('ACL') && ACLController::requireOwner($this->module_dir, 'list')) {
-            global $current_user;
-            $owner_where = $this->getOwnerWhere($current_user->id);
-
-            //rrs - because $this->getOwnerWhere() can return '' we need to be sure to check for it and
-            //handle it properly else you could get into a situation where you are create a where stmt like
-            //WHERE .. AND ''
-            if (!empty($owner_where)) {
-                if (empty($where)) {
-                    $where = $owner_where;
-                } else {
-                    $where .= ' AND ' . $owner_where;
-                }
-            }
-        }
+        
         $query = $this->create_new_list_query(
             $order_by,
             $where,
@@ -3488,6 +3541,56 @@ class SugarBean
             return " $this->table_name.created_by ='$user_id' ";
         }
         return '';
+    }
+
+
+    /**
+     * @param string $view
+     * @param User $user
+     * @return string
+     */
+    public function buildAccessWhere($view, $user = null)
+    {
+        global $current_user, $sugar_config;
+
+        $conditions = [];
+        $user = $user === null ? $current_user : $user;
+
+        if ($this->bean_implements('ACL') && ACLController::requireOwner($this->module_dir, $view)) {
+            $ownerWhere = $this->getOwnerWhere($user->id);
+            if (!empty($ownerWhere)) {
+                $conditions['owner'] = $ownerWhere;
+            }
+        }
+
+        /* BEGIN - SECURITY GROUPS */
+        $SecurityGroupFile = BeanFactory::getBeanFile('SecurityGroups');
+        require_once $SecurityGroupFile;
+        if ($view === 'list' && $this->module_dir === 'Users' && !is_admin($user)
+            && isset($sugar_config['securitysuite_filter_user_list'])
+            && $sugar_config['securitysuite_filter_user_list']
+        ) {
+            $groupWhere = SecurityGroup::getGroupUsersWhere($user->id);
+            $conditions['group'] = $groupWhere;
+        } elseif ($this->bean_implements('ACL') && ACLController::requireSecurityGroup($this->module_dir, $view)) {
+            $ownerWhere = $this->getOwnerWhere($user->id);
+            $groupWhere = SecurityGroup::getGroupWhere($this->table_name, $this->module_dir, $user->id);
+            if (!empty($ownerWhere)) {
+                $conditions['group'] = " (" . $ownerWhere . " or " . $groupWhere . ") ";
+            } else {
+                $conditions['group'] = $groupWhere;
+            }
+        }
+        /* END - SECURITY GROUPS */
+
+        $args = new stdClass();
+        $args->view = $view;
+        $args->user = $user;
+        $args->conditions = $conditions;
+
+        $this->call_custom_logic('before_acl_query', $args);
+
+        return implode(' AND ', $args->conditions);
     }
 
     /**
@@ -3524,45 +3627,12 @@ class SugarBean
         $secondarySelectedFields = array();
         $ret_array = array();
         $distinct = '';
-        if ($this->bean_implements('ACL') && ACLController::requireOwner($this->module_dir, 'list')) {
-            global $current_user;
-            $owner_where = $this->getOwnerWhere($current_user->id);
-            if (empty($where)) {
-                $where = $owner_where;
-            } else {
-                $where .= ' AND ' . $owner_where;
-            }
+
+        $accessWhere = $this->buildAccessWhere('list');
+        if (!empty($accessWhere)) {
+            $where .= empty($where) ? $accessWhere : ' AND ' . $accessWhere;
         }
-        /* BEGIN - SECURITY GROUPS */
-        global $current_user, $sugar_config;
-        if ($this->module_dir == 'Users' && !is_admin($current_user)
-            && isset($sugar_config['securitysuite_filter_user_list'])
-            && $sugar_config['securitysuite_filter_user_list']
-        ) {
-            require_once('modules/SecurityGroups/SecurityGroup.php');
-            global $current_user;
-            $group_where = SecurityGroup::getGroupUsersWhere($current_user->id);
-            if (empty($where)) {
-                $where = " (" . $group_where . ") ";
-            } else {
-                $where .= " AND (" . $group_where . ") ";
-            }
-        } elseif ($this->bean_implements('ACL') && ACLController::requireSecurityGroup($this->module_dir, 'list')) {
-            require_once('modules/SecurityGroups/SecurityGroup.php');
-            global $current_user;
-            $owner_where = $this->getOwnerWhere($current_user->id);
-            $group_where = SecurityGroup::getGroupWhere($this->table_name, $this->module_dir, $current_user->id);
-            if (!empty($owner_where)) {
-                if (empty($where)) {
-                    $where = " (" . $owner_where . " or " . $group_where . ") ";
-                } else {
-                    $where .= " AND (" . $owner_where . " or " . $group_where . ") ";
-                }
-            } else {
-                $where .= ' AND ' . $group_where;
-            }
-        }
-        /* END - SECURITY GROUPS */
+
         if (!empty($params['distinct'])) {
             $distinct = ' DISTINCT ';
         }
@@ -4402,35 +4472,7 @@ class SugarBean
         if (isset($_SESSION['show_deleted'])) {
             $show_deleted = 1;
         }
-
-        if ($this->bean_implements('ACL') && ACLController::requireOwner($this->module_dir, 'list')) {
-            global $current_user;
-            $owner_where = $this->getOwnerWhere($current_user->id);
-
-            if (empty($where)) {
-                $where = $owner_where;
-            } else {
-                $where .= ' AND ' . $owner_where;
-            }
-        }
-
-        /* BEGIN - SECURITY GROUPS */
-        if ($this->bean_implements('ACL') && ACLController::requireSecurityGroup($this->module_dir, 'list')) {
-            require_once('modules/SecurityGroups/SecurityGroup.php');
-            global $current_user;
-            $owner_where = $this->getOwnerWhere($current_user->id);
-            $group_where = SecurityGroup::getGroupWhere($this->table_name, $this->module_dir, $current_user->id);
-            if (!empty($owner_where)) {
-                if (empty($where)) {
-                    $where = " (" . $owner_where . " or " . $group_where . ") ";
-                } else {
-                    $where .= " AND (" . $owner_where . " or " . $group_where . ") ";
-                }
-            } else {
-                $where .= ' AND ' . $group_where;
-            }
-        }
-        /* END - SECURITY GROUPS */
+        
         $query = $this->create_new_list_query($order_by, $where, array(), array(), $show_deleted, $offset);
 
         return $this->process_detail_query($query, $row_offset, $limit, $max, $where, $offset);
@@ -4528,7 +4570,7 @@ class SugarBean
             $query .= " AND $this->table_name.deleted=0";
         }
         $GLOBALS['log']->debug("Retrieve $this->object_name : " . $query);
-        $result = $this->db->limitQuery($query, 0, 1, true, "Retrieving record by id $this->table_name:$id found ");
+        $result = $this->db->limitQuery($query, 0, 1, false, "Retrieving record by id $this->table_name:$id found ");
         if (empty($result)) {
             return null;
         }
@@ -4793,7 +4835,7 @@ class SugarBean
                                 $this->$field = $timedate->to_display_time($this->$field, true, false);
                             }
                         }
-                    } elseif ($type == 'encrypt' && empty($disable_date_format)) {
+                    } elseif (($type == 'encrypt' && empty($disable_date_format)) || isTrue($fieldDef['db_encrypted'] ?? false)) {
                         $this->$field = $this->decrypt_after_retrieve($this->$field);
                     }
                 }
@@ -4973,7 +5015,7 @@ class SugarBean
                             ($this->object_name == $related_module && $this->$id_name != $this->id))
                     ) {
                         if (!empty($this->$id_name) && isset($this->$name)) {
-                            $mod = BeanFactory::getBean($related_module, $this->$id_name);
+                            $mod = BeanFactory::getShallowBean($related_module, $this->$id_name);
                             if ($mod) {
                                 if (!empty($field['rname'])) {
                                     $rname = $field['rname'];
@@ -4983,8 +5025,6 @@ class SugarBean
                                         $this->$name = $mod->name;
                                     }
                                 }
-                                // The related bean is incomplete due to $fill_in_rel_depth, we don't want to cache it
-                                BeanFactory::unregisterBean($related_module, $this->$id_name);
                             }
                         }
                     }
@@ -6042,7 +6082,7 @@ class SugarBean
 
     /**
      * Check whether the user has access to a particular view for the current bean/module
-     * @param $view string required, the view to determine access for i.e. DetailView, ListView...
+     * @param string $view required, the view to determine access for i.e. DetailView, ListView...
      * @param bool|string $is_owner bool optional, this is part of the ACL check if the current user
      * is an owner they will receive different access
      * @param bool|string $in_group
@@ -6103,7 +6143,28 @@ class SugarBean
             require_once("modules/SecurityGroups/SecurityGroup.php");
             $in_group = SecurityGroup::groupHasAccess($this->module_dir, $this->id, $view);
         }
-        return ACLController::checkAccess($this->module_dir, $view, $is_owner, $this->acltype, $in_group);
+
+        $args = new stdClass();
+        $args->view = $view;
+        $args->is_owner = $is_owner;
+        $args->in_group = $in_group;
+        $args->access = true;
+        $args->override_acl_check = false;
+
+        $this->call_custom_logic('before_acl_check', $args);
+
+        if ($args->override_acl_check) {
+            return $args->access;
+        }
+
+        return $args->access
+            && ACLController::checkAccess(
+                $this->module_dir, 
+                $args->view, 
+                $args->is_owner, 
+                $this->acltype, 
+                $args->in_group
+            );
     }
 
     /**
@@ -6231,7 +6292,7 @@ class SugarBean
      */
     public function auditBean($isUpdate)
     {
-        if ($this->is_AuditEnabled() && $isUpdate) {
+        if ($this->is_AuditEnabled() && $isUpdate && !$this->createdAuditRecords) {
             $auditDataChanges = $this->db->getAuditDataChanges($this);
 
             if (!empty($auditDataChanges)) {
@@ -6254,5 +6315,6 @@ class SugarBean
             $this->db->save_audit_records($this, $change);
             $this->fetched_row[$change['field_name']] = $change['after'];
         }
+        $this->createdAuditRecords = true;
     }
 }

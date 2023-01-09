@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2019 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 if (!defined('sugarEntry') || !sugarEntry) {
@@ -64,7 +64,13 @@ $mod_strings = array(
     'LBL_MODULE_TITLE' => 'Outbound Email Accounts',
     'LBL_HOMEPAGE_TITLE' => 'My Outbound Email Accounts',
     'LNK_NEW_RECORD' => 'Create Outbound Email Accounts',
-    'LNK_LIST' => 'View Outbound Email Accounts',
+
+    'LNK_LIST_CREATE_NEW_PERSONAL' => 'New Personal Outbound Email Account',
+    'LNK_LIST_CREATE_NEW_GROUP' => 'New Group Outbound Email Account',
+    'LNK_LIST_CREATE_SYSTEM_OVERRIDE_GROUP' => 'New System Override Outbound Email Account',
+
+    'LNK_LIST' => 'Outbound Email Accounts',
+    'LNK_LIST_INBOUND_EMAIL_ACCOUNTS' => 'Inbound Email Accounts',
     'LBL_SEARCH_FORM_TITLE' => 'Search Outbound Email Accounts',
     'LBL_HISTORY_SUBPANEL_TITLE' => 'View History',
     'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Activities',
@@ -76,16 +82,18 @@ $mod_strings = array(
     'LBL_SMTP_PORT' => 'SMTP Port',
     'LBL_SMTP_PROTOCOL' => 'SMTP Protocol',
     'LBL_EDITVIEW_PANEL1' => 'Account settings',
+    'LBL_OUTBOUND_CONFIGURATION' => 'Outbound Configuration',
+    'LBL_CONNECTION_CONFIGURATION' => 'Server Configuration',
     'LBL_CHANGE_PASSWORD' => 'Change password',
     'LBL_SEND_TEST_EMAIL' => 'Send Test Email',
 
     // for outbound email dialog
     'LBL_MISSING_DEFAULT_OUTBOUND_SMTP_SETTINGS' => 'The administrator has not yet configured the default outbound account. Unable to send test email.',
     'LBL_MAIL_SMTPAUTH_REQ' => 'Use SMTP Authentication?',
-    'LBL_MAIL_SMTPPASS' => 'SMTP Password:',
-    'LBL_MAIL_SMTPPORT' => 'SMTP Port:',
-    'LBL_MAIL_SMTPSERVER' => 'SMTP Server:',
-    'LBL_MAIL_SMTPUSER' => 'SMTP Username:',
+    'LBL_MAIL_SMTPPASS' => 'Password',
+    'LBL_MAIL_SMTPPORT' => 'Port',
+    'LBL_MAIL_SMTPSERVER' => 'Server',
+    'LBL_MAIL_SMTPUSER' => 'Username',
     'LBL_MAIL_SMTP_SETTINGS' => 'SMTP Server Specification',
     'LBL_CHOOSE_EMAIL_PROVIDER' => 'Choose your Email provider:',
     'LBL_YAHOOMAIL_SMTPPASS' => 'Yahoo! Mail Password:',
@@ -102,4 +110,11 @@ $mod_strings = array(
     'LBL_MAIL_SMTPSSL' => 'Mail SMTP/SSL',
     'LBL_SMTP_FROM_NAME' => '"From" name',
     'LBL_SMTP_FROM_ADDR' => '"From" address',
+
+    'LBL_SECURITYGROUPS_SUBPANEL_TITLE' => 'Security Groups',
+
+    'LBL_OWNER' => 'Owner',
+    'LBL_OWNER_NAME' => 'Owner',
+
+    'LNK_EXTERNAL_OAUTH_CONNECTIONS' => 'External OAuth Connections'
 );

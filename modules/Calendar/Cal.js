@@ -3,7 +3,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2019 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -32,11 +32,10 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
- */
-var CAL={};CAL.slot_height=14;CAL.dropped=0;CAL.records_openable=true;CAL.moved_from_cell="";CAL.deleted_id="";CAL.deleted_module="";CAL.tmp_header="";CAL.disable_creating=false;CAL.record_editable=false;CAL.shared_users={};CAL.shared_users_count=0;CAL.script_evaled=false;CAL.editDialog=false;CAL.settingsDialog=false;CAL.sharedDialog=false;CAL.basic={};CAL.basic.items={};CAL.update_dd=new YAHOO.util.CustomEvent("update_dd");CAL.dd_registry=new Object();CAL.resize_registry=new Object();CAL.print=false;CAL.dom=YAHOO.util.Dom;CAL.get=YAHOO.util.Dom.get;CAL.query=YAHOO.util.Selector.query;CAL.destroy_ui=function(id){if(CAL.items_resizable&&typeof CAL.resize_registry[id]!="undefined"){CAL.resize_registry[id].destroy();delete CAL.resize_registry[id];}
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
+ */var CAL={};CAL.slot_height=14;CAL.dropped=0;CAL.records_openable=true;CAL.moved_from_cell="";CAL.deleted_id="";CAL.deleted_module="";CAL.tmp_header="";CAL.disable_creating=false;CAL.record_editable=false;CAL.shared_users={};CAL.shared_users_count=0;CAL.script_evaled=false;CAL.editDialog=false;CAL.settingsDialog=false;CAL.sharedDialog=false;CAL.basic={};CAL.basic.items={};CAL.update_dd=new YAHOO.util.CustomEvent("update_dd");CAL.dd_registry=new Object();CAL.resize_registry=new Object();CAL.print=false;CAL.dom=YAHOO.util.Dom;CAL.get=YAHOO.util.Dom.get;CAL.query=YAHOO.util.Selector.query;CAL.destroy_ui=function(id){if(CAL.items_resizable&&typeof CAL.resize_registry[id]!="undefined"){CAL.resize_registry[id].destroy();delete CAL.resize_registry[id];}
 if(CAL.items_draggable&&typeof CAL.dd_registry[id]!="undefined")
 CAL.dd_registry[id].unreg();delete CAL.dd_registry[id];}
 CAL.basic.remove=function(item){if(typeof CAL.basic.items[item.user_id]=='undefined')
@@ -113,7 +112,8 @@ CAL.get("btn-delete").removeAttribute("disabled");CAL.get("btn-full-form").remov
 CAL.dialog_create=function(date,end_date,user_id){var e,user_id,user_name;CAL.get("title-cal-edit").innerHTML=CAL.lbl_loading;CAL.open_edit_dialog();CAL.disable_buttons();var module_name=CAL.get("current_module").value;if(CAL.view=='sharedWeek'||CAL.view=='sharedMonth'){user_name="";CAL.GR_update_user(user_id);$.ajax({url:"index.php?module=Calendar&action=getUser&record="+user_id,}).done(function(data){data=jQuery.parseJSON(data);user_name=data.user_name;callback(user_name,user_id,module_name,date,end_date);});}else{user_id=CAL.current_user_id;user_name=CAL.current_user_name;CAL.GR_update_user(CAL.current_user_id);callback(user_name,user_id,module_name,date,end_date);}
 function callback(user_name,user_id,module_name,date,end_date){var params={'module_name':module_name,'user_id':user_id,'user_name':user_name,'date_start':date,'date_end':""};if(end_date!=""){params.date_end=end_date;}
 CAL.current_params=params;CAL.load_create_form(CAL.current_params);}}
-CAL.dialog_save=function(){CAL.disable_buttons();ajaxStatus.showStatus(SUGAR.language.get('app_strings','LBL_SAVING'));if(CAL.get("send_invites").value=="1"){CAL.get("title-cal-edit").innerHTML=CAL.lbl_sending;}else{CAL.get("title-cal-edit").innerHTML=CAL.lbl_saving;}
+CAL.dialog_save=function(){if(!check_form('CalendarEditView')){return;}
+CAL.disable_buttons();ajaxStatus.showStatus(SUGAR.language.get('app_strings','LBL_SAVING'));if(CAL.get("send_invites").value=="1"){CAL.get("title-cal-edit").innerHTML=CAL.lbl_sending;}else{CAL.get("title-cal-edit").innerHTML=CAL.lbl_saving;}
 CAL.fill_invitees();CAL.fill_repeat_data();var callback={success:function(o){try{SUGAR.util.globalEval("retValue = ("+o.responseText+")");res=retValue;}catch(err){alert(CAL.lbl_error_saving);$('.modal-cal-edit').modal('hide');ajaxStatus.hideStatus();return;}
 if(res.access=='yes'){if(typeof res.limit_error!="undefined"){var alert_msg=CAL.lbl_repeat_limit_error;alert(alert_msg.replace("\$limit",res.limit));CAL.get("title-cal-edit").innerHTML=CAL.lbl_edit;ajaxStatus.hideStatus();CAL.enable_buttons();return;}
 $('.modal-cal-edit').modal('hide');CAL.update_vcal();var newEvent=new Object();var thisCal=$('div[id^="calendar"].fc');if(thisCal.length>1){var user_id=res.user_id;if(user_id===""){user_id=res.users[0];}

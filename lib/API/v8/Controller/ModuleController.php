@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,12 +33,12 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
-namespace ICTCRM\API\v8\Controller;
+namespace SuiteCRM\API\v8\Controller;
 
 use BeanFactory;
 use DateTime;
@@ -53,35 +53,35 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use SugarBean;
 use SugarView;
-use ICTCRM\API\JsonApi\v1\Enumerator\RelationshipType;
-use ICTCRM\API\JsonApi\v1\Enumerator\SugarBeanRelationshipType;
-use ICTCRM\API\JsonApi\v1\Links;
-use ICTCRM\API\JsonApi\v1\Resource\Relationship;
-use ICTCRM\API\JsonApi\v1\Resource\Resource;
-use ICTCRM\API\JsonApi\v1\Resource\ResourceIdentifier;
-use ICTCRM\API\JsonApi\v1\Resource\SuiteBeanResource;
-use ICTCRM\API\v8\Exception\ApiException;
-use ICTCRM\API\v8\Exception\BadRequestException;
-use ICTCRM\API\v8\Exception\ConflictException;
-use ICTCRM\API\v8\Exception\EmptyBodyException;
-use ICTCRM\API\v8\Exception\ForbiddenException;
-use ICTCRM\API\v8\Exception\IdAlreadyExistsException;
-use ICTCRM\API\v8\Exception\InvalidJsonApiResponseException;
-use ICTCRM\API\v8\Exception\ModuleNotFoundException;
-use ICTCRM\API\v8\Exception\NotAcceptableException;
-use ICTCRM\API\v8\Exception\NotFoundException;
-use ICTCRM\API\v8\Exception\UnsupportedMediaTypeException;
-use ICTCRM\API\v8\Library\ModulesLib;
-use ICTCRM\Enumerator\ExceptionCode;
-use ICTCRM\Exception\Exception;
-use ICTCRM\Exception\InvalidArgumentException;
-use ICTCRM\Utility\ApplicationLanguage;
-use ICTCRM\Utility\SuiteValidator;
+use SuiteCRM\API\JsonApi\v1\Enumerator\RelationshipType;
+use SuiteCRM\API\JsonApi\v1\Enumerator\SugarBeanRelationshipType;
+use SuiteCRM\API\JsonApi\v1\Links;
+use SuiteCRM\API\JsonApi\v1\Resource\Relationship;
+use SuiteCRM\API\JsonApi\v1\Resource\Resource;
+use SuiteCRM\API\JsonApi\v1\Resource\ResourceIdentifier;
+use SuiteCRM\API\JsonApi\v1\Resource\SuiteBeanResource;
+use SuiteCRM\API\v8\Exception\ApiException;
+use SuiteCRM\API\v8\Exception\BadRequestException;
+use SuiteCRM\API\v8\Exception\ConflictException;
+use SuiteCRM\API\v8\Exception\EmptyBodyException;
+use SuiteCRM\API\v8\Exception\ForbiddenException;
+use SuiteCRM\API\v8\Exception\IdAlreadyExistsException;
+use SuiteCRM\API\v8\Exception\InvalidJsonApiResponseException;
+use SuiteCRM\API\v8\Exception\ModuleNotFoundException;
+use SuiteCRM\API\v8\Exception\NotAcceptableException;
+use SuiteCRM\API\v8\Exception\NotFoundException;
+use SuiteCRM\API\v8\Exception\UnsupportedMediaTypeException;
+use SuiteCRM\API\v8\Library\ModulesLib;
+use SuiteCRM\Enumerator\ExceptionCode;
+use SuiteCRM\Exception\Exception;
+use SuiteCRM\Exception\InvalidArgumentException;
+use SuiteCRM\Utility\ApplicationLanguage;
+use SuiteCRM\Utility\SuiteValidator;
 use Tracker;
 
 /**
  * Class ModuleController
- * @package ICTCRM\API\v8\Controller
+ * @package SuiteCRM\API\v8\Controller
  */
 class ModuleController extends ApiController
 {

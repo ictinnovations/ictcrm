@@ -1,7 +1,7 @@
 <?php
 /* https://github.com/smalyshev/Zend_OAuth_Provider/blob/master/Zend/Oauth/Provider.php */
 
-namespace ICTCRM;
+namespace SuiteCRM;
 
 use Zend_Oauth_Exception;
 use Zend_Oauth_Http_Utility;

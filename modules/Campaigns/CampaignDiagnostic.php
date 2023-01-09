@@ -7,7 +7,7 @@ if (!defined('sugarEntry') || !sugarEntry) {
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -36,9 +36,9 @@ if (!defined('sugarEntry') || !sugarEntry) {
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 
@@ -59,7 +59,7 @@ if (!isset($_REQUEST['inline']) || $_REQUEST['inline'] != 'inline') {
     $params = array();
     $params[] = "<a href='index.php?module=Campaigns&action=index'>{$mod_strings['LBL_MODULE_NAME']}</a>";
     $params[] = $mod_strings['LBL_CAMPAIGN_DIAGNOSTICS'];
-    
+
     echo getClassicModuleTitle('Campaigns', $params, true);
 }
 
@@ -136,7 +136,7 @@ if (isset($mbox) && count($mbox)>0) {
 $mboxTable.= '</table>' ;
 
 
-    
+
 $ss->assign("MAILBOXES_DETECTED_MESSAGE", $mboxTable);
 
 //email settings configured
@@ -150,26 +150,26 @@ if (strstr($focus->settings['notify_fromaddress'], 'example.com')) {
     $conf_msg .= "<tr><th scope='col' width='20%'><b>".$mod_strings['LBL_WIZ_FROM_NAME']."</b></th>"
                .  " <th scope='col' width='20%'><b>".$mod_strings['LBL_WIZ_FROM_ADDRESS']."</b></th>"
                .  " <th scope='col' width='20%'><b>".$mod_strings['LBL_MAIL_SENDTYPE']."</b></th>";
-    if ($focus->settings['mail_sendtype']=='SMTP') {
+    if (strtolower(isSmtp($focus->settings['mail_sendtype'] ?? '')) {
         $conf_msg .= " <th scope='col' width='20%'><b>".$mod_strings['LBL_MAIL_SMTPSERVER']."</b></th>"
                .  " <th scope='col' width='20%'><b>".$mod_strings['LBL_MAIL_SMTPUSER']."</b></th></tr>";
     } else {
         $conf_msg .= "</tr>";
     }
-                   
-    
+
+
 
     $conf_msg .= "<tr><td>".$focus->settings['notify_fromname']."</td>";
     $conf_msg .= "<td>".$focus->settings['notify_fromaddress']."</td>";
     $conf_msg .= "<td>".$focus->settings['mail_sendtype']."</td>";
-    if ($focus->settings['mail_sendtype']=='SMTP') {
+    if (isSmtp($focus->settings['mail_sendtype'] ?? '')) {
         $conf_msg .= "<td>".$focus->settings['mail_smtpserver']."</td>";
         $conf_msg .= "<td>".$focus->settings['mail_smtpuser']."</td></tr>";
     } else {
         $conf_msg .= "</tr>";
     }
 }
-          
+
 $conf_msg .= '</table>';
 $ss->assign("EMAIL_SETTINGS_CONFIGURED_MESSAGE", $conf_msg);
 $email_setup_wiz_link='';

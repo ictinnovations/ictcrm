@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,22 +33,22 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
-namespace ICTCRM\Robo\Plugin\Commands;
+namespace SuiteCRM\Robo\Plugin\Commands;
 
-use ICTCRM\Utility\OperatingSystem;
-use ICTCRM\Utility\Paths;
+use SuiteCRM\Utility\OperatingSystem;
+use SuiteCRM\Utility\Paths;
 
 class TestEnvironmentCommands extends \Robo\Tasks
 {
-    use \ICTCRM\Robo\Traits\RoboTrait;
+    use \SuiteCRM\Robo\Traits\RoboTrait;
 
     /**
      * Configure environment for testing
-     * @see https://docs.ictcrm.com/developer/appendix-c---automated-testing/#_environment_variables
+     * @see https://docs.suitecrm.com/developer/appendix-c---automated-testing/#_environment_variables
      * @param array $opts optional command line arguments
      */
     public function configureTests(
@@ -74,21 +74,21 @@ class TestEnvironmentCommands extends \Robo\Tasks
         $default_db_host = $this->chooseConfigOrDefault('dbconfig.db_host_name', 'localhost');
         $this->askDefaultOptionWhenEmpty('Database Host:', $default_db_host, $opts['database_host']);
 
-        $default_db_user = $this->chooseConfigOrDefault('dbconfig.db_user_name', 'ictcrm_tests');
+        $default_db_user = $this->chooseConfigOrDefault('dbconfig.db_user_name', 'suitecrm_tests');
         $this->askDefaultOptionWhenEmpty('Database Username:', $default_db_user, $opts['database_user']);
 
-        $default_db_password = $this->chooseConfigOrDefault('dbconfig.db_password', 'ictcrm_tests');
+        $default_db_password = $this->chooseConfigOrDefault('dbconfig.db_password', 'suitecrm_tests');
         $this->askDefaultOptionWhenEmpty('Database User password:', $default_db_password, $opts['database_password']);
 
-        $default_db_name = $this->chooseConfigOrDefault('dbconfig.db_name', 'ictcrm_tests');
+        $default_db_name = $this->chooseConfigOrDefault('dbconfig.db_name', 'suitecrm_tests');
         $this->askDefaultOptionWhenEmpty('Database Name:', $default_db_name, $opts['database_name']);
 
-        // ICTCRM Instance
+        // SuiteCRM Instance
         $default_instance_url = $this->chooseConfigOrDefault('site_url', 'http://localhost');
         $this->askDefaultOptionWhenEmpty('Instance URL:', $default_instance_url, $opts['instance_url']);
         $this->askDefaultOptionWhenEmpty('Instance Admin Username:', 'admin', $opts['instance_admin_user']);
         $this->askDefaultOptionWhenEmpty('Instance Admin Password:', 'admin1', $opts['instance_admin_password']);
-        $this->askDefaultOptionWhenEmpty('Instance OAuth2 Client ID:', 'ictcrm_client', $opts['instance_client_id']);
+        $this->askDefaultOptionWhenEmpty('Instance OAuth2 Client ID:', 'suitecrm_client', $opts['instance_client_id']);
         $this->askDefaultOptionWhenEmpty('Instance OAuth2 Client Secret:', 'secret', $opts['instance_client_secret']);
 
         $os = new OperatingSystem();

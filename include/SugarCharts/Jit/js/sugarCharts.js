@@ -3,7 +3,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2020 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -32,11 +32,10 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
- */
-function loadSugarChart(chartId,jsonFilename,css,chartConfig){if(document.getElementById(chartId)==null){return false;}
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
+ */function loadSugarChart(chartId,jsonFilename,css,chartConfig){if(document.getElementById(chartId)==null){return false;}
 var labelType,useGradients,nativeTextSupport,animate;(function(){var ua=navigator.userAgent,typeOfCanvas=typeof HTMLCanvasElement,nativeCanvasSupport=(typeOfCanvas=='object'||typeOfCanvas=='function'),textSupport=nativeCanvasSupport&&(typeof document.createElement('canvas').getContext('2d').fillText=='function');labelType='Native';nativeTextSupport=labelType=='Native';useGradients=nativeCanvasSupport;animate=false;})();var delay=500;switch(chartConfig["chartType"]){case"barChart":var handleFailure=function(o){alert('fail');if(o.responseText!==undefined){alert('failed');}}
 var handleSuccess=function(o){if(o.responseText!==undefined&&o.responseText!="No Data"){SUGAR.util.globalEval('json = ('+o.responseText+')');var properties=$jit.util.splat(json.properties)[0];var marginBottom=(chartConfig["orientation"]=='vertical'&&json.values.length>8)?20*4:20;if(chartConfig["orientation"]=='vertical'){function fixChartContainer(event,itemsCount){var region=YAHOO.util.Dom.getRegion('content');if(region&&region.width){var realWidth=itemsCount*40;if(realWidth>region.width){var chartCanvas=YAHOO.util.Dom.getElementsByClassName('chartCanvas','div');var chartContainer=YAHOO.util.Dom.getElementsByClassName('chartContainer','div');if(chartContainer.length>0&&chartCanvas.length>0){chartContainer=YAHOO.util.Dom.get(chartContainer[0])
 YAHOO.util.Dom.setStyle(chartContainer,'width',region.width+'px')

@@ -7,7 +7,7 @@ if (!defined('sugarEntry') || !sugarEntry) {
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -36,9 +36,9 @@ if (!defined('sugarEntry') || !sugarEntry) {
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 
@@ -79,9 +79,13 @@ class ViewLanguages extends SugarView
         global $app_list_strings;
         global $app_strings;
         global $sugar_config;
-        
+
         $disabled = array();
         $disabled_list = array();
+        $enabled = [];
+
+        $systemLanguage = $sugar_config['default_language'];
+
         if (isset($sugar_config['disabled_languages'])) {
             if (!is_array($sugar_config['disabled_languages'])) {
                 $disabled_list = array_flip(explode(',', $sugar_config['disabled_languages']));
@@ -93,7 +97,15 @@ class ViewLanguages extends SugarView
             if (isset($disabled_list[$key])) {
                 $disabled[] = array("module" => $key, 'label' => $value);
             } else {
-                $enabled[] = array("module" => $key, 'label' => $value);
+                $enabledLang = array("module" => $key, 'label' => $value);
+
+                if ($key === $systemLanguage) {
+                    $enabledLang['disabled'] = true;
+                    array_unshift($enabled, $enabledLang);
+                    continue;
+                }
+
+                $enabled[] = $enabledLang;
             }
         }
 

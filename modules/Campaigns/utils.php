@@ -7,7 +7,7 @@ if (!defined('sugarEntry') || !sugarEntry) {
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -36,9 +36,9 @@ if (!defined('sugarEntry') || !sugarEntry) {
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 /*********************************************************************************
@@ -413,16 +413,13 @@ function get_subscription_lists_query($focus, $additional_fields = null)
     $all_news_type_pl_query .= "and c.campaign_type = 'NewsLetter'  and pl.deleted = 0 and c.deleted=0 and plc.deleted=0 ";
     $all_news_type_pl_query .= "and (pl.list_type like 'exempt%' or pl.list_type ='default') ";
 
-    /* BEGIN - SECURITY GROUPS */
-    if ($focus->bean_implements('ACL') && ACLController::requireSecurityGroup('Campaigns', 'list')) {
-        require_once('modules/SecurityGroups/SecurityGroup.php');
-        global $current_user;
-        $owner_where = $focus->getOwnerWhere($current_user->id);
-        $group_where = SecurityGroup::getGroupWhere('c', 'Campaigns', $current_user->id);
-        $all_news_type_pl_query .= " AND ( c.assigned_user_id ='".$current_user->id."' or ".$group_where.") ";
+    $campaign = BeanFactory::newBean('Campaigns');
+    $campaign->table_name = 'c';
+    $accessWhere = $campaign->buildAccessWhere('list');
+    if (!empty($accessWhere)) {
+        $all_news_type_pl_query .= ' AND ' . $accessWhere;
     }
-    /* END - SECURITY GROUPS */
-
+    
     $all_news_type_list =$focus->db->query($all_news_type_pl_query);
 
     //build array of all newsletter campaigns

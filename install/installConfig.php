@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 if (!defined('sugarEntry') || !sugarEntry) {
@@ -198,14 +198,14 @@ EOQ;
     <html {$langHeader}>
     $header
     <body onload="//document.getElementById('button_next2').focus();">
-        <!--ICTCRM installer-->
+        <!--SuiteCRM installer-->
         <div id="install_container">
             <div id="install_box">
                 <div id='licenseDiv'></div>
                 <header id="install_header">
                     <div class="install_img">
-                        <a href="https://ictcrm.com" target="_blank">
-                            <img src="{$sugar_md}" alt="ICTCRM">
+                        <a href="https://suitecrm.com" target="_blank">
+                            <img src="{$sugar_md}" alt="SuiteCRM">
                         </a>
                     </div>
                     <div id="steps">
@@ -219,7 +219,7 @@ EOQ;
             </div>
 
             <footer id="install_footer">
-                <p id="footer_links"><a href="https://ictcrm.com" target="_blank">Visit ictcrm.com</a> | <a href="https://ictcrm.com/ictcrm/forum" target="_blank">Support Forums</a> | <a href="https://docs.ictcrm.com/admin/installation-guide/" target="_blank">Installation Guide</a> | <a href="LICENSE.txt" target="_blank">License</a>
+                <p id="footer_links"><a href="https://suitecrm.com" target="_blank">Visit suitecrm.com</a> | <a href="https://suitecrm.com/suitecrm/forum" target="_blank">Support Forums</a> | <a href="https://docs.suitecrm.com/admin/installation-guide/" target="_blank">Installation Guide</a> | <a href="LICENSE.txt" target="_blank">License</a>
             </footer>
         </div>
     </body>
@@ -607,7 +607,7 @@ EOQ;
         }
         
         if (!isset($_SESSION['smtp_from_name']) || !$_SESSION['smtp_from_name']) {
-            $_SESSION['smtp_from_name'] = 'ICTCRM';
+            $_SESSION['smtp_from_name'] = 'SuiteCRM';
         }
         if (!isset($_SESSION['smtp_from_addr']) || !$_SESSION['smtp_from_addr']) {
             $_SESSION['smtp_from_addr'] = 'do_not_reply@example.com';
@@ -1897,11 +1897,11 @@ if (!isset($_SESSION['setup_db_manager'])) {
 $db = getInstallDbInstance();
 
 if(!isset($_SESSION['setup_db_collation']) || $_SESSION['setup_db_collation'] ==''){
-    $_SESSION['setup_db_collation'] = 'utf8_general_ci';
+    $_SESSION['setup_db_collation'] = 'utf8mb4_general_ci';
 }
 
 if(!isset($_SESSION['setup_db_charset']) || $_SESSION['setup_db_charset'] ==''){
-    $_SESSION['setup_db_charset'] = 'utf8';
+    $_SESSION['setup_db_charset'] = 'utf8mb4';
 }
 
 

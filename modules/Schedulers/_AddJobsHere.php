@@ -1,13 +1,13 @@
 <?php
 
-use ICTCRM\Utility\SuiteValidator;
+use SuiteCRM\Utility\SuiteValidator;
 
 /**
  *
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -36,14 +36,16 @@ use ICTCRM\Utility\SuiteValidator;
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 if (!defined('sugarEntry') || !sugarEntry) {
     die('Not A Valid Entry Point');
 }
+
+require_once 'include/Services/NormalizeRecords/NormalizeRecords.php';
 
 /**
  * Set up an array of Jobs with the appropriate metadata
@@ -617,8 +619,14 @@ function pollMonitoredInboxesAOP()
                     $isGroupFolderExists = false;
                     $users = array();
                     if ($groupFolderId != null && $groupFolderId != "") {
+                        // FIX #6994 - Unable to retrieve Sugar Folder due to incorrect groupFolderId
                         $sugarFolder->retrieve($groupFolderId);
-                        $isGroupFolderExists = true;
+                        if (empty($sugarFolder->id)) {
+                            $sugarFolder->retrieve($aopInboundEmailX->id);
+                        }
+                        if (!empty($sugarFolder->id)) {
+                            $isGroupFolderExists = true;
+                        }
                     } // if
                     $messagesToDelete = array();
                     if ($aopInboundEmailX->isMailBoxTypeCreateCase()) {
@@ -656,6 +664,9 @@ function pollMonitoredInboxesAOP()
                                         if (!$aopInboundEmailX->email->retrieve($emailId)) {
                                             throw new Exception('Email retrieving error to handle case create, email id was: ' . $emailId);
                                         }
+                                    }
+                                    if (empty($aopInboundEmailX->email)) {
+                                        throw new Exception('Invalid type for email id ' . $emailId);
                                     }
                                     $aopInboundEmailX->handleCreateCase($aopInboundEmailX->email, $userId);
                                 } // if
@@ -714,6 +725,7 @@ function pollMonitoredInboxesAOP()
 
 /**
  * Scheduled job function to index any unindexed beans.
+ * @deprecated since v7.12.0
  * @return bool
  */
 function aodIndexUnindexed()
@@ -730,6 +742,10 @@ function aodIndexUnindexed()
     return true;
 }
 
+/**
+ * @deprecated since v7.12.0
+ * @return bool
+ */
 function aodOptimiseIndex()
 {
     $index = BeanFactory::getBean("AOD_Index")->getIndex();
@@ -737,12 +753,15 @@ function aodOptimiseIndex()
     return true;
 }
 
-
+/**
+ * @deprecated since v7.12.0
+ * @return int|void
+ */
 function performLuceneIndexing()
 {
     global $sugar_config;
     $db = DBManagerFactory::getInstance();
-    
+
     if (empty($sugar_config['aod']['enable_aod'])) {
         return;
     }
@@ -887,7 +906,7 @@ EOF;
 
 function runElasticSearchIndexerScheduler($data)
 {
-    return \ICTCRM\Search\ElasticSearch\ElasticSearchIndexer::schedulerJob(json_decode($data));
+    return \SuiteCRM\Search\ElasticSearch\ElasticSearchIndexer::schedulerJob(json_decode($data));
 }
 
 if (file_exists('custom/modules/Schedulers/_AddJobsHere.php')) {

@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,12 +33,12 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
-
+require_once 'include/utils/sugar_file_utils.php';
 
 class UpgradeMetaHelper
 {
@@ -76,20 +76,6 @@ class UpgradeMetaHelper
         if (count($this->customized_modules) > 0) {
             $_SESSION['Customized_Modules'] = $this->customized_modules;
         }
-    }
-
-    /**
-     * @deprecated deprecated since version 7.6, PHP4 Style Constructors are deprecated and will be remove in 7.8, please update your code, use __construct instead
-     */
-    public function UpgradeMetaHelper($dir='upgrade', $masterCopyDirecotry='modules_50', $debugMode = false)
-    {
-        $deprecatedMessage = 'PHP4 Style Constructors are deprecated and will be remove in 7.8, please update your code';
-        if (isset($GLOBALS['log'])) {
-            $GLOBALS['log']->deprecated($deprecatedMessage);
-        } else {
-            trigger_error($deprecatedMessage, E_USER_DEPRECATED);
-        }
-        self::__construct($dir, $masterCopyDirecotry, $debugMode);
     }
 
     /**
@@ -339,17 +325,15 @@ class UpgradeMetaHelper
                 include('modules/'.$module_name.'/vardefs.php');
                 $bean_name = $beanList[$module_name];
                 $newFile = $this->upgrade_dir.'/modules/'.$module_name.'/metadata/'.$lowerCaseView.'defs.php';
-                $evfp = fopen($newFile, 'wb');
 
                 $bean_name = $bean_name == 'aCase' ? 'Case' : $bean_name;
-                fwrite($evfp, $parser->parse(
+                sugar_file_put_contents($newFile, $parser->parse(
                     $file,
                     $dictionary[$bean_name]['fields'],
                     $module_name,
                     true,
                     $this->path_to_master_copy.'/modules/'.$module_name.'/metadata/'.$lowerCaseView.'defs.php'
                 ));
-                fclose($evfp);
             } //if
         } //foreach
     }

@@ -7,7 +7,7 @@ if (!defined('sugarEntry') || !sugarEntry) {
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -36,9 +36,9 @@ if (!defined('sugarEntry') || !sugarEntry) {
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 /**
@@ -67,7 +67,19 @@ class ImportViewConfirm extends ImportView
     {
         global $mod_strings, $app_strings, $current_user;
         global $sugar_config, $locale;
-        
+
+        if (isset($_FILES['userfile']['name']) && !hasValidFileName('import_upload_file_name', $_FILES['userfile']['name'])) {
+            LoggerManager::getLogger()->fatal('Invalid import file name');
+            echo $app_strings['LBL_LOGGER_INVALID_FILENAME'];
+            return;
+        }
+
+        if (isset($_REQUEST['tmp_file']) && !hasValidFileName('import_upload_file_name', $_REQUEST['tmp_file'])) {
+            LoggerManager::getLogger()->fatal('Invalid import file name');
+            echo $app_strings['LBL_LOGGER_INVALID_FILENAME'];
+            return;
+        }
+
         $this->ss->assign("IMPORT_MODULE", $_REQUEST['import_module']);
         $this->ss->assign("TYPE", (!empty($_REQUEST['type']) ? $_REQUEST['type'] : "import"));
         $this->ss->assign("SOURCE_ID", $_REQUEST['source_id']);

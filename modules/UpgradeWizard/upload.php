@@ -7,7 +7,7 @@ if (!defined('sugarEntry') || !sugarEntry) {
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -36,9 +36,9 @@ if (!defined('sugarEntry') || !sugarEntry) {
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 
@@ -118,12 +118,32 @@ switch ($run) {
             $manifest_file = extractManifest($tempFile);
 
             if (is_file($manifest_file)) {
-                require_once($manifest_file);
+
+                //SCAN THE MANIFEST FILE TO MAKE SURE NO COPIES OR ANYTHING ARE HAPPENING IN IT
+                require_once __DIR__ . '/../../ModuleInstall/ModuleScanner.php';
+
+                $ms = new ModuleScanner();
+                $ms->lockConfig();
+                $fileIssues = $ms->scanFile($manifest_file);
+                if (!empty($fileIssues)) {
+                    $out .= '<h2>' . translate('ML_MANIFEST_ISSUE', 'Administration') . '</h2><br>';
+                    $out .= $ms->getIssuesLog();
+                    break;
+                }
+
+                list($manifest, $installdefs) = MSLoadManifest($manifest_file);
+                if ($ms->checkConfig($manifest_file)) {
+                    $out .= '<h2>' . translate('ML_MANIFEST_ISSUE', 'Administration') . '</h2><br>';
+                    $out .= $ms->getIssuesLog();
+                    break;
+                }
+
                 $error = validate_manifest($manifest);
                 if (!empty($error)) {
                     $out = "<b><span class='error'>{$error}</span></b><br />";
                     break;
                 }
+
                 $upgrade_zip_type = $manifest['type'];
 
                 // exclude the bad permutations

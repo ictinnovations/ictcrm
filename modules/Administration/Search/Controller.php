@@ -3,7 +3,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -32,23 +32,26 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
-namespace ICTCRM\Modules\Administration\Search;
+namespace SuiteCRM\Modules\Administration\Search;
 
-use ICTCRM\Search\SearchConfigurator;
+use SuiteCRM\Search\SearchConfigurator;
+use SuiteCRM\Modules\Administration\Search\MVC\Controller as AbstractController;
+use Configurator;
+use Exception;
+use SuiteCRM\Search\SearchModules;
 
 if (!defined('sugarEntry') || !sugarEntry) {
     die('Not A Valid Entry Point');
 }
-
 /**
  * Class Controller handles the the actions for the search settings.
  */
-class Controller extends MVC\Controller
+class Controller extends AbstractController
 {
     public function __construct()
     {
@@ -59,19 +62,43 @@ class Controller extends MVC\Controller
      * Saves the configuration from a POST request.
      *
      * If called from ajax it will return a json.
+     * @throws Exception
      */
-    public function doSave()
+    public function doSave(): void
     {
         $searchEngine = filter_input(INPUT_POST, 'search-engine', FILTER_SANITIZE_STRING);
+        $aod = $searchEngine === 'BasicAndAodEngine';
 
         SearchConfigurator::make()
             ->setEngine($searchEngine)
             ->save();
+
+        SearchModules::saveGlobalSearchSettings();
+        $this->doSaveAODConfig($aod);
 
         if ($this->isAjax()) {
             $this->yieldJson(['status' => 'success']);
         }
 
         $this->redirect('index.php?module=Administration&action=index');
+    }
+
+    /**
+     * Saves the configuration getting data from POST.
+     * @param bool $enabled
+     */
+    public function doSaveAODConfig(bool $enabled): void
+    {
+        $cfg = new Configurator();
+
+        if (!array_key_exists('aod', $cfg->config)) {
+            $cfg->config['aod'] = [
+                'enable_aod' => '',
+            ];
+        }
+
+        $cfg->config['aod']['enable_aod'] = $enabled;
+
+        $cfg->saveConfig();
     }
 }

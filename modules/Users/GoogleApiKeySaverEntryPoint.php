@@ -1,13 +1,13 @@
 <?php
 
-use ICTCRM\LangText;
+use SuiteCRM\LangText;
 
 /**
  *
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -36,14 +36,14 @@ use ICTCRM\LangText;
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 /**
  * Entry Point for saving Google API tokens during account authorization.
  *
- * @license https://raw.githubusercontent.com/salesagility/ICTCRM/master/LICENSE.txt
+ * @license https://raw.githubusercontent.com/salesagility/SuiteCRM/master/LICENSE.txt
  * GNU Affero General Public License version 3
  * @author Benjamin Long <ben@offsite.guru>
  */
@@ -71,7 +71,7 @@ class GoogleApiKeySaverEntryPoint
 
     /**
      *
-     * @var Google_Client
+     * @var Google\Client
      */
     protected $client;
 
@@ -85,10 +85,10 @@ class GoogleApiKeySaverEntryPoint
      *
      * @param User $current_user
      * @param array $sugar_config
-     * @param Google_Client $client
+     * @param Google\Client $client
      * @param array $request
      */
-    public function __construct(User $current_user, $sugar_config, Google_Client $client, $request)
+    public function __construct(User $current_user, $sugar_config, Google\Client $client, $request)
     {
         $this->currentUser = $current_user;
         $this->sugarConfig = $sugar_config;
@@ -104,8 +104,8 @@ class GoogleApiKeySaverEntryPoint
      */
     protected function handleEntryPoint()
     {
-        $this->client->setApplicationName('ICTCRM');
-        $this->client->setScopes(Google_Service_Calendar::CALENDAR);
+        $this->client->setApplicationName('SuiteCRM');
+        $this->client->setScopes(Google\Service\Calendar::CALENDAR);
         if (!isset($this->sugarConfig['google_auth_json'])) {
             throw new Exception('google_auth_json requested variable is missing', 1);
         }

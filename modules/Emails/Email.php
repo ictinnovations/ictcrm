@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 if (!defined('sugarEntry') || !sugarEntry) {
@@ -585,19 +585,7 @@ class Email extends Basic
     }
 
 
-    /**
-     * @deprecated deprecated since version 7.6, PHP4 Style Constructors are deprecated and will be remove in 7.8, please update your code, use __construct instead
-     */
-    public function Email()
-    {
-        $deprecatedMessage = 'PHP4 Style Constructors are deprecated and will be remove in 7.8, please update your code';
-        if (isset($GLOBALS['log'])) {
-            $GLOBALS['log']->deprecated($deprecatedMessage);
-        } else {
-            trigger_error($deprecatedMessage, E_USER_DEPRECATED);
-        }
-        self::__construct();
-    }
+
 
     /**
      * assigns $this->ev with EmailUI
@@ -1004,11 +992,7 @@ class Email extends Basic
 
             if (isset($request['parent_type']) && !empty($request['parent_type']) &&
                 isset($request['parent_id']) && !empty($request['parent_id']) &&
-                ($request['parent_type'] == 'Accounts' ||
-                $request['parent_type'] == 'Contacts' ||
-                $request['parent_type'] == 'Leads' ||
-                $request['parent_type'] == 'Users' ||
-                $request['parent_type'] == 'Prospects')) {
+                in_array($request['parent_type'], ['Accounts', 'Cases', 'Contacts', 'Leads', 'Users', 'Prospects'])) {
                 if (isset($beanList[$request['parent_type']]) && !empty($beanList[$request['parent_type']])) {
                     $className = $beanList[$request['parent_type']];
                     if (isset($beanFiles[$className]) && !empty($beanFiles[$className])) {
@@ -1612,7 +1596,7 @@ class Email extends Basic
 
 
             $validator = new EmailFromValidator();
-            if (!$validator->isValid($this)) {
+            if (!defined('SUGARCRM_IS_INSTALLING') && !$validator->isValid($this)) {
                 $errors = $validator->getErrorsAsText();
                 $details = "Details:\n{$errors['messages']}\ncodes:{$errors['codes']}";
                 LoggerManager::getLogger()->error("Saving Email with invalid From name and/or Address. $details");
@@ -2081,7 +2065,7 @@ class Email extends Basic
         }
 
         $send_type = $current_user->getPreference('mail_sendtype');
-        if (!empty($send_type) && $send_type == "SMTP") {
+        if (isSmtp($send_type ?? '')) {
             $mail_smtpserver = $current_user->getPreference('mail_smtpserver');
             $mail_smtpport = $current_user->getPreference('mail_smtpport');
             $mail_smtpauth_req = $current_user->getPreference('mail_smtpauth_req');
@@ -2797,7 +2781,7 @@ class Email extends Basic
 
         // ssl or tcp - keeping outside isSMTP b/c a default may inadvertantly set ssl://
         $mail->protocol = ($oe->mail_smtpssl) ? "ssl://" : "tcp://";
-        if ($oe->mail_sendtype == "SMTP") {
+        if (isSmtp($oe->mail_sendtype ?? '')) {
             //Set mail send type information
             $mail->Mailer = "smtp";
             $mail->Host = $oe->mail_smtpserver;

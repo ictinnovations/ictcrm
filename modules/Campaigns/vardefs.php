@@ -7,7 +7,7 @@ if (!defined('sugarEntry') || !sugarEntry) {
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -36,9 +36,9 @@ if (!defined('sugarEntry') || !sugarEntry) {
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 $dictionary['Campaign'] = array('audited' => true,
@@ -278,6 +278,14 @@ $dictionary['Campaign'] = array('audited' => true,
             'link_class' => 'ProspectLink',
             'link_file' => 'modules/Campaigns/ProspectLink.php'
         ),
+        'notes' =>
+            array(
+                'name' => 'notes',
+                'type' => 'link',
+                'relationship' => 'campaign_notes',
+                'source' => 'non-db',
+                'vname' => 'LBL_NOTES',
+            ),
 
         "survey" => array(
                 'name' => 'survey',
@@ -358,6 +366,11 @@ $dictionary['Campaign'] = array('audited' => true,
         'campaign_opportunities' => array('lhs_module' => 'Campaigns', 'lhs_table' => 'campaigns', 'lhs_key' => 'id',
             'rhs_module' => 'Opportunities', 'rhs_table' => 'opportunities', 'rhs_key' => 'campaign_id',
             'relationship_type' => 'one-to-many'),
+
+        'campaign_notes' => array('lhs_module' => 'Campaigns', 'lhs_table' => 'campaigns', 'lhs_key' => 'id',
+            'rhs_module' => 'Notes', 'rhs_table' => 'notes', 'rhs_key' => 'parent_id',
+            'relationship_type' => 'one-to-many', 'relationship_role_column' => 'parent_type',
+            'relationship_role_column_value' => 'Campaigns'),
 
         'campaign_email_marketing' => array('lhs_module' => 'Campaigns', 'lhs_table' => 'campaigns', 'lhs_key' => 'id',
             'rhs_module' => 'EmailMarketing', 'rhs_table' => 'email_marketing', 'rhs_key' => 'campaign_id',

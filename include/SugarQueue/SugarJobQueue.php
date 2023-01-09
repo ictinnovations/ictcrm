@@ -7,7 +7,7 @@ if (!defined('sugarEntry') || !sugarEntry) {
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -36,9 +36,9 @@ if (!defined('sugarEntry') || !sugarEntry) {
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 
@@ -55,6 +55,7 @@ class SugarJobQueue
      * @var int
      */
     public $jobTries = 5;
+
     /**
      * Job running timeout - longer than that, job is failed by force
      * @var int
@@ -66,6 +67,20 @@ class SugarJobQueue
      * @var string
      */
     protected $job_queue_table;
+
+    /**
+     * Success History Lifetime
+     * Defines the time in days for successful cron jobs to remain before deletion
+     * @var int
+     */
+
+    public $success_lifetime = 30; // 30 days
+    /**
+     * Failure History Lifetime
+     * Defines the time in days for failed cron jobs to remain before deletion
+     * @var int
+     */
+    public $failure_lifetime = 180; // 180 days
 
     /**
      * DB connection
@@ -83,6 +98,12 @@ class SugarJobQueue
         }
         if (!empty($GLOBALS['sugar_config']['jobs']['timeout'])) {
             $this->timeout = $GLOBALS['sugar_config']['jobs']['timeout'];
+        }
+        if (!empty($GLOBALS['sugar_config']['jobs']['failure_lifetime'])) {
+            $this->failure_lifetime = $GLOBALS['sugar_config']['jobs']['failure_lifetime'];
+        }
+        if (!empty($GLOBALS['sugar_config']['jobs']['success_lifetime'])) {
+            $this->success_lifetime = $GLOBALS['sugar_config']['jobs']['success_lifetime'];
         }
     }
 
@@ -167,22 +188,44 @@ class SugarJobQueue
     }
 
     /**
-     * Remove old jobs that still are marked as running
+     * Cleanup old, failed or long running jobs
+     * Forcefully remove jobs that are marked as running when they exceed the timeout value
      * @return bool true if no failed job discovered, false if some job were failed
      */
     public function cleanup()
     {
-        // fail jobs that are too old
         $ret = true;
-        // bsitnikovski@sugarcrm.com bugfix #56144: Scheduler Bug
-        $date = $this->db->convert($this->db->quoted($GLOBALS['timedate']->getNow()->modify("-{$this->timeout} seconds")->asDb()), 'datetime');
-        $res = $this->db->query("SELECT id FROM {$this->job_queue_table} WHERE status='".SchedulersJob::JOB_STATUS_RUNNING."' AND date_modified <= $date");
+        $date = $this->db->convert($GLOBALS['timedate']->getNow()->modify("-{$this->timeout} seconds")->asDb(), 'datetime');
+        $sql = "SELECT id FROM {$this->job_queue_table} WHERE status='".SchedulersJob::JOB_STATUS_RUNNING."' AND date_modified <= '{$date}'";
+        $res = $this->db->query($sql);
         while ($row = $this->db->fetchByAssoc($res)) {
             $this->resolveJob($row["id"], SchedulersJob::JOB_FAILURE, translate('ERR_TIMEOUT', 'SchedulersJobs'));
             $ret = false;
         }
-        // TODO: soft-delete old done jobs?
         return $ret;
+    }
+
+    /**
+     * Marks jobs for deletion that have exceeded their history lifetime
+     * Uses different values for successful and failed jobs
+     */
+    public function clearHistoricJobs()
+    {
+        // Process successful jobs
+        $date = $this->db->convert($GLOBALS['timedate']->getNow()->modify("-{$this->success_lifetime} days")->asDb(), 'datetime');
+        $sql = "SELECT id FROM {$this->job_queue_table} WHERE status='".SchedulersJob::JOB_STATUS_DONE."' AND resolution='".SchedulersJob::JOB_SUCCESS."' AND date_modified <= '{$date}'";
+        $res = $this->db->query($sql);
+        while ($row = $this->db->fetchByAssoc($res)) {
+            $this->deleteJob($row["id"]);
+        }
+
+        // Process failed jobs
+        $date = $this->db->convert($GLOBALS['timedate']->getNow()->modify("-{$this->failure_lifetime} days")->asDb(), 'datetime');
+        $sql = "SELECT id FROM {$this->job_queue_table} WHERE status='".SchedulersJob::JOB_STATUS_DONE."' AND resolution!='".SchedulersJob::JOB_SUCCESS."' AND date_modified <= '{$date}'";
+        $res = $this->db->query($sql);
+        while ($row = $this->db->fetchByAssoc($res)) {
+            $this->deleteJob($row["id"]);
+        }
     }
 
     /**

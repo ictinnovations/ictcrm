@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 /**
@@ -1418,7 +1418,7 @@ function determine_back(){
 			<!-- BEGIN: NoInbound2 -->
 			<tr>
 				<td valign="top" scope="row">
-					{$MOD.LBL_ATTACHMENTS}:
+					{$MOD.LBL_ATTACHMENTS}: 
 				</td>
 				<td colspan="2" nowrap id="attachments_container">
 					{$ATTACHMENTS}
@@ -1432,12 +1432,16 @@ function determine_back(){
 		<form id="upload_form" name="upload_form" method="POST" action="index.php?entryPoint=emailTemplateData&func=uploadAttachments" enctype="multipart/form-data"> <!-- action='AttachDocuments.php' -->
 			<input type="submit" style="display:none;">
 			<div id="upload_div">
-				<input type="file" id="my_file" name="file_1" size="40" />
+				<input type="button" name="add_doc" id="add_doc" onclick="selectDoc();" value='{$MOD.LBL_SUITE_DOCUMENT}' class="button" />
+				<label class="button">
+					<input type="file" id="my_file" name="file_1" size="40" style="display: none" />
+					{$MOD.LBL_UPLOAD_FILE}
+				</label>
 				<input type="hidden" id="documentName" name="uploaddoc" onchange="docUpload(); form_reset_doc();" size="1" />
 				<input type="hidden" id="documentId" name="seldoc" tabindex="0" />
 				<input type="hidden" id="docRevId" name="seldoc" tabindex="0" />
 				<input type="hidden" id="documentType" name="seldoc" tabindex="0" />
-				<input type="button" name="add_doc" id="add_doc" onclick="selectDoc();" value='{$MOD.LBL_SUITE_DOCUMENT}' class="button" />
+				
 
 				<input type="hidden" name="attach_to_template_id" id="attach_to_template_id" value="{$TEMPLATE_ID}">
 				<input type="hidden" name="campaign_id" value="{$CAMPAIGN_ID}">

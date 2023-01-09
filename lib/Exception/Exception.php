@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,19 +33,19 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
-namespace ICTCRM\Exception;
+namespace SuiteCRM\Exception;
 
 use Psr\Log\LogLevel;
-use ICTCRM\Enumerator\ExceptionCode;
+use SuiteCRM\Enumerator\ExceptionCode;
 
 /**
  * Class Exception
- * @package ICTCRM\Exception
+ * @package SuiteCRM\Exception
  */
 class Exception extends \Exception
 {
@@ -57,7 +57,7 @@ class Exception extends \Exception
      */
     public function __construct($message = '', $code = ExceptionCode::APPLICATION_UNHANDLED_BEHAVIOUR, $previous = null)
     {
-        parent::__construct('[ICTCRM] '.$message.'', $code, $previous);
+        parent::__construct('[SuiteCRM] '.$message.'', $code, $previous);
     }
 
     /**
@@ -66,7 +66,7 @@ class Exception extends \Exception
      */
     public function getDetail()
     {
-        return 'ICTCRM has encountered an exception which has not been handled';
+        return 'SuiteCRM has encountered an exception which has not been handled';
     }
 
     /**

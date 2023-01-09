@@ -3,8 +3,8 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
- * Copyright (C) 2011 - 2018 SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * Copyright (C) 2011 - 2021 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Affero General Public License version 3 as published by the
@@ -32,25 +32,26 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
-namespace ICTCRM\Search\UI;
+namespace SuiteCRM\Search\UI;
 
 if (!defined('sugarEntry') || !sugarEntry) {
     die('Not A Valid Entry Point');
 }
 
 use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
-use ICTCRM\Search\Exceptions\SearchEngineNotFoundException;
-use ICTCRM\Search\Exceptions\SearchException;
-use ICTCRM\Search\Exceptions\SearchInvalidRequestException;
-use ICTCRM\Search\Exceptions\SearchUserFriendlyException;
-use ICTCRM\Search\SearchQuery;
-use ICTCRM\Search\SearchWrapper;
-use ICTCRM\Utility\SuiteLogger;
+use Exception;
+use SuiteCRM\Search\Exceptions\SearchEngineNotFoundException;
+use SuiteCRM\Search\Exceptions\SearchException;
+use SuiteCRM\Search\Exceptions\SearchInvalidRequestException;
+use SuiteCRM\Search\Exceptions\SearchUserFriendlyException;
+use SuiteCRM\Search\SearchQuery;
+use SuiteCRM\Search\SearchWrapper;
+use SuiteCRM\Utility\SuiteLogger;
 use Throwable;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
@@ -71,10 +72,10 @@ class SearchThrowableHandler
     /**
      * SearchThrowableHandler constructor.
      *
-     * @param Throwable   $throwable
+     * @param Throwable $throwable
      * @param SearchQuery $query
      */
-    public function __construct($throwable, SearchQuery $query)
+    public function __construct(Throwable $throwable, SearchQuery $query)
     {
         $this->throwable = $throwable;
         $this->query = $query;
@@ -85,7 +86,7 @@ class SearchThrowableHandler
      *
      * If developer mode is enabled, a full exception page will be shown.
      */
-    public function handle()
+    public function handle(): void
     {
         global $sugar_config;
 
@@ -97,6 +98,7 @@ class SearchThrowableHandler
 
         if ($sugar_config['developerMode'] === true) {
             $this->printStackTrace();
+
             return;
         }
 
@@ -108,30 +110,37 @@ class SearchThrowableHandler
      *
      * @return string
      */
-    private function getFriendlyMessage()
+    private function getFriendlyMessage(): string
     {
         global $mod_strings;
 
         switch (get_class($this->throwable)) {
             case SearchUserFriendlyException::class:
-                return $this->throwable->getMessage();
+                $message = $this->throwable->getMessage();
+                break;
             case SearchInvalidRequestException::class:
-                return $mod_strings['LBL_ELASTIC_SEARCH_SEARCH_INVALID_REQUEST'];
+                $message = $mod_strings['LBL_ELASTIC_SEARCH_EXCEPTION_SEARCH_INVALID_REQUEST'];
+                break;
             case SearchEngineNotFoundException::class:
-                return $mod_strings['LBL_ELASTIC_SEARCH_SEARCH_ENGINE_NOT_FOUND'];
+                $message = $mod_strings['LBL_ELASTIC_SEARCH_EXCEPTION_SEARCH_ENGINE_NOT_FOUND'];
+                break;
             case NoNodesAvailableException::class:
-                return $mod_strings['LBL_ELASTIC_SEARCH_NO_NODES_AVAILABLE'];
+                $message = $mod_strings['LBL_ELASTIC_SEARCH_EXCEPTION_NO_NODES_AVAILABLE'];
+                break;
             case SearchException::class:
-                return $mod_strings['LBL_ELASTIC_SEARCH_SEARCH'];
+                $message = $mod_strings['LBL_ELASTIC_SEARCH_EXCEPTION_SEARCH'];
+                break;
             default:
-                return $mod_strings['LBL_ELASTIC_SEARCH_DEFAULT'];
+                $message = $mod_strings['LBL_ELASTIC_SEARCH_EXCEPTION_DEFAULT'];
         }
+
+        return $message;
     }
 
     /**
      * Cancels the current output and prints a full screen detailed exception page
      */
-    private function printStackTrace()
+    private function printStackTrace(): void
     {
         $whoops = new Run;
         $handler = new PrettyPageHandler;
@@ -142,7 +151,7 @@ class SearchThrowableHandler
         $whoops->pushHandler($handler);
         $whoops->register();
 
-        $whoops->handleException($this->throwable);
+        echo $whoops->handleException($this->throwable);
     }
 
     /**
@@ -150,7 +159,7 @@ class SearchThrowableHandler
      *
      * @return array
      */
-    private function getSearchWrapperStatus()
+    private function getSearchWrapperStatus(): ?array
     {
         try {
             return [
@@ -159,7 +168,7 @@ class SearchThrowableHandler
                 'Default Search Engine' => SearchWrapper::getDefaultEngine(),
                 'Friendly Error Message' => $this->getFriendlyMessage(),
             ];
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             return ['error' => 'failed to get SearchWrapper status'];
         }
     }
@@ -167,7 +176,7 @@ class SearchThrowableHandler
     /**
      * Prints the error on the page.
      */
-    private function printFriendlyMessage()
+    private function printFriendlyMessage(): void
     {
         global $mod_strings;
 

@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2019 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 if (!defined('sugarEntry') || !sugarEntry) {
@@ -123,7 +123,7 @@ $mod_strings = array(
     'LBL_CREATED_USER' => 'Created User',
     'LBL_MODIFIED_USER' => 'Modified User',
     'NOTICE_DURATION_TIME' => 'Duration time must be greater than 0',
-    'LBL_MEETING_INFORMATION' => 'OVERVIEW',
+    'LBL_MEETING_INFORMATION' => 'OVERVIEW', //No need to be translated in all caps. Translation used just in menu action items when using the SuiteP template
     'LBL_LIST_JOIN_MEETING' => 'Join Meeting',
     'LBL_ACCEPT_STATUS' => 'Accept Status',
     'LBL_ACCEPT_LINK' => 'Accept Link',
@@ -136,12 +136,12 @@ $mod_strings = array(
 
     // create invitee functionallity
     'LBL_CREATE_INVITEE' => 'Create an invitee',
-    'LBL_CREATE_CONTACT' => 'As Contact',
-    'LBL_CREATE_LEAD' => 'As Lead',
-    'LBL_CREATE_AND_ADD' => 'Create & Add',
+    'LBL_CREATE_CONTACT' => 'As Contact',  // Create invitee functionallity
+    'LBL_CREATE_LEAD' => 'As Lead',  // Create invitee functionallity
+    'LBL_CREATE_AND_ADD' => 'Create & Add',  // Create invitee functionallity
     'LBL_CANCEL_CREATE_INVITEE' => 'Cancel',
     'LBL_EMPTY_SEARCH_RESULT' => 'Sorry, no results were found. Please create an invitee below.',
-    'LBL_NO_ACCESS' => 'You have no access to create $module',
+    'LBL_NO_ACCESS' => 'You have no access to create $module',  // Create invitee functionallity
 
     'LBL_REPEAT_TYPE' => 'Repeat Type',
     'LBL_REPEAT_INTERVAL' => 'Repeat Interval',
@@ -151,7 +151,7 @@ $mod_strings = array(
     'LBL_REPEAT_PARENT_ID' => 'Repeat Parent ID',
     'LBL_RECURRING_SOURCE' => 'Recurring Source',
 
-    'LBL_SYNCED_RECURRING_MSG' => 'This meeting originated in another system and was synced to ICTCRM. To make changes, go to the original meeting within the other system. Changes made in the other system can be synced to this record.',
+    'LBL_SYNCED_RECURRING_MSG' => 'This meeting originated in another system and was synced to SuiteCRM. To make changes, go to the original meeting within the other system. Changes made in the other system can be synced to this record.',
     'LBL_RELATED_TO' => 'Related to:',
 
     // for reminders

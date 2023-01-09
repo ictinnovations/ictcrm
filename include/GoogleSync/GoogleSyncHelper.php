@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 if (!defined('sugarEntry') || !sugarEntry) {
     die('Not A Valid Entry Point');
@@ -47,7 +47,7 @@ require_once __DIR__ . '/../../modules/Meetings/Meeting.php';
 /**
  * Implements Google Calendar Syncing
  *
- * @license https://raw.githubusercontent.com/salesagility/ICTCRM/master/LICENSE.txt
+ * @license https://raw.githubusercontent.com/salesagility/SuiteCRM/master/LICENSE.txt
  * GNU Affero General Public License version 3
  * @author Benjamin Long <ben@offsite.guru>
  */
@@ -61,11 +61,11 @@ class GoogleSyncHelper
      * At least one of the params is required.
      *
      * @param Meeting $meeting (optional) Meeting Bean
-     * @param \Google_Service_Calendar_Event $event (optional) Google_Service_Calendar_Event Object
+     * @param \Google\Service\Calendar\Event $event (optional) Google\Service\Calendar\Event Object
      *
      * @return string push, pull, skip, or false on error
      */
-    public function singleEventAction(Meeting $meeting = null, Google_Service_Calendar_Event $event = null)
+    public function singleEventAction(Meeting $meeting = null, Google\Service\Calendar\Event $event = null)
     {
         if (empty($meeting) && empty($event)) {
             return false;
@@ -84,21 +84,22 @@ class GoogleSyncHelper
      * Takes two calendar events, and extracts their last modified and sync times.
      *
      * @param Meeting $meeting Meeting Bean
-     * @param \Google_Service_Calendar_Event $event Google_Service_Calendar_Event Object
+     * @param \Google\Service\Calendar\Event $event Google\Service\Calendar\Event Object
      *
      * @return array key/value array with [sModified, $gModified, lastsync] keys
      */
-    public function getTimeStrings(Meeting $meeting, Google_Service_Calendar_Event $event)
+    public function getTimeStrings(Meeting $meeting, Google\Service\Calendar\Event $event)
     {
         $timeArray = array();
 
         // Get the last modified time from google event
         $timeArray['gModified'] = strtotime($event->getUpdated());
 
-        // Get last modified of ICTCRM event
-        $timeArray['sModified'] = strtotime($meeting->fetched_row['date_modified'] . ' UTC'); // ICTCRM stores the timedate as UTC in the DB
+        // Get last modified of SuiteCRM event
+        $date = !empty($meeting->fetched_row['date_modified']) ? $meeting->fetched_row['date_modified']. ' UTC' : 'now';
+        $timeArray['sModified'] = strtotime($date); // SuiteCRM stores the timedate as UTC in the DB
 
-        // Get the last sync time of ICTCRM event
+        // Get the last sync time of SuiteCRM event
         $timeArray['lastSync'] = 0;
         if (isset($meeting->fetched_row['gsync_lastsync'])) {
             $timeArray['lastSync'] = $meeting->fetched_row['gsync_lastsync'];
@@ -113,12 +114,12 @@ class GoogleSyncHelper
      * Takes two calendar events and the timeArray from getTimeStrings, and returns a push/pull[_delete] string.
      *
      * @param Meeting $meeting Meeting Bean
-     * @param \Google_Service_Calendar_Event $event Google_Service_Calendar_Event Object
+     * @param \Google\Service\Calendar\Event $event Google\Service\Calendar\Event Object
      * @param array timeArray from getTimeStrings
      *
      * @return string 'push(_delete)', 'pull(_delete)'
      */
-    public function getNewestMeetingResponse(Meeting $meeting, Google_Service_Calendar_Event $event, array $timeArray)
+    public function getNewestMeetingResponse(Meeting $meeting, Google\Service\Calendar\Event $event, array $timeArray)
     {
         if ($timeArray['gModified'] > $timeArray['sModified']) {
             if ($event->status == 'cancelled') {
@@ -139,13 +140,13 @@ class GoogleSyncHelper
     * Takes two calendar events and the timeArray from getTimeStrings, and returns bool (should we skip this record).
     *
     * @param Meeting $meeting Meeting Bean
-    * @param \Google_Service_Calendar_Event $event Google_Service_Calendar_Event Object
+    * @param \Google\Service\Calendar\Event $event Google\Service\Calendar\Event Object
     * @param array $timeArray from getTimeStrings
     * @param array $syncedList from GoogleSyncBase Class
     *
     * @return bool should we skip this record
     */
-    public function isSkippable(Meeting $meeting, Google_Service_Calendar_Event $event, array $timeArray, array $syncedList)
+    public function isSkippable(Meeting $meeting, Google\Service\Calendar\Event $event, array $timeArray, array $syncedList)
     {
         $ret = false;
 
@@ -168,16 +169,16 @@ class GoogleSyncHelper
     }
 
     /**
-     * Helper Method for GoogleSyncBase::updateICTCRMMeetingEvent
+     * Helper Method for GoogleSyncBase::updateSuitecrmMeetingEvent
      *
      * Creates reminders for event from google event reminders
      *
-     * @param array $overrides Google Calendar Event Reminders (See Class Google_Service_Calendar_EventReminders)
+     * @param array $overrides Google Calendar Event Reminders (See Class Google\Service\Calendar\EventReminders)
      * @param string $meeting Meeting Bean
      *
      * @return array|bool Nested array of unsaved reminders and reminder_invitees, false on Failure
      */
-    public function createICTCRMReminders(array $overrides, Meeting $meeting)
+    public function createSuitecrmReminders(array $overrides, Meeting $meeting)
     {
         $reminders = array();
         $invitees = array();
@@ -215,7 +216,7 @@ class GoogleSyncHelper
     /**
      * Helper Method for GoogleSyncBase::setUsersGoogleCalendar
      *
-     * Wipe the Google Sync data (gsync_id and gsync_lastsync fields) from the users ICTCRM records
+     * Wipe the Google Sync data (gsync_id and gsync_lastsync fields) from the users SuiteCRM records
      *
      * @param string $assigned_user_id The user who's events need to be fixed.
      *

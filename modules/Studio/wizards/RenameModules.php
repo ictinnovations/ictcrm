@@ -7,7 +7,7 @@ if (!defined('sugarEntry') || !sugarEntry) {
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -36,9 +36,9 @@ if (!defined('sugarEntry') || !sugarEntry) {
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 
@@ -781,7 +781,7 @@ class RenameModules
             $search = call_user_func($modifier, $search);
             $replace = call_user_func($modifier, $replace);
         }
-        
+
         // Bug 47957
         // If nothing was replaced - try to replace original string
         $result = '';
@@ -805,25 +805,25 @@ class RenameModules
     {
         $GLOBALS['log']->debug('Begining to save app string entries');
         //Save changes to the moduleList app string entry
-        DropDownHelper::saveDropDown($_REQUEST);
+        (new DropDownHelper())->saveDropDown($_REQUEST);
 
         //Save changes to the moduleListSingular app string entry
         $newParams = array();
         $newParams['dropdown_name'] = 'moduleListSingular';
         $newParams['dropdown_lang'] = isset($_REQUEST['dropdown_lang']) ? $_REQUEST['dropdown_lang'] : '';
         $newParams['use_push'] = true;
-        DropDownHelper::saveDropDown($this->createModuleListSingularPackage($newParams, $this->changedModules));
+        (new DropDownHelper())->saveDropDown($this->createModuleListSingularPackage($newParams, $this->changedModules));
 
         //Save changes to the "*type_display*" app_list_strings entry.
         global $app_list_strings;
-        
+
         $typeDisplayList = getTypeDisplayList();
-        
+
         foreach (array_keys($this->changedModules)as $moduleName) {
             foreach ($typeDisplayList as $typeDisplay) {
                 if (isset($app_list_strings[$typeDisplay]) && isset($app_list_strings[$typeDisplay][$moduleName])) {
                     $newParams['dropdown_name'] = $typeDisplay;
-                    DropDownHelper::saveDropDown($this->createModuleListSingularPackage($newParams, array($moduleName => $this->changedModules[$moduleName])));
+                    (new DropDownHelper())->saveDropDown($this->createModuleListSingularPackage($newParams, array($moduleName => $this->changedModules[$moduleName])));
                 }
             }
         }

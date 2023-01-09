@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 if (!defined('sugarEntry') || !sugarEntry) {
@@ -1358,22 +1358,11 @@ function get_relationships($session, $module_name, $module_id, $related_module, 
         $sql .= " AND ( {$related_module_query} )";
     }
 
-	/* BEGIN - SECURITY GROUPS */
-	global $current_user;
-	if($mod->bean_implements('ACL') && ACLController::requireSecurityGroup($mod->module_dir, 'list') )
-	{
-		require_once('modules/SecurityGroups/SecurityGroup.php');
-		global $current_user;
-		$owner_where = $mod->getOwnerWhere($current_user->id);
-		$group_where = SecurityGroup::getGroupWhere($mod->table_name,$mod->module_dir,$current_user->id);
-    	if(!empty($owner_where)){
-    		$sql .= " AND (".  $owner_where." or ".$group_where.") ";
-		} else {
-			$sql .= ' AND '.  $group_where;
-		}
-	}
-	/* END - SECURITY GROUPS */
-
+    $accessWhere = $mod->buildAccessWhere('list');
+    if (!empty($accessWhere)) {
+        $sql .= ' AND ' . $accessWhere;
+    }
+    
     $result = $related_mod->db->query($sql);
     while ($row = $related_mod->db->fetchByAssoc($result)) {
         $list[] = $row['id'];

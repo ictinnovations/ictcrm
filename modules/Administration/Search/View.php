@@ -3,8 +3,8 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
- * Copyright (C) 2011 - 2018 SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * Copyright (C) 2011 - 2021 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Affero General Public License version 3 as published by the
@@ -32,41 +32,72 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
-namespace ICTCRM\Modules\Administration\Search;
+namespace SuiteCRM\Modules\Administration\Search;
 
 if (!defined('sugarEntry') || !sugarEntry) {
     die('Not A Valid Entry Point');
 }
 
-use ICTCRM\Search\SearchWrapper;
+use SuiteCRM\Search\SearchModules;
+use SuiteCRM\Search\SearchWrapper;
+use SuiteCRM\Modules\Administration\Search\MVC\View as AbstractView;
 
 /**
  * Class View renders the Search settings.
  */
-class View extends MVC\View
+class View extends AbstractView
 {
     public function __construct()
     {
         parent::__construct(__DIR__ . '/view.tpl');
     }
 
-    public function preDisplay()
+    public function preDisplay(): void
     {
         parent::preDisplay();
 
         $this->smarty->assign('selectedController', SearchWrapper::getController());
         $this->smarty->assign('selectedEngine', SearchWrapper::getDefaultEngine());
+
+        $legacyEngines = [
+            'BasicSearchEngine' => translate('LBL_BASIC_SEARCH_ENGINE'),
+            'BasicAndAodEngine' => translate('LBL_BASIC_AND_AOD_ENGINE'),
+        ];
+
+        $engines = $this->getEngines();
+        $engines = array_merge($legacyEngines, $engines);
+        unset($engines['LuceneSearchEngine']);
+
         $this->smarty->assign('engines', [
-            translate('LBL_LEGACY_SEARCH_ENGINES') => [
-                'BasicSearchEngine' => translate('LBL_BASIC_SEARCH_ENGINE'),
-                'BasicAndAodEngine' => translate('LBL_BASIC_AND_AOD_ENGINE'),
-            ],
-            translate('LBL_SEARCH_WRAPPER_ENGINES') => $this->getEngines(),
+            translate('LBL_SEARCH_WRAPPER_ENGINES') => $engines
         ]);
+    }
+
+    /**
+     * @see SugarView::display()
+     */
+    public function display(): void
+    {
+        global $mod_strings, $app_strings;
+
+        $this->smarty->assign('APP', $app_strings);
+        $this->smarty->assign('MOD', $mod_strings);
+
+        $modules = SearchModules::getAllModules();
+
+        $this->smarty->assign('enabled_modules', json_encode($modules['enabled'], JSON_THROW_ON_ERROR));
+        $this->smarty->assign('disabled_modules', json_encode($modules['disabled'], JSON_THROW_ON_ERROR));
+
+        $template = $this->templateFile;
+        if (file_exists('custom/' . $this->templateFile)) {
+            $template = 'custom/' . $this->templateFile;
+        }
+
+        $this->smarty->display($template);
     }
 }

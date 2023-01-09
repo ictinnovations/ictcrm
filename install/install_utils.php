@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,16 +33,16 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 if (!defined('sugarEntry') || !sugarEntry) {
     die('Not A Valid Entry Point');
 }
 
-require_once('include/utils/zip_utils.php');
+require_once('include/utils/php_zip_utils.php');
 require_once('include/upload_file.php');
 
 ////////////////
@@ -859,7 +859,7 @@ function handleSugarConfig()
         array('level'=>$setup_site_log_level,
             'file' => array(
                 'ext' => '.log',
-                'name' => 'ictcrm',
+                'name' => 'suitecrm',
                 'dateFormat' => '%c',
                 'maxSize' => '10MB',
                 'maxLogs' => 10,
@@ -985,7 +985,7 @@ function handleHtaccess()
     $cacheDir = $sugar_config['cache_dir'];
 
     $restrict_str = <<<EOQ
-# BEGIN ICTCRM RESTRICTIONS
+# BEGIN SUITECRM RESTRICTIONS
 
 EOQ;
     if (ini_get('suhosin.perdir') !== false && strpos(ini_get('suhosin.perdir'), 'e') !== false) {
@@ -1107,15 +1107,15 @@ EOQ;
         RewriteCond %{REQUEST_URI} (.+)/$
         RewriteRule ^ %1 [R=301,L]
 </IfModule>
-# END ICTCRM RESTRICTIONS
+# END SUITECRM RESTRICTIONS
 EOQ;
 
-    // add custom content from current '.htaccess' before "# BEGIN ICTCRM RESTRICTIONS"
+    // add custom content from current '.htaccess' before "# BEGIN SUITECRM RESTRICTIONS"
     $haveBegin = false;
     if (file_exists($htaccess_file)) {
         $fp = fopen($htaccess_file, 'rb');
         while ($line = fgets($fp)) {
-            if (preg_match("/\s*#\s*BEGIN\s*ICTCRM\s*RESTRICTIONS/i",
+            if (preg_match("/\s*#\s*BEGIN\s*SUITECRM\s*RESTRICTIONS/i",
                     $line) || preg_match("/\s*#\s*BEGIN\s*SUGARCRM\s*RESTRICTIONS/i", $line)) {
                 $haveBegin = true;
                 break;
@@ -1126,12 +1126,12 @@ EOQ;
     }
     // add default content
     $contents .= $restrict_str . $cache_headers;
-    // add custom content from current '.htaccess' after "# END ICTCRM RESTRICTIONS"
+    // add custom content from current '.htaccess' after "# END SUITECRM RESTRICTIONS"
     if ($haveBegin && file_exists($htaccess_file)) {
         $skip = true;
         $fp = fopen($htaccess_file, 'rb');
         while ($line = fgets($fp)) {
-            if (preg_match("/\s*#\s*END\s*ICTCRM\s*RESTRICTIONS/i",
+            if (preg_match("/\s*#\s*END\s*SUITECRM\s*RESTRICTIONS/i",
                     $line) || preg_match("/\s*#\s*END\s*SUGARCRM\s*RESTRICTIONS/i", $line)) {
                 $skip = false;
                 $contents .= PHP_EOL;
@@ -1170,7 +1170,7 @@ function handleWebConfig()
     if (empty($setup_site_log_file)) {
         $setup_site_log_file = $sugar_config['log_file'];
         if (empty($sugar_config['log_file'])) {
-            $setup_site_log_file = 'ictcrm.log';
+            $setup_site_log_file = 'suitecrm.log';
         }
     }
     if (empty($setup_site_log_dir)) {
@@ -1288,17 +1288,15 @@ function create_table_if_not_exist(&$focus)
 }
 
 
-
 function create_default_users()
 {
-    $db = DBManagerFactory::getInstance();
     global $setup_site_admin_password;
     global $setup_site_admin_user_name;
     global $create_default_user;
     global $sugar_config;
 
     require_once('install/UserDemoData.php');
-
+    
     //Create default admin user
     $user = BeanFactory::newBean('Users');
     $user->id = 1;
@@ -1310,11 +1308,9 @@ function create_default_users()
     $user->is_admin = true;
     $user->employee_status = 'Active';
     $user->user_hash = User::getPasswordHash($setup_site_admin_password);
-    $user->save();
-    //Bug#53793: Keep default current user in the global variable in order to store 'created_by' info as default user
-    //           while installation is proceed.
-    $GLOBALS['current_user'] = $user;
 
+    $GLOBALS['current_user'] = $user;
+    $GLOBALS['current_user']->save();
 
     if ($create_default_user) {
         $default_user = BeanFactory::newBean('Users');
@@ -1350,7 +1346,7 @@ function insert_default_settings()
     if (isset($_SESSION['smtp_from_addr']) && $_SESSION['smtp_from_addr']) {
         $fromAddress = $_SESSION['smtp_from_addr'];
     }
-    $fromName = 'ICTCRM';
+    $fromName = 'SuiteCRM';
     if (isset($_SESSION['smtp_from_name']) && $_SESSION['smtp_from_name']) {
         $fromName = $_SESSION['smtp_from_name'];
     }
@@ -2214,7 +2210,7 @@ function post_install_modules()
 
 function get_help_button_url()
 {
-    $help_url = 'https://docs.ictcrm.com/user/';
+    $help_url = 'https://docs.suitecrm.com/user/';
 
     return $help_url;
 }

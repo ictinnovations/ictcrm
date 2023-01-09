@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,28 +33,28 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
-namespace ICTCRM\API\v8\Library;
+namespace SuiteCRM\API\v8\Library;
 
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use League\Uri\Components\Query;
-use ICTCRM\API\JsonApi\v1\Filters\Interpreters\FilterInterpreter;
-use ICTCRM\API\JsonApi\v1\Filters\Interpreters\SuiteInterpreter;
-use ICTCRM\API\JsonApi\v1\Links;
-use ICTCRM\API\JsonApi\v1\Repositories\FilterRepository;
-use ICTCRM\API\JsonApi\v1\Resource\SuiteBeanResource;
-use ICTCRM\API\v8\Exception\BadRequestException;
-use ICTCRM\API\v8\Exception\ModuleNotFoundException;
+use SuiteCRM\API\JsonApi\v1\Filters\Interpreters\FilterInterpreter;
+use SuiteCRM\API\JsonApi\v1\Filters\Interpreters\SuiteInterpreter;
+use SuiteCRM\API\JsonApi\v1\Links;
+use SuiteCRM\API\JsonApi\v1\Repositories\FilterRepository;
+use SuiteCRM\API\JsonApi\v1\Resource\SuiteBeanResource;
+use SuiteCRM\API\v8\Exception\BadRequestException;
+use SuiteCRM\API\v8\Exception\ModuleNotFoundException;
 
 /**
  * Class ModulesLib
- * @package ICTCRM\API\v8\Library
+ * @package SuiteCRM\API\v8\Library
  */
 class ModulesLib
 {
@@ -83,9 +83,9 @@ class ModulesLib
      * @throws NotAllowed
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
-     * @throws \ICTCRM\API\JsonApi\v1\Filters\Interpreters\InvalidArgumentException
-     * @throws \ICTCRM\API\v8\Exception\ApiException
-     * @throws \ICTCRM\Exception\Exception
+     * @throws \SuiteCRM\API\JsonApi\v1\Filters\Interpreters\InvalidArgumentException
+     * @throws \SuiteCRM\API\v8\Exception\ApiException
+     * @throws \SuiteCRM\Exception\Exception
      */
     public function generatePaginatedModuleRecords(Request $req, Response $res, array $args = array())
     {
@@ -266,8 +266,8 @@ class ModulesLib
      * @throws BadRequestException
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
-     * @throws \ICTCRM\API\JsonApi\v1\Filters\Interpreters\InvalidArgumentException
-     * @throws \ICTCRM\Exception\Exception
+     * @throws \SuiteCRM\API\JsonApi\v1\Filters\Interpreters\InvalidArgumentException
+     * @throws \SuiteCRM\Exception\Exception
      */
     protected function getModuleList(Request $req, \SugarBean $module, array $args = array())
     {

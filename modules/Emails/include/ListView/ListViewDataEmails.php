@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,16 +33,16 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 if (!defined('sugarEntry') || !sugarEntry) {
     die('Not A Valid Entry Point');
 }
 
-use ICTCRM\Utility\SuiteValidator;
+use SuiteCRM\Utility\SuiteValidator;
 
 require_once('include/ListView/ListViewData.php');
 
@@ -160,38 +160,6 @@ class ListViewDataEmails extends ListViewData
          */
         $inboundEmail = BeanFactory::getBean('InboundEmail', $inboundEmailID);
 
-        if (!$inboundEmail || !isset($inboundEmail->id) || !$inboundEmail->id) {
-
-            // something went wrong when SugarBean trying to retrieve the inbound email account
-            // maybe there is no IE bean in database or wrong ID stored in user preferences?
-            // look at the active group emails and load from the first one possibility
-
-            $query = "
-              SELECT inbound_email.id FROM inbound_email
-                JOIN folders ON
-                  folders.id = inbound_email.id AND
-                  folders.folder_type = 'inbound' AND
-                  folders.deleted = 0
-
-                WHERE
-                  inbound_email.status = 'Active' AND
-                  inbound_email.mailbox_type not like 'bounce' AND
-                  inbound_email.is_personal = 0 AND
-                  inbound_email.deleted = 0";
-
-            $results = $this->db->query($query);
-
-            $rows = array();
-            while ($row = $this->db->fetchByAssoc($results)) {
-                $rows[] = $row;
-            }
-
-            if ($rows) {
-                $inboundEmailID = $rows[0]['id'];
-                $inboundEmail = BeanFactory::getBean('InboundEmail', $inboundEmailID);
-            }
-        }
-
         if (!$inboundEmail) {
             throw new SuiteException("Error: InboundEmail not loaded (id:{$inboundEmailID})");
         }
@@ -238,7 +206,9 @@ class ListViewDataEmails extends ListViewData
     {
         switch ($folder->getType()) {
             case "inbound":
-                $inboundEmail->mailbox = $inboundEmail->get_stored_options('mailbox');
+                // Use the mailbox associated with $folder rather than the option string
+                // Used in the IMAP connection string later
+                $inboundEmail->mailbox = $folder->getMailbox();
                 break;
 
             case "draft":
@@ -254,7 +224,7 @@ class ListViewDataEmails extends ListViewData
                 break;
 
             default:
-                $inboundEmail->mailbox = empty($folder->id) ? '' : $folder->mailbox;
+                $inboundEmail->mailbox = empty($folder->id) ? '' : $folder->getMailbox();
                 break;
         }
     }
@@ -740,7 +710,13 @@ class ListViewDataEmails extends ListViewData
 
         try {
             $folderObj = new Folder();
-            $folderObj->retrieveFromRequest($request);
+
+            $folderObj->loadMailboxFolder($request ?? []);
+
+            if (empty($folderObj->getId())) {
+                LoggerManager::getLogger()->warn('Unable get Inbound Email for List View. Please check your settings and try again.');
+                return false;
+            }
 
             $inboundEmail = $this->getInboundEmail($current_user, $folderObj);
             if (!$inboundEmail || $inboundEmail && !$inboundEmail->id) {

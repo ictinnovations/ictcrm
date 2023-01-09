@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 if (!defined('sugarEntry') || !sugarEntry) {
@@ -44,18 +44,18 @@ if (!defined('sugarEntry') || !sugarEntry) {
 
 // classes where moved that we have one class per file
 // this file has been kept for backward compatibility
-// Remap old namespace to the ICTCRM namespace
+// Remap old namespace to the SuiteCRM namespace
 // Older code can still use this the old class names
-// new code can leverage the autoloader and use the ICTCRM namespace
-class HTMLPurifier_URIScheme_cid extends \ICTCRM\HTMLPurifierURISchemeCid
+// new code can leverage the autoloader and use the SuiteCRM namespace
+class HTMLPurifier_URIScheme_cid extends \SuiteCRM\HTMLPurifierURISchemeCid
 {
 }
-class HTMLPurifier_Filter_Xmp extends \ICTCRM\HTMLPurifierFilterXmp
+class HTMLPurifier_Filter_Xmp extends \SuiteCRM\HTMLPurifierFilterXmp
 {
 }
-class SugarCleaner extends \ICTCRM\HtmlSanitizer
+class SugarCleaner extends \SuiteCRM\HtmlSanitizer
 {
 }
-class SugarURIFilter extends \ICTCRM\URIFilter
+class SugarURIFilter extends \SuiteCRM\URIFilter
 {
 }

@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 
@@ -44,7 +44,7 @@ define("CREDENTIAL_USERNAME", "username");
 define("CREDENTIAL_PASSWORD", "password");
 
 require_once('include/nusoap/nusoap.php'); // TODO: is it needed?
-require_once('include/utils/zip_utils.php');
+require_once('include/utils/php_zip_utils.php');
 require_once('ModuleInstall/PackageManager/PackageManagerDisplay.php');
 require_once('ModuleInstall/ModuleInstaller.php');
 require_once('include/entryPoint.php');
@@ -63,19 +63,7 @@ class PackageManager
         $this->upload_dir = empty($GLOBALS['sugar_config']['upload_dir']) ? 'upload' : rtrim($GLOBALS['sugar_config']['upload_dir'], '/\\');
     }
 
-    /**
-     * @deprecated deprecated since version 7.6, PHP4 Style Constructors are deprecated and will be remove in 7.8, please update your code, use __construct instead
-     */
-    public function PackageManager()
-    {
-        $deprecatedMessage = 'PHP4 Style Constructors are deprecated and will be remove in 7.8, please update your code';
-        if (isset($GLOBALS['log'])) {
-            $GLOBALS['log']->deprecated($deprecatedMessage);
-        } else {
-            trigger_error($deprecatedMessage, E_USER_DEPRECATED);
-        }
-        self::__construct();
-    }
+
 
 
     public function initializeComm()
@@ -454,9 +442,9 @@ class PackageManager
      */
     private function validateManifestVersion($versions, $key)
     {
-        global $mod_strings, $sugar_version, $ictcrm_version;
+        global $mod_strings, $sugar_version, $suitecrm_version;
 
-        $checkedVersion = $ictcrm_version;
+        $checkedVersion = $suitecrm_version;
         if ($key === 'acceptable_sugar_versions') {
             $checkedVersion = $sugar_version;
         }
@@ -487,7 +475,7 @@ class PackageManager
 
             if (!$matchesEmpty) {
                 LoggerManager::getLogger()->error("Error with $key");
-                echo($mod_strings['ERROR_VERSION_INCOMPATIBLE'] . $ictcrm_version);
+                echo($mod_strings['ERROR_VERSION_INCOMPATIBLE'] . $suitecrm_version);
 
                 return false;
             }
@@ -506,7 +494,7 @@ class PackageManager
         }
 
         $versionSugarOk = $this->validateManifestVersion($manifest['acceptable_sugar_versions'], 'acceptable_sugar_versions');
-        $versionSuiteOk = $this->validateManifestVersion($manifest['acceptable_ictcrm_versions'], 'acceptable_ictcrm_versions');
+        $versionSuiteOk = $this->validateManifestVersion($manifest['acceptable_suitecrm_versions'], 'acceptable_suitecrm_versions');
 
         if (!$versionSugarOk || !$versionSuiteOk) {
             exit();

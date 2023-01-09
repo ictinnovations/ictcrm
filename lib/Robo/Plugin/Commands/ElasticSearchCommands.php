@@ -3,7 +3,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -32,33 +32,32 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
-namespace ICTCRM\Robo\Plugin\Commands;
+namespace SuiteCRM\Robo\Plugin\Commands;
 
 use BeanFactory;
-use Robo\Task\Base\loadTasks;
-use ICTCRM\Robo\Traits\CliRunnerTrait;
-use ICTCRM\Robo\Traits\RoboTrait;
-use ICTCRM\Search\ElasticSearch\ElasticSearchIndexer;
-use ICTCRM\Search\Index\Documentify\JsonSerializerDocumentifier;
-use ICTCRM\Search\Index\Documentify\SearchDefsDocumentifier;
-use ICTCRM\Search\SearchQuery;
-use ICTCRM\Search\SearchResults;
-use ICTCRM\Search\SearchWrapper;
-use ICTCRM\Utility\BeanJsonSerializer;
+use Robo\Tasks;
+use SuiteCRM\Robo\Traits\CliRunnerTrait;
+use SuiteCRM\Robo\Traits\RoboTrait;
+use SuiteCRM\Search\ElasticSearch\ElasticSearchIndexer;
+use SuiteCRM\Search\Index\Documentify\JsonSerializerDocumentifier;
+use SuiteCRM\Search\Index\Documentify\SearchDefsDocumentifier;
+use SuiteCRM\Search\SearchQuery;
+use SuiteCRM\Search\SearchResults;
+use SuiteCRM\Search\SearchWrapper;
+use SuiteCRM\Utility\BeanJsonSerializer;
 
 /**
  * Class ElasticSearchCommands
  *
- * @package ICTCRM\Robo\Plugin\Commands
+ * @package SuiteCRM\Robo\Plugin\Commands
  */
-class ElasticSearchCommands extends \Robo\Tasks
+class ElasticSearchCommands extends Tasks
 {
-    use loadTasks;
     use RoboTrait;
     use CliRunnerTrait;
 

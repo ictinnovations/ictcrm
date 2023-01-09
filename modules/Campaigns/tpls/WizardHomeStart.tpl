@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 /**
@@ -75,21 +75,11 @@
 									<input type="radio"  id="wizardtype_em" name="wizardtype" value='2'><label for='wizardtype_em'>{$MOD.LBL_EMAIL}</label><br>
 									<input type="radio"  id="wizardtype_ot" name='wizardtype' value='3'><label for='wizardtype_ot'>{$MOD.LBL_OTHER_TYPE_CAMPAIGN}</label><br>
 									<input type="radio"  id="wizardtype_survey" name='wizardtype' value='4'><label for='wizardtype_survey'>{$MOD.LBL_CAMPAIGN_SURVEY}</label><br>
-
-<input type="radio"  id="wizardtype_fax" name='wizardtype' value='5'><label for='wizardtype_fax'>Fax Campaign</label><br>
-
-<input type="radio"  id="wizardtype_voice" name='wizardtype' value='6'><label for='wizardtype_voice'>Voice Campaign</label><br>
-
-<input type="radio"  id="wizardtype_sms" name='wizardtype' value='7'><label for='wizardtype_sms'>SMS Campaign</label><br>
-
-
 								</p>
 
 
 
 								<ul class="icon-btn-lst">
-
-<!--
 									<li class="icon-btn">
 										<a href="javascript:" onclick="$('#wizardtype_nl').click(); $(this).closest('form').submit();" title="{$MOD.LBL_NEWSLETTER_TITLE}">
 											<span class="suitepicon suitepicon-action-view-news"></span>
@@ -97,43 +87,15 @@
 											<span>{$MOD.LBL_NEWSLETTER}</span>
 										</a>
 									</li>
-!-->
+
 									<li class="icon-btn">
-										<a href="{$MOD.LBL_EMAIL_HREF}" title="{$MOD.LBL_EMAIL_TITLE}">
+										<a href="javascript:" onclick="$('#wizardtype_em').click(); $(this).closest('form').submit();" title="{$MOD.LBL_EMAIL_TITLE}">
 											<span class="suitepicon suitepicon-module-emails"></span>
 											<br />
 											<span>{$MOD.LBL_EMAIL}</span>
 										</a>
 									</li>
 
-                                                                        <li class="icon-btn">
-
-<a href="{$MOD.LBL_FAX_HREF}" title="Fax Campaign">
-                                                                                        <span class="suitepicon"></span>
-                                                                                        <br />
-                                                                                        <span>Fax Campaign</span>
-                                                                                </a>
-                                                                        </li>
-
- <li class="icon-btn">
-
-<a href="{$MOD.LBL_VOICE_HREF}" title="Voice Campaign">
-                                                                                        <span class="suitepicon"></span>
-                                                                                        <br />
-                                                                                        <span>Voice Campaign</span>
-                                                                                </a>
-                                                                        </li>
-
-
-      <li class="icon-btn">
-                                                                                <a href="{$MOD.LBL_SMS_HREF}" title="SMS Campaign">
-                                                                                        <span class="suitepicon"></span>
-                                                                                        <br />
-                                                                                        <span>SMS Campaign</span>
-                                                                                </a>
-                                                                        </li>
-
-<!--
 									<li class="icon-btn">
 										<a href="javascript:" onclick="$('#wizardtype_ot').click(); $(this).closest('form').submit();" title="{$MOD.LBL_NON_EMAIL_TITLE}">
 											<span class="suitepicon suitepicon-action-megaphone"></span>
@@ -141,7 +103,6 @@
 											<span>{$MOD.LBL_OTHER_TYPE_CAMPAIGN}</span>
 										</a>
 									</li>
-
 									<li class="icon-btn">
 										<a href="javascript:" onclick="$('#wizardtype_survey').click(); $(this).closest('form').submit();" title="{$MOD.LBL_CAMPAIGN_SURVEY}">
 											<span class="suitepicon suitepicon-module-surveys"></span>
@@ -149,8 +110,6 @@
 											<span>{$MOD.LBL_CAMPAIGN_SURVEY}</span>
 										</a>
 									</li>
-
-!-->
 								</ul>
 
 							</fieldset>

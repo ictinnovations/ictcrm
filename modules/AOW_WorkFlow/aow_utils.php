@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 if (!defined('sugarEntry') || !sugarEntry) {
@@ -523,8 +523,7 @@ function getModuleField(
         // fill in enums
         if (isset($fieldlist[$name]['options']) && is_string($fieldlist[$name]['options']) && isset($app_list_strings[$fieldlist[$name]['options']])) {
             $fieldlist[$name]['options'] = $app_list_strings[$fieldlist[$name]['options']];
-        }
-        // Bug 32626: fall back on checking the mod_strings if not in the app_list_strings
+        } // Bug 32626: fall back on checking the mod_strings if not in the app_list_strings
         elseif (isset($fieldlist[$name]['options']) && is_string($fieldlist[$name]['options']) && isset($mod_strings[$fieldlist[$name]['options']])) {
             $fieldlist[$name]['options'] = $mod_strings[$fieldlist[$name]['options']];
         }
@@ -532,6 +531,12 @@ function getModuleField(
         // Make sure the enum has an 'options' array to append a new value to.
         if (isset($fieldlist[$name]['options']) && is_array($fieldlist[$name]['options']) && !isset($fieldlist[$name]['options'][''])) {
             $fieldlist[$name]['options'][''] = '';
+        }
+
+        if ($fieldlist[$name]['type'] == 'enum' || $fieldlist[$name]['type'] == 'multienum' || $fieldlist[$name]['type'] == 'dynamicenum') {
+            if ($params['value_set'] === true && $value === "") {
+                $fieldlist[$name]['default'] = $value;
+            }
         }
     }
 
@@ -618,7 +623,11 @@ function getModuleField(
         $fieldlist[$fieldname]['name'] = $aow_field;
     } elseif (isset($fieldlist[$fieldname]['type']) && ($fieldlist[$fieldname]['type'] == 'datetimecombo' || $fieldlist[$fieldname]['type'] == 'datetime' || $fieldlist[$fieldname]['type'] == 'date')) {
         $value = $focus->convertField($value, $fieldlist[$fieldname]);
-        $displayValue = $timedate->to_display_date_time($value);
+        if($fieldlist[$fieldname]['type'] === "date"){
+            $displayValue = $timedate->to_display_date($value);
+        }else{
+            $displayValue = $timedate->to_display_date_time($value);
+        }
         $fieldlist[$fieldname]['value'] = $fieldlist[$aow_field]['value'] = $displayValue;
         $fieldlist[$fieldname]['name'] = $aow_field;
     } else {
@@ -942,7 +951,8 @@ function fixUpFormatting($module, $field, $value)
     switch ($bean->field_defs[$field]['type']) {
         case 'datetime':
         case 'datetimecombo':
-            if (empty($value)) {
+            // If value is array, don't attempt to convert to DB format
+            if (empty($value) || is_array($value)) {
                 break;
             }
             if ($value == 'NULL') {
@@ -955,7 +965,8 @@ function fixUpFormatting($module, $field, $value)
             }
             break;
         case 'date':
-            if (empty($value)) {
+            // If value is array, don't attempt to convert to DB format
+            if (empty($value) || is_array($value)) {
                 break;
             }
             if ($value == 'NULL') {
@@ -1014,9 +1025,6 @@ function fixUpFormatting($module, $field, $value)
             } else {
                 $value = true;
             }
-            break;
-        case 'encrypt':
-            $value = $this->encrpyt_before_save($value);
             break;
     }
     return $value;

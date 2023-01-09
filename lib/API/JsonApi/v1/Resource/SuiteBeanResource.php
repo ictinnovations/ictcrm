@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,28 +33,28 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
-namespace ICTCRM\API\JsonApi\v1\Resource;
+namespace SuiteCRM\API\JsonApi\v1\Resource;
 
 use Psr\Http\Message\ServerRequestInterface;
-use ICTCRM\API\JsonApi\v1\Enumerator\RelationshipType;
-use ICTCRM\API\JsonApi\v1\Links;
-use ICTCRM\API\JsonApi\v1\Repositories\RelationshipRepository;
-use ICTCRM\API\v8\Controller\ApiController;
-use ICTCRM\API\v8\Exception\ReservedKeywordNotAllowedException;
-use ICTCRM\Enumerator\ExceptionCode;
-use ICTCRM\API\JsonApi\v1\Enumerator\ResourceEnum;
-use ICTCRM\API\v8\Exception\ApiException;
-use ICTCRM\API\v8\Exception\BadRequestException;
-use ICTCRM\API\v8\Exception\ConflictException;
+use SuiteCRM\API\JsonApi\v1\Enumerator\RelationshipType;
+use SuiteCRM\API\JsonApi\v1\Links;
+use SuiteCRM\API\JsonApi\v1\Repositories\RelationshipRepository;
+use SuiteCRM\API\v8\Controller\ApiController;
+use SuiteCRM\API\v8\Exception\ReservedKeywordNotAllowedException;
+use SuiteCRM\Enumerator\ExceptionCode;
+use SuiteCRM\API\JsonApi\v1\Enumerator\ResourceEnum;
+use SuiteCRM\API\v8\Exception\ApiException;
+use SuiteCRM\API\v8\Exception\BadRequestException;
+use SuiteCRM\API\v8\Exception\ConflictException;
 
 /**
  * Class SuiteBeanResource
- * @package ICTCRM\API\JsonApi\v1\Resource
+ * @package SuiteCRM\API\JsonApi\v1\Resource
  * @see http://jsonapi.org/format/1.0/#document-resource-objects
  */
 class SuiteBeanResource extends Resource
@@ -65,7 +65,7 @@ class SuiteBeanResource extends Resource
      * @param \SugarBean $sugarBean
      * @param string $source rfc6901
      * @return SuiteBeanResource
-     * @throws \ICTCRM\API\v8\Exception\BadRequestException
+     * @throws \SuiteCRM\API\v8\Exception\BadRequestException
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      * @throws ApiException
@@ -448,7 +448,7 @@ class SuiteBeanResource extends Resource
      * @param Relationship $relationship
      * @return SuiteBeanResource
      */
-    public function withRelationship(\ICTCRM\API\JsonApi\v1\Resource\Relationship $relationship)
+    public function withRelationship(\SuiteCRM\API\JsonApi\v1\Resource\Relationship $relationship)
     {
         $relationshipName = $relationship->getRelationshipName();
         $this->relationships[$relationshipName]['data'] = $relationship->toJsonApiResponse();
@@ -459,7 +459,7 @@ class SuiteBeanResource extends Resource
      * Set the attributes to download a base64 encoded file
      * @param \File|\Note|\Document $bean
      * @param string $fieldName
-     * @throws \ICTCRM\API\v8\Exception\ApiException
+     * @throws \SuiteCRM\API\v8\Exception\ApiException
      */
     private function retrieveFileFromBean(\File $bean, $fieldName)
     {

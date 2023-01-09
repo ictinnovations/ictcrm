@@ -7,7 +7,7 @@ if (!defined('sugarEntry') || !sugarEntry) {
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -36,9 +36,9 @@ if (!defined('sugarEntry') || !sugarEntry) {
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 /*********************************************************************************
@@ -326,7 +326,7 @@ class MysqliManager extends MysqlManager
                     if (isset($GLOBALS['app_strings']['ERR_NO_DB'])) {
                         sugar_die($GLOBALS['app_strings']['ERR_NO_DB']);
                     } else {
-                        sugar_die("Could not connect to the database. Please refer to ictcrm.log for details (2).");
+                        sugar_die("Could not connect to the database. Please refer to suitecrm.log for details (2).");
                     }
                 } else {
                     return false;
@@ -340,7 +340,7 @@ class MysqliManager extends MysqlManager
                 if (isset($GLOBALS['app_strings']['ERR_NO_DB'])) {
                     sugar_die($GLOBALS['app_strings']['ERR_NO_DB']);
                 } else {
-                    sugar_die("Could not connect to the database. Please refer to ictcrm.log for details (2).");
+                    sugar_die("Could not connect to the database. Please refer to suitecrm.log for details (2).");
                 }
             } else {
                 return false;
@@ -359,7 +359,7 @@ class MysqliManager extends MysqlManager
             mysqli_set_charset($this->database, $charset);
 	    }
 
-        // https://github.com/salesagility/ICTCRM/issues/7107
+        // https://github.com/salesagility/SuiteCRM/issues/7107
         // MySQL 5.7 is stricter regarding missing values in SQL statements and makes some tests fail.
         // Remove STRICT_TRANS_TABLES from sql_mode so we get the old behaviour again.
         mysqli_query($this->database, "SET SESSION sql_mode=(SELECT REPLACE(@@sql_mode, 'STRICT_TRANS_TABLES', ''))");
@@ -426,5 +426,22 @@ class MysqliManager extends MysqlManager
     public function valid()
     {
         return function_exists("mysqli_connect") && empty($GLOBALS['sugar_config']['mysqli_disabled']);
+    }
+
+    public function compareVarDefs($fielddef1, $fielddef2, $ignoreName = false)
+    {
+        /**
+         * Int lengths are ignored in MySQL versions >= 8.0.19 so we need to ignore when comparing vardefs.
+         */
+        if($fielddef1['type'] == 'int') {
+            $db_version = $this->version();
+            if (!empty($db_version)
+                && version_compare($db_version, '8.0.19') >= 0
+                && strpos($db_version, "MariaDB") === false
+            ) {
+                unset($fielddef2['len']);
+            }
+        }
+        return parent::compareVarDefs($fielddef1, $fielddef2, $ignoreName);
     }
 }

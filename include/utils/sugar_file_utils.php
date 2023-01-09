@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 if (!defined('sugarEntry') || !sugarEntry) {
@@ -133,6 +133,28 @@ function sugar_fopen($filename, $mode, $use_include_path = false, $context = nul
 }
 
 /**
+ * sugar_fclose
+ * Call this function instead of fclose to make sure the closed file
+ * is removed from caches
+ *
+ * @param resource $handle - Handle of the file to close
+ *
+ * @return bool - Returns true on success, false otherwise
+ */
+function sugar_fclose($handle)
+{
+    $filename = stream_get_meta_data($handle)['uri'];
+
+    $result = fclose($handle);
+
+    if ((new SplFileInfo($filename))->getExtension() == 'php') {
+        SugarCache::cleanFile($filename);
+    }
+
+    return $result;
+}
+
+/**
  * sugar_file_put_contents
  * Call this function instead of file_put_contents to apply pre-configured permission
  * settings when creating the file.  This method is basically
@@ -161,7 +183,9 @@ function sugar_file_put_contents($filename, $data, $flags = null, $context = nul
     }
 
     $result = file_put_contents($filename, $data, $flags, $context);
-    SugarCache::cleanFile($filename);
+    if ((new SplFileInfo($filename))->getExtension() == 'php') {
+        SugarCache::cleanFile($filename);
+    }
 
     return $result;
 }
@@ -207,7 +231,11 @@ function sugar_file_put_contents_atomic($filename, $data, $mode = 'wb')
     }
 
     if (file_exists($filename)) {
-        return sugar_chmod($filename, 0755);
+        $result = sugar_chmod($filename, 0755);
+        if ((new SplFileInfo($filename))->getExtension() == 'php') {
+            SugarCache::cleanFile($filename);
+        }
+        return $result;
     }
 
     return false;

@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2019 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 if (!defined('sugarEntry') || !sugarEntry) {
@@ -65,7 +65,7 @@ $mod_strings = array(
     'ERR_ARCHIVE_EMAIL' => 'Error: Select emails to archive.',
     'ERR_DELETE_RECORD' => 'Error: You must specify a record number to delete the account.',
     'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'Accounts',
-    'LBL_ADD_DASHLETS' => 'Add ICTCRM Dashlets',
+    'LBL_ADD_DASHLETS' => 'Add SuiteCRM Dashlets',
     'LBL_ADD_DOCUMENT' => 'Add Documents',
     'LBL_ADD_ENTRIES' => 'Add Entries',
     'LBL_ADD_FILE' => 'Add Files',
@@ -306,11 +306,11 @@ $mod_strings = array(
     'LBL_HAS_INVALID_EMAIL_CC' => 'The address(es) in the Cc field are invalid',
     'LBL_HAS_INVALID_EMAIL_BCC' => 'The address(es) in the Bcc field are invalid',
     'LBL_HAS_INVALID_EMAIL_TO' => 'The address(es) in the To field are invalid',
-    'LBL_TEST_EMAIL_SUBJECT' => 'Test Email from ICTCRM',
+    'LBL_TEST_EMAIL_SUBJECT' => 'Test Email from SuiteCRM',
     'LBL_NO_SUBJECT' => '(no subject)',
     'LBL_CHECKING_ACCOUNT' => 'Checking Account',
     'LBL_OF' => 'of',
-    'LBL_TEST_EMAIL_BODY' => 'This email was sent in order to test the outgoing mail server information provided in the ICTCRM application. A successful receipt of this email indicates that the outgoing mail server information provided is valid.',
+    'LBL_TEST_EMAIL_BODY' => 'This email was sent in order to test the outgoing mail server information provided in the SuiteCRM application. A successful receipt of this email indicates that the outgoing mail server information provided is valid.',
 
     // for outbound email dialog
     'LBL_MISSING_DEFAULT_OUTBOUND_SMTP_SETTINGS' => 'The administrator has not yet configured the default outbound account. Unable to send test email.',

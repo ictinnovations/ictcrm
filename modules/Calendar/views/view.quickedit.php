@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 require_once('include/EditView/EditView2.php');
@@ -84,6 +84,14 @@ class CalendarViewQuickEdit extends SugarView
         $this->ev->view = "QuickCreate";
         $this->ev->ss = new Sugar_Smarty();
         $this->ev->formName = "CalendarEditView";
+	     //Fix #9781 Meetings and Calls quick edit via Calender does not populate correct reminders
+        //Fetch Reminders Data for existing Calls or Meetings and assign to smarty template
+        if (!empty($this->bean->id)) {
+            $this->ev->ss->assign('remindersData', Reminder::loadRemindersData($module, $this->bean->id, false));
+            $this->ev->ss->assign('remindersDataJson', Reminder::loadRemindersDataJson($module, $this->bean->id, false));
+            $this->ev->ss->assign('remindersDefaultValuesDataJson', Reminder::loadRemindersDefaultValuesDataJson());
+            $this->ev->ss->assign('remindersDisabled', json_encode(false));
+        }
         $this->ev->setup($module, $this->bean, $source, $tpl);
         $this->ev->defs['templateMeta']['form']['headerTpl'] = "modules/Calendar/tpls/editHeader.tpl";
         $this->ev->defs['templateMeta']['form']['footerTpl'] = "modules/Calendar/tpls/empty.tpl";

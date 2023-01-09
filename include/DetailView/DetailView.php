@@ -7,7 +7,7 @@ if (!defined('sugarEntry') || !sugarEntry) {
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -36,9 +36,9 @@ if (!defined('sugarEntry') || !sugarEntry) {
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 
@@ -62,21 +62,15 @@ class DetailView extends ListView
         $this->local_app_strings =$app_strings;
     }
 
+
+
+
     /**
-     * @deprecated deprecated since version 7.6, PHP4 Style Constructors are deprecated and will be remove in 7.8, please update your code, use __construct instead
+     * @param string $html_varName
+     * @param SugarBean $seed
+     * @param int $offset
+     * @return SugarBean
      */
-    public function DetailView()
-    {
-        $deprecatedMessage = 'PHP4 Style Constructors are deprecated and will be remove in 7.8, please update your code';
-        if (isset($GLOBALS['log'])) {
-            $GLOBALS['log']->deprecated($deprecatedMessage);
-        } else {
-            trigger_error($deprecatedMessage, E_USER_DEPRECATED);
-        }
-        self::__construct();
-    }
-
-
     public function processSugarBean($html_varName, $seed, $offset)
     {
         global $row_count, $sugar_config;
@@ -164,27 +158,11 @@ class DetailView extends ListView
         $db_offset=$offset-1;
 
         $this->populateQueryWhere($isFirstView, $html_varName);
-        if (ACLController::requireOwner($seed->module_dir, 'view')) {
-            global $current_user;
-            $seed->getOwnerWhere($current_user->id);
-            if (!empty($this->query_where)) {
-                $this->query_where .= ' AND ';
-            }
-            $this->query_where .= $seed->getOwnerWhere($current_user->id);
+
+        $accessWhere = $seed->buildAccessWhere('view');
+        if (!empty($accessWhere)) {
+            $this->query_where .= empty($this->query_where) ? $accessWhere : ' AND ' . $accessWhere;
         }
-        /* BEGIN - SECURITY GROUPS */
-        if (ACLController::requireSecurityGroup($seed->module_dir, 'view')) {
-            require_once('modules/SecurityGroups/SecurityGroup.php');
-            global $current_user;
-            $owner_where = $seed->getOwnerWhere($current_user->id);
-            $group_where = SecurityGroup::getGroupWhere($seed->table_name, $seed->module_dir, $current_user->id);
-            if (empty($this->query_where)) {
-                $this->query_where = " (".$owner_where." or ".$group_where.")";
-            } else {
-                $this->query_where .= " AND (".$owner_where." or ".$group_where.")";
-            }
-        }
-        /* END - SECURITY GROUPS */
 
         $order = $this->getLocalSessionVariable($seed->module_dir.'2_'.$html_varName, "ORDER_BY");
         $orderBy = '';

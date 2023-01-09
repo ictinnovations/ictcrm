@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 if (!defined('sugarEntry') || !sugarEntry) {
@@ -85,7 +85,7 @@ $contactForm = new ContactFormBase();
 $GLOBALS['check_notify'] = false;
 
 
-$query = 'select id, first_name, last_name, title from contacts where deleted=0 ';
+$query = 'select contacts.id, first_name, last_name, title, accounts.name, primary_address_city from contacts LEFT JOIN accounts_contacts ON contacts.id=accounts_contacts.contact_id and accounts_contacts.deleted = 0 LEFT JOIN accounts ON accounts_contacts.account_id=accounts.id AND accounts_contacts.deleted=0 AND accounts.deleted=0 where contacts.deleted=0 ';
 $duplicates = $_POST['duplicate'];
 $count = count($duplicates);
 $db = DBManagerFactory::getInstance();
@@ -98,7 +98,7 @@ if ($count > 0) {
         }
         $first = false;
         $duplicateIdQuoted = $db->quote($duplicate_id);
-        $query .= "id='$duplicateIdQuoted' ";
+        $query .= "contacts.id='$duplicateIdQuoted' ";
     }
     $query .= ')';
 }

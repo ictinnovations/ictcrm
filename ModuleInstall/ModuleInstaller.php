@@ -7,7 +7,7 @@ if (!defined('sugarEntry') || !sugarEntry) {
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -36,9 +36,9 @@ if (!defined('sugarEntry') || !sugarEntry) {
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 
@@ -78,19 +78,7 @@ class ModuleInstaller
         $this->extensions = $extensions;
     }
 
-    /**
-     * @deprecated deprecated since version 7.6, PHP4 Style Constructors are deprecated and will be remove in 7.8, please update your code, use __construct instead
-     */
-    public function ModuleInstaller()
-    {
-        $deprecatedMessage = 'PHP4 Style Constructors are deprecated and will be remove in 7.8, please update your code';
-        if (isset($GLOBALS['log'])) {
-            $GLOBALS['log']->deprecated($deprecatedMessage);
-        } else {
-            trigger_error($deprecatedMessage, E_USER_DEPRECATED);
-        }
-        self::__construct();
-    }
+
 
 
     /*
@@ -486,7 +474,7 @@ class ModuleInstaller
     public function rebuildExt($ext, $filename)
     {
         $this->log(translate('LBL_MI_REBUILDING') . " $ext...");
-        $this->merge_files("Ext/$ext/", $filename);
+        $this->merge_files("Ext/$ext", $filename);
     }
 
     /**
@@ -1381,9 +1369,10 @@ class ModuleInstaller
                 }
 
                 $relName = strpos($filename, "MetaData") !== false ? substr($filename, 0, strlen($filename) - 12) : $filename;
-                $out = sugar_fopen("custom/Extension/application/Ext/TableDictionary/$relName.php", 'w') ;
-                fwrite($out, $str . "include('custom/metadata/$filename');\n\n?>") ;
-                fclose($out) ;
+                sugar_file_put_contents(
+                    "custom/Extension/application/Ext/TableDictionary/$relName.php",
+                    $str . "include('custom/metadata/$filename');\n\n?>"
+                );
             }
 
 
@@ -1748,7 +1737,7 @@ class ModuleInstaller
     {
         foreach ($languages as $language=>$value) {
             $this->log(translate('LBL_MI_REBUILDING') . " Language...$language");
-            $this->merge_files('Ext/Language/', $language.'.lang.ext.php', $language);
+            $this->merge_files('Ext/Language', $language.'.lang.ext.php', $language);
             if ($modules!="") {
                 foreach ($modules as $module) {
                     LanguageManager::clearLanguageCache($module, $language);
@@ -1767,7 +1756,7 @@ class ModuleInstaller
     public function rebuild_dashletcontainers()
     {
         $this->log(translate('LBL_MI_REBUILDING') . " DC Actions...");
-        $this->merge_files('Ext/DashletContainer/Containers/', 'dcactions.ext.php');
+        $this->merge_files('Ext/DashletContainer/Containers', 'dcactions.ext.php');
     }
 
     public function rebuild_tabledictionary()
@@ -1872,9 +1861,7 @@ class ModuleInstaller
                     if (!file_exists("custom/$extpath")) {
                         mkdir_recursive("custom/$extpath", true);
                     }
-                    $out = sugar_fopen("custom/$extpath/$name", 'w');
-                    fwrite($out, $extension);
-                    fclose($out);
+                    sugar_file_put_contents("custom/$extpath/$name", $extension);
                 } else {
                     if (file_exists("custom/$extpath/$name")) {
                         unlink("custom/$extpath/$name");
@@ -1905,9 +1892,7 @@ class ModuleInstaller
             if (!file_exists("custom/$extpath")) {
                 mkdir_recursive("custom/$extpath", true);
             }
-            $out = sugar_fopen("custom/$extpath/$name", 'w');
-            fwrite($out, $extension);
-            fclose($out);
+            sugar_file_put_contents("custom/$extpath/$name", $extension);
         } else {
             if (file_exists("custom/$extpath/$name")) {
                 unlink("custom/$extpath/$name");
@@ -1948,7 +1933,7 @@ class ModuleInstaller
             if (!file_exists("custom/Extension/application/Ext/Include")) {
                 mkdir_recursive("custom/Extension/application/Ext/Include", true);
             }
-            file_put_contents("custom/Extension/application/Ext/Include/{$this->id_name}.php", $str);
+            sugar_file_put_contents("custom/Extension/application/Ext/Include/{$this->id_name}.php", $str);
         }
     }
 

@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2019 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,25 +33,25 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
-namespace ICTCRM;
+namespace SuiteCRM;
 
 if (!defined('sugarEntry') || !sugarEntry) {
     die('Not A Valid Entry Point');
 }
 
-use PHPUnit_Framework_TestCase;
-use ICTCRM\Exception\Exception;
+use PHPUnit\Framework\TestCase;
+use SuiteCRM\Exception\Exception;
 
 /**
  * Class TestCaseAbstract
- * @package ICTCRM
+ * @package SuiteCRM
  */
-abstract class TestCaseAbstract extends PHPUnit_Framework_TestCase
+abstract class TestCaseAbstract extends TestCase
 {
     use DatabaseTransactions;
     use RefreshDatabase;
@@ -62,7 +62,7 @@ abstract class TestCaseAbstract extends PHPUnit_Framework_TestCase
     /**
      * @throws Exception
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         if (self::$verbose) {
             $currentTestName = get_class($this) . '::' . $this->getName(false);
@@ -82,7 +82,7 @@ abstract class TestCaseAbstract extends PHPUnit_Framework_TestCase
         parent::setUp();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
 

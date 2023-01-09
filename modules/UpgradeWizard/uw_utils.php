@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,14 +33,16 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 if (!defined('sugarEntry') || !sugarEntry) {
     die('Not A Valid Entry Point');
 }
+
+require_once __DIR__ . '/../../include/dir_inc.php';
 
 /**
  * Implodes some parts of version with specified delimiter, beta & rc parts are removed all time
@@ -122,7 +124,7 @@ function commitMakeBackupFiles($rest_dir, $install_file, $unzip_dir, $zip_from_d
                 RecursiveDirectoryIterator::SKIP_DOTS | RecursiveIteratorIterator::SELF_FIRST
             )
         );
-	    
+
         // keep this around for canceling
         $_SESSION['uw_restore_dir'] = getUploadRelativeName($rest_dir);
 
@@ -143,7 +145,7 @@ function commitMakeBackupFiles($rest_dir, $install_file, $unzip_dir, $zip_from_d
             if (is_file($oldFile)) {
                 if (is_writable($rest_dir)) {
                     logThis('Backing up file: ' . $oldFile, $path);
-                    if (!copy($oldFile, $rest_dir . '/' . $cleanFile)) {
+                    if (!copy_recursive($oldFile, $rest_dir . '/' . $cleanFile)) {
                         logThis('*** ERROR: could not backup file: ' . $oldFile, $path);
                         $errors[] = "{$mod_strings['LBL_UW_BACKUP']}::{$mod_strings['ERR_UW_FILE_NOT_COPIED']}: {$oldFile}";
                     } else {
@@ -233,7 +235,7 @@ function commitCopyNewFiles($unzip_dir, $zip_from_dir, $path='')
                 continue;
             }
 
-            if (!copy($srcFile, $targetFile)) {
+            if (!copy_recursive($srcFile, $targetFile)) {
                 logThis('*** ERROR: could not copy file: ' . $targetFile, $path);
             } else {
                 $copiedFiles[] = $targetFile;
@@ -320,7 +322,7 @@ function copyRecursiveBetweenDirectories($from, $to)
                     continue;
                 }
 
-                if (!copy($srcFile, $targetFile)) {
+                if (!copy_recursive($srcFile, $targetFile)) {
                     logThis("*** ERROR: could not copy file $srcFile to $targetFile");
                 }
             }
@@ -398,7 +400,7 @@ function deleteAndOverWriteSelectedFiles($unzip_dir, $zip_from_dir, $delete_dirs
 
                     //logThis('Copying file to destination: ' . $targetFile);
 
-                    if (!copy($srcFile, $targetFile)) {
+                    if (!copy_recursive($srcFile, $targetFile)) {
                         logThis('*** ERROR: could not copy file: ' . $targetFile);
                     } else {
                         $copiedFiles[] = $targetFile;
@@ -1133,7 +1135,7 @@ function checkSystemCompliance()
 
     if (check_php_version() === 0) {
         $ret['phpVersion'] = "<b><span class=stop>{$installer_mod_strings['LBL_CURRENT_PHP_VERSION']} ".constant('PHP_VERSION').". ";
-        $ret['phpVersion'] .= $mod_strings['LBL_RECOMMENDED_PHP_VERSION_1'].constant('ICTCRM_PHP_REC_VERSION').$mod_strings['LBL_RECOMMENDED_PHP_VERSION_2'].'</span></b>';
+        $ret['phpVersion'] .= $mod_strings['LBL_RECOMMENDED_PHP_VERSION_1'].constant('SUITECRM_PHP_REC_VERSION').$mod_strings['LBL_RECOMMENDED_PHP_VERSION_2'].'</span></b>';
         $ret['warn_found'] = true;
     }
 
@@ -1182,15 +1184,6 @@ function checkSystemCompliance()
     } else {
         $ret['imapStatus'] = "<b><span class=go>{$installer_mod_strings['ERR_CHECKSYS_IMAP']}</span></b>";
         $ret['error_found'] = false;
-    }
-
-
-    // safe mode
-    if ('1' == ini_get('safe_mode')) {
-        $ret['safeModeStatus'] = "<b><span class=stop>{$installer_mod_strings['ERR_CHECKSYS_SAFE_MODE']}</span></b>";
-        $ret['error_found'] = true;
-    } else {
-        $ret['safeModeStatus'] = "<b><span class=go>{$installer_mod_strings['LBL_CHECKSYS_OK']}</span></b>";
     }
 
     // memory limit
@@ -1321,7 +1314,11 @@ function logThis($entry, $path='')
     }
 
     if (is_resource($fp)) {
-        fclose($fp);
+        if (function_exists('sugar_fclose')) {
+            sugar_fclose($fp);
+	} else {
+            fclose($fp);
+        }
     }
 }
 
@@ -1335,6 +1332,10 @@ function logThis($entry, $path='')
  **/
 function updateQuickCreateDefs()
 {
+    if (file_exists(__DIR__.'/../../include/utils/sugar_file_utils.php')) {
+        require_once(__DIR__.'/../../include/utils/sugar_file_utils.php');
+    }
+
     $d = dir('modules');
     $studio_modules = array();
 
@@ -1364,7 +1365,11 @@ function updateQuickCreateDefs()
                 if (file_exists($quickcreatedefs) && is_readable($quickcreatedefs)) {
                     $file = file($quickcreatedefs);
                     //replace 'EditView' with 'QuickCreate'
-                    $fp = fopen($quickcreatedefs, 'wb');
+                    if (function_exists('sugar_fopen')) {
+                        $fp = sugar_fopen($quickcreatedefs, 'wb');
+                    } else {
+                        $fp = fopen($quickcreatedefs, 'wb');
+                    }
                     foreach ($file as &$line) {
                         if (preg_match('/^\s*\'EditView\'\s*=>\s*$/', $line) > 0) {
                             $line = "'QuickCreate' =>\n";
@@ -1372,7 +1377,11 @@ function updateQuickCreateDefs()
                         fwrite($fp, $line);
                     }
                     //write back.
-                    fclose($fp);
+                    if (function_exists('sugar_fclose')) {
+                        sugar_fclose($fp);
+                    } else {
+                        fclose($fp);
+                    }
                 } else {
                     $GLOBALS['log']->debug("Failed to replace 'EditView' with QuickCreate because $quickcreatedefs is either not readable or does not exist.");
                 }
@@ -2139,7 +2148,7 @@ if (!function_exists('validate_manifest')) {
         global $sugar_flavor;
         global $mod_strings;
 
-        include('ictcrm_version.php');
+        include('suitecrm_version.php');
 
         if (!isset($manifest['type'])) {
             return $mod_strings['ERROR_MANIFEST_TYPE'];
@@ -2178,8 +2187,8 @@ if (!function_exists('validate_manifest')) {
         }
 
 
-        if (!isset($manifest['acceptable_ictcrm_versions'])) {
-            // If sugarcrm version set 'acceptable_sugar_versions', and acceptable_ictcrm_versions not set check on sugar version.
+        if (!isset($manifest['acceptable_suitecrm_versions'])) {
+            // If sugarcrm version set 'acceptable_sugar_versions', and acceptable_suitecrm_versions not set check on sugar version.
             if (isset($manifest['acceptable_sugar_versions'])) {
                 $version_ok = false;
                 $matches_empty = true;
@@ -2209,30 +2218,30 @@ if (!function_exists('validate_manifest')) {
                 return $mod_strings['ERROR_NO_VERSION_SET'];
             }
         } else {
-            // If sugarcrm version set 'acceptable_sugar_versions', and acceptable_ictcrm_versions set check only on ictcrm version
-            // If sugarcrm version not set 'acceptable_sugar_versions', and acceptable_ictcrm_versions set check only on ictcrm version
+            // If sugarcrm version set 'acceptable_sugar_versions', and acceptable_suitecrm_versions set check only on suitecrm version
+            // If sugarcrm version not set 'acceptable_sugar_versions', and acceptable_suitecrm_versions set check only on suitecrm version
             $version_ok = false;
             $matches_empty = true;
-            if (isset($manifest['acceptable_ictcrm_versions']['exact_matches'])) {
+            if (isset($manifest['acceptable_suitecrm_versions']['exact_matches'])) {
                 $matches_empty = false;
-                foreach ($manifest['acceptable_ictcrm_versions']['exact_matches'] as $match) {
-                    if ($match == $ictcrm_version) {
+                foreach ($manifest['acceptable_suitecrm_versions']['exact_matches'] as $match) {
+                    if ($match == $suitecrm_version) {
                         $version_ok = true;
                     }
                 }
             }
-            if (!$version_ok && isset($manifest['acceptable_ictcrm_versions']['regex_matches'])) {
+            if (!$version_ok && isset($manifest['acceptable_suitecrm_versions']['regex_matches'])) {
                 $matches_empty = false;
-                foreach ($manifest['acceptable_ictcrm_versions']['regex_matches'] as $match) {
-                    if (preg_match("/$match/", $ictcrm_version)) {
+                foreach ($manifest['acceptable_suitecrm_versions']['regex_matches'] as $match) {
+                    if (preg_match("/$match/", $suitecrm_version)) {
                         $version_ok = true;
                     }
                 }
             }
 
             if (!$matches_empty && !$version_ok) {
-                return $mod_strings['ERROR_ICTCRM_VERSION_INCOMPATIBLE'] . "<br />" .
-                $mod_strings['ERR_UW_ICTCRM_VERSION'] . $ictcrm_version;
+                return $mod_strings['ERROR_SUITECRM_VERSION_INCOMPATIBLE'] . "<br />" .
+                $mod_strings['ERR_UW_SUITECRM_VERSION'] . $suitecrm_version;
             }
         }
 
@@ -3517,7 +3526,7 @@ function upgradeTeamColumn($bean, $column_name)
         }
         if ($fh = @sugar_fopen($file, 'wt')) {
             fwrite($fh, $contents);
-            fclose($fh);
+            sugar_fclose( $fh );
         }
 
 
@@ -3641,8 +3650,8 @@ function addNewSystemTabsFromUpgrade($from_dir)
         $newTB = new TabController();
 
         //make sure new modules list has a key we can reference directly
-        $newModuleList = $newTB->get_key_array($newModuleList);
-        $oldModuleList = $newTB->get_key_array($oldModuleList);
+        $newModuleList = TabController::get_key_array($newModuleList);
+        $oldModuleList = TabController::get_key_array($oldModuleList);
 
         //iterate through list and remove commonalities to get new modules
         foreach ($newModuleList as $remove_mod) {
@@ -3734,11 +3743,7 @@ function fix_dropdown_list()
                     //Now write out the file contents
                     //Create backup just in case
                     copy($file, $file . '.php_bak');
-                    $fp = @sugar_fopen($file, 'w');
-                    if ($fp) {
-                        fwrite($fp, $contents);
-                        fclose($fp);
-                    } else {
+                    if (sugar_file_put_contents($file, $contents) === false) {
                         $GLOBALS['log']->error("Unable to update file contents in fix_dropdown_list for {$file}");
                     } //if-else
                 }
@@ -3856,11 +3861,7 @@ function fix_dropdown_list()
                 if ($touched) {
                     //Create a backup just in case
                     copy($file, $file . '.bak');
-                    $fp = @sugar_fopen($file, 'w');
-                    if ($fp) {
-                        fwrite($fp, $out);
-                        fclose($fp);
-                    } else {
+                    if (sugar_file_put_contents($file, $out) === false) {
                         //If we can't update the file, just return
                         $GLOBALS['log']->error("Unable to update file contents in fix_dropdown_list.");
                         return;
@@ -3904,7 +3905,7 @@ function update_iframe_dashlets()
         if (!empty($content['dashlets']) && !empty($content['pages'])) {
             $originalDashlets = $content['dashlets'];
             foreach ($originalDashlets as $key => $ds) {
-                if (!empty($ds['options']['url']) && stristr($ds['options']['url'], 'https://ictcrm.com/')) {
+                if (!empty($ds['options']['url']) && stristr($ds['options']['url'], 'https://suitecrm.com/')) {
                     unset($originalDashlets[$key]);
                 }
             }
@@ -4373,7 +4374,6 @@ function writeSilentUpgradeVars()
     $cacheFileDir = "{$GLOBALS['sugar_config']['cache_dir']}/silentUpgrader";
     $cacheFile = "{$cacheFileDir}/silentUpgradeCache.php";
 
-    require_once('include/dir_inc.php');
     if (!mkdir_recursive($cacheFileDir)) {
         return false;
     }
@@ -4635,7 +4635,6 @@ function repairSearchFields($globString='modules/*/metadata/SearchFields.php', $
         logThis('Begin repairSearchFields', $path);
     }
 
-    require_once('include/dir_inc.php');
     require_once('modules/DynamicFields/templates/Fields/TemplateRange.php');
     require('include/modules.php');
 

@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,22 +33,22 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 if (!defined('sugarEntry') || !sugarEntry) {
     die('Not A Valid Entry Point');
 }
-include 'ictcrm_version.php';
+include 'suitecrm_version.php';
 global $sugar_config, $mod_strings;
 
 ?>
 <div class="about" id="about_header">
-    <h1><img src="include/images/suite_logo.png" alt="ICTCRM"></h1>
+    <h1><img src="include/images/suite_logo.png" alt="SuiteCRM"></h1>
     <br>
     <b>
-        <?php echo $mod_strings['LBL_VERSION'] . ' ' . $ictcrm_version;
+        <?php echo $mod_strings['LBL_VERSION'] . ' ' . $suitecrm_version;
         if (is_file('custom_version.php')) {
             include 'custom_version.php';
             echo '&nbsp;&nbsp;&nbsp;' . $custom_version;
@@ -57,7 +57,7 @@ global $sugar_config, $mod_strings;
     <p>
         Sugar <?php echo $mod_strings['LBL_VERSION'] . ' ' . $sugar_version . ' (' . $mod_strings['LBL_BUILD'] . ' ' . $sugar_build . ')'; ?></p>
     <br>
-    <h1><?php echo $mod_strings['LBL_CONTRIBUTOR_ICTCRM']; ?></h1>
+    <h1><?php echo $mod_strings['LBL_CONTRIBUTOR_SUITECRM']; ?></h1>
     <table id="about_table" class="contentBox">
         <tr>
             <td valign="top" style="padding: 15px 10px 15px 10px;">
@@ -106,7 +106,7 @@ global $sugar_config, $mod_strings;
                         <li><?php echo $mod_strings['LBL_LANGUAGE_COMMUNITY_ABOUT']; ?>
                         </li>
                         <li><?php echo $mod_strings['LBL_LANGUAGE_COMMUNITY_PACKS']; ?> (<a
-                                href="https://crowdin.com/project/ictcrmtranslations" target="_blank">https://crowdin.com/project/ictcrmtranslations</a>)
+                                href="https://crowdin.com/project/suitecrmtranslations" target="_blank">https://crowdin.com/project/suitecrmtranslations</a>)
                         </li>
                     </ul>
                 </div>
@@ -116,7 +116,7 @@ global $sugar_config, $mod_strings;
                     <h3><?php echo $mod_strings['LBL_PARTNERS']; ?></h3>
                     <ul id="about_menu">
                         <li><?php echo $mod_strings['LBL_SUITE_PARTNERS']; ?> (<a
-                                    href="https://ictcrm.com/about/about-us/partners">http://ictcrm.com</a>)
+                                    href="https://suitecrm.com/about/about-us/partners">http://suitecrm.com</a>)
                         </li>
                     </ul>
                 </div>

@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2019 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 
@@ -102,8 +102,8 @@ $app_list_strings = array(
         'TrackerQueries' => 'Tracker Queries',
         'FAQ' => 'FAQ',
         'Newsletters' => 'Newsletters',
-        'SugarFeed' => 'ICTCRM Feed',
-        'SugarFavorites' => 'ICTCRM Favorites',
+        'SugarFeed' => 'SuiteCRM Feed',
+        'SugarFavorites' => 'SuiteCRM Favorites',
 
         'OAuthKeys' => 'OAuth Consumer Keys',
         'OAuthTokens' => 'OAuth Tokens',
@@ -139,7 +139,7 @@ $app_list_strings = array(
         'Documents' => 'Document',
         'Sync' => 'Sync',
         'Users' => 'User',
-        'SugarFavorites' => 'ICTCRM Favorites',
+        'SugarFavorites' => 'SuiteCRM Favorites',
 
     ),
 
@@ -336,7 +336,7 @@ $app_list_strings = array(
     ),
     'meeting_type_dom' => array(
         'Other' => 'Other',
-        'Sugar' => 'ICTCRM',
+        'Sugar' => 'SuiteCRM',
     ),
     'call_status_default' => 'Planned',
     'call_status_dom' => array(
@@ -458,6 +458,7 @@ $app_list_strings = array(
         'Accounts' => 'Account',
         'Contacts' => 'Contact',
         'Opportunities' => 'Opportunity',
+        'Campaigns' => 'Campaign',
         'Tasks' => 'Task',
         'Emails' => 'Email',
 
@@ -491,11 +492,11 @@ $app_list_strings = array(
         'ProjectTask' => 'Project Task',
 
         'Prospects' => 'Target',
-        
+
         'AOS_Contracts' => 'Contract',
         'AOS_Invoices' => 'Invoice',
         'AOS_Quotes' => 'Quote',
-        'AOS_Products' => 'Product',        
+        'AOS_Products' => 'Product',
 
     ),
     'parent_line_items' => array(
@@ -626,6 +627,7 @@ $app_list_strings = array(
         'Radio' => 'Radio',
         'Television' => 'Television',
         'NewsLetter' => 'Newsletter',
+        'Survey' => 'Survey',
     ),
 
     'newsletter_frequency_dom' => array(
@@ -698,6 +700,39 @@ $app_list_strings = array(
         'PM' => 'PM',
     ),
 
+    'dom_inbound_email_account_types' => [
+        'personal' => 'Personal',
+        'group' => 'Group',
+        'bounce' => 'Bounce',
+    ],
+
+    'dom_inbound_email_auth_types' => [
+        'basic' => 'Basic Auth',
+        'oauth' => 'OAuth',
+    ],
+
+    'dom_external_oauth_connection_types' => [
+        'personal' => 'Personal',
+        'group' => 'Group',
+    ],
+
+    'dom_external_oauth_provider_types' => [
+        'personal' => 'Personal',
+        'group' => 'Group',
+    ],
+
+    'dom_outbound_email_account_types' => [
+        'user' => 'Personal',
+        'group' => 'Group',
+        'system' => 'System',
+        'system-override' => 'System Override',
+    ],
+
+    'dom_inbound_email_account_status' => [
+        'Active' => 'Active',
+        'Inactive' => 'Inactive',
+    ],
+
     'dom_email_types' => array(
         'out' => 'Sent',
         'archived' => 'Archived',
@@ -753,7 +788,7 @@ $app_list_strings = array(
     ),
 
     'dom_email_link_type' => array(
-        'sugar' => 'ICTCRM Email Client',
+        'sugar' => 'SuiteCRM Email Client',
         'mailto' => 'External Email Client',
     ),
 
@@ -904,6 +939,7 @@ $app_list_strings = array(
         'lead' => 'Leads Created',
         'contact' => 'Contacts Created',
         'blocked' => 'Suppressed by address or domain',
+        'Survey' => 'Survey answered',
     ),
 
     'campainglog_target_type_dom' => array(
@@ -928,6 +964,9 @@ $app_list_strings = array(
     'custom_fields_merge_dup_dom' => array(
         0 => 'Disabled',
         1 => 'Enabled',
+        2 => 'Filter',
+        3 => 'Default selected filter',
+        4 => 'Only filter',
     ),
 
     'projects_priority_options' => array(
@@ -1093,6 +1132,7 @@ $app_strings = array(
     'LBL_EMAIL_ACCOUNTS_SMTPUSER' => 'SMTP Username',
     'LBL_EMAIL_ACCOUNTS_SMTPDEFAULT' => 'Default',
     'LBL_EMAIL_WARNING_MISSING_USER_CREDS' => 'Warning: Missing username and password for outgoing mail account.',
+    'LBL_EMAIL_WARNING_MISSING_CREDS' => 'Warning: Missing credentials',
     'LBL_EMAIL_ACCOUNTS_SUBTITLE' => 'Set up Mail Accounts to view incoming emails from your email accounts.',
     'LBL_EMAIL_ACCOUNTS_OUTBOUND_SUBTITLE' => 'Provide SMTP mail server information to use for outgoing email in Mail Accounts.',
 
@@ -1114,12 +1154,12 @@ $app_strings = array(
     'LBL_EMAIL_ADDRESS_PRIMARY' => 'Email Address',
     'LBL_EMAIL_ADDRESS_OPT_IN' => 'You have confirmed that your email address has been opted in: ',
     'LBL_EMAIL_ADDRESS_OPT_IN_ERR' => 'Unable to confirm email address',
-    'LBL_EMAIL_ARCHIVE_TO_SUITE' => 'Import to ICTCRM',
+    'LBL_EMAIL_ARCHIVE_TO_SUITE' => 'Import to SuiteCRM',
     'LBL_EMAIL_ASSIGNMENT' => 'Assignment',
     'LBL_EMAIL_ATTACH_FILE_TO_EMAIL' => 'Attach',
     'LBL_EMAIL_ATTACHMENT' => 'Attach',
     'LBL_EMAIL_ATTACHMENTS' => 'From Local System',
-    'LBL_EMAIL_ATTACHMENTS2' => 'From ICTCRM Documents',
+    'LBL_EMAIL_ATTACHMENTS2' => 'From SuiteCRM Documents',
     'LBL_EMAIL_ATTACHMENTS3' => 'Template Attachments',
     'LBL_EMAIL_ATTACHMENTS_FILE' => 'File',
     'LBL_EMAIL_ATTACHMENTS_DOCUMENT' => 'Document',
@@ -1170,7 +1210,7 @@ $app_strings = array(
     'LBL_EMAIL_ERROR_CHECK_IE_SETTINGS' => 'Please check your settings.',
     'LBL_EMAIL_ERROR_DESC' => 'Errors were detected: ',
     'LBL_EMAIL_DELETE_ERROR_DESC' => 'You do not have access to this area. Contact your site administrator to obtain access.',
-    'LBL_EMAIL_ERROR_DUPE_FOLDER_NAME' => 'ICTCRM Folder names must be unique.',
+    'LBL_EMAIL_ERROR_DUPE_FOLDER_NAME' => 'SuiteCRM Folder names must be unique.',
     'LBL_EMAIL_ERROR_EMPTY' => 'Please enter some search criteria.',
     'LBL_EMAIL_ERROR_GENERAL_TITLE' => 'An error has occurred',
     'LBL_EMAIL_ERROR_MESSAGE_DELETED' => 'Message Removed from Server',
@@ -1232,7 +1272,7 @@ $app_strings = array(
     'LBL_EMAIL_IE_DELETE_SUCCESSFUL' => 'Deletion successful.',
     'LBL_EMAIL_IE_SAVE' => 'Saving Mail Account Information',
     'LBL_EMAIL_IMPORTING_EMAIL' => 'Importing Email',
-    'LBL_EMAIL_IMPORT_EMAIL' => 'Import into ICTCRM',
+    'LBL_EMAIL_IMPORT_EMAIL' => 'Import into SuiteCRM',
     'LBL_EMAIL_IMPORT_SETTINGS' => 'Import Settings',
     'LBL_EMAIL_INVALID' => 'Invalid',
     'LBL_EMAIL_LOADING' => 'Loading...',
@@ -1254,12 +1294,12 @@ $app_strings = array(
     'LBL_EMAIL_MENU_RENAMING_FOLDER' => 'Renaming Folder',
     'LBL_EMAIL_MENU_MAKE_SELECTION' => 'Please make a selection before trying this operation.',
 
-    'LBL_EMAIL_MENU_HELP_ADD_FOLDER' => 'Create a Folder (remote or in ICTCRM)',
-    'LBL_EMAIL_MENU_HELP_DELETE_FOLDER' => 'Delete a Folder (remote or in ICTCRM)',
+    'LBL_EMAIL_MENU_HELP_ADD_FOLDER' => 'Create a Folder (remote or in SuiteCRM)',
+    'LBL_EMAIL_MENU_HELP_DELETE_FOLDER' => 'Delete a Folder (remote or in SuiteCRM)',
     'LBL_EMAIL_MENU_HELP_EMPTY_TRASH' => 'Empties all Trash folders for your mail accounts',
     'LBL_EMAIL_MENU_HELP_MARK_READ' => 'Mark these email(s) read',
     'LBL_EMAIL_MENU_HELP_MARK_UNFLAGGED' => 'Mark these email(s) unflagged',
-    'LBL_EMAIL_MENU_HELP_RENAME_FOLDER' => 'Rename a Folder (remote or in ICTCRM)',
+    'LBL_EMAIL_MENU_HELP_RENAME_FOLDER' => 'Rename a Folder (remote or in SuiteCRM)',
 
     'LBL_EMAIL_MESSAGES' => 'messages',
 
@@ -1376,10 +1416,10 @@ $app_strings = array(
     'LBL_SMTPTYPE_EXCHANGE' => 'Microsoft Exchange',
     'LBL_SMTPTYPE_OTHER' => 'Other',
     'LBL_EMAIL_SPACER_MAIL_SERVER' => '[ Remote Folders ]',
-    'LBL_EMAIL_SPACER_LOCAL_FOLDER' => '[ ICTCRM Folders ]',
+    'LBL_EMAIL_SPACER_LOCAL_FOLDER' => '[ SuiteCRM Folders ]',
     'LBL_EMAIL_SUBJECT' => 'Subject',
     'LBL_EMAIL_SUCCESS' => 'Success',
-    'LBL_EMAIL_SUITE_FOLDER' => 'ICTCRM Folder',
+    'LBL_EMAIL_SUITE_FOLDER' => 'SuiteCRM Folder',
     'LBL_EMAIL_TEMPLATE_EDIT_PLAIN_TEXT' => 'Email template body is empty',
     'LBL_EMAIL_TEMPLATES' => 'Templates',
     'LBL_EMAIL_TO' => 'To',
@@ -1428,9 +1468,9 @@ $app_strings = array(
     'ERR_EXISTING_PORTAL_USERNAME' => 'Error: The Portal Name is already assigned to another contact.',
     'ERR_COMPATIBLE_PRECISION_VALUE' => 'Field value is not compatible with precision value',
     'ERR_EXTERNAL_API_SAVE_FAIL' => 'An error occurred when trying to save to the external account.',
-    'ERR_NO_DB' => 'Could not connect to the database. Please refer to ictcrm.log for details (0).',
-    'ERR_DB_FAIL' => 'Database failure. Please refer to ictcrm.log for details.',
-    'ERR_DB_VERSION' => 'ICTCRM {0} Files May Only Be Used With A ICTCRM {1} Database.',
+    'ERR_NO_DB' => 'Could not connect to the database. Please refer to suitecrm.log for details (0).',
+    'ERR_DB_FAIL' => 'Database failure. Please refer to suitecrm.log for details.',
+    'ERR_DB_VERSION' => 'SuiteCRM {0} Files May Only Be Used With A SuiteCRM {1} Database.',
 
     'LBL_ACCOUNT' => 'Account',
     'LBL_ACCOUNTS' => 'Accounts',
@@ -1453,7 +1493,7 @@ $app_strings = array(
     'LBL_BACK' => 'Back',
     'LBL_BILLING_ADDRESS' => 'Billing Address',
     'LBL_QUICK_CREATE' => 'Create ',
-    'LBL_BROWSER_TITLE' => 'ICTCRM - Open Source CRM',
+    'LBL_BROWSER_TITLE' => 'SuiteCRM - Open Source CRM',
     'LBL_BUGS' => 'Bugs',
     'LBL_BY' => 'by',
     'LBL_CALLS' => 'Calls',
@@ -1504,9 +1544,9 @@ $app_strings = array(
     'LBL_FAVORITES' => 'Favorites',
     'LBL_VCARD' => 'vCard',
     'LBL_EMPTY_VCARD' => 'Please select a vCard file',
-    'LBL_EMPTY_REQUIRED_VCARD' => 'vCard does not have all the required fields for this module. Please refer to ictcrm.log for details.',
+    'LBL_EMPTY_REQUIRED_VCARD' => 'vCard does not have all the required fields for this module. Please refer to suitecrm.log for details.',
     'LBL_VCARD_ERROR_FILESIZE' => 'The uploaded file exceeds the 30000 bytes size limit which was specified in the HTML form.',
-    'LBL_VCARD_ERROR_DEFAULT' => 'There was an error uploading the vCard file. Please refer to ictcrm.log for details.',
+    'LBL_VCARD_ERROR_DEFAULT' => 'There was an error uploading the vCard file. Please refer to suitecrm.log for details.',
     'LBL_IMPORT_VCARD' => 'Import vCard:',
     'LBL_IMPORT_VCARD_BUTTON_LABEL' => 'Import vCard',
     'LBL_IMPORT_VCARD_BUTTON_TITLE' => 'Import vCard',
@@ -1883,18 +1923,18 @@ $app_strings = array(
     'LBL_DASHLET_CONFIGURE_DISPLAY_ROWS' => 'Display Rows',
 
     // MySugar status strings
-    'LBL_MAX_DASHLETS_REACHED' => 'You have reached the maximum number of ICTCRM Dashlets your adminstrator has set. Please remove a ICTCRM Dashlet to add more.',
-    'LBL_ADDING_DASHLET' => 'Adding ICTCRM Dashlet...',
-    'LBL_ADDED_DASHLET' => 'ICTCRM Dashlet Added',
-    'LBL_REMOVE_DASHLET_CONFIRM' => 'Are you sure you want to remove this ICTCRM Dashlet?',
-    'LBL_REMOVING_DASHLET' => 'Removing ICTCRM Dashlet...',
-    'LBL_REMOVED_DASHLET' => 'ICTCRM Dashlet Removed',
+    'LBL_MAX_DASHLETS_REACHED' => 'You have reached the maximum number of SuiteCRM Dashlets your administrator has set. Please remove a SuiteCRM Dashlet to add more.',
+    'LBL_ADDING_DASHLET' => 'Adding SuiteCRM Dashlet...',
+    'LBL_ADDED_DASHLET' => 'SuiteCRM Dashlet Added',
+    'LBL_REMOVE_DASHLET_CONFIRM' => 'Are you sure you want to remove this SuiteCRM Dashlet?',
+    'LBL_REMOVING_DASHLET' => 'Removing SuiteCRM Dashlet...',
+    'LBL_REMOVED_DASHLET' => 'SuiteCRM Dashlet Removed',
 
     // MySugar Menu Options
 
     'LBL_LOADING_PAGE' => 'Loading page, please wait...',
 
-    'LBL_RELOAD_PAGE' => 'Please <a href="javascript: window.location.reload()">reload the window</a> to use this ICTCRM Dashlet.',
+    'LBL_RELOAD_PAGE' => 'Please <a href="javascript: window.location.reload()">reload the window</a> to use this SuiteCRM Dashlet.',
     'LBL_ADD_DASHLETS' => 'Add Dashlets',
     'LBL_CLOSE_DASHLETS' => 'Close',
     'LBL_OPTIONS' => 'Options',
@@ -2090,7 +2130,7 @@ $app_strings = array(
     'LBL_FIRST_INPUT_SEARCH_KEY' => '9',
 
     'ERR_CONNECTOR_NOT_ARRAY' => 'connector array in {0} been defined incorrectly or is empty and could not be used.',
-    'ERR_SUHOSIN' => 'Upload stream is blocked by Suhosin, please add &quot;upload&quot; to suhosin.executor.include.whitelist (See ictcrm.log for more information)',
+    'ERR_SUHOSIN' => 'Upload stream is blocked by Suhosin, please add &quot;upload&quot; to suhosin.executor.include.whitelist (See suitecrm.log for more information)',
     'ERR_BAD_RESPONSE_FROM_SERVER' => 'Bad response from the server',
     'LBL_ACCOUNT_PRODUCT_QUOTE_LINK' => 'Quote',
     'LBL_ACCOUNT_PRODUCT_SALE_PRICE' => 'Sale Price',
@@ -2126,6 +2166,7 @@ $app_strings = array(
     'LBL_SUBTHEME_OPTIONS_DAY' => 'Day',
     'LBL_SUBTHEME_OPTIONS_DUSK' => 'Dusk',
     'LBL_SUBTHEME_OPTIONS_NIGHT' => 'Night',
+    'LBL_SUBTHEME_OPTIONS_NOON' => 'Noon',
 
     'LBL_CONFIRM_DISREGARD_DRAFT_TITLE' => 'Disregard draft',
     'LBL_CONFIRM_DISREGARD_DRAFT_BODY' => 'This operation will delete this email, do you want to continue?',
@@ -2148,11 +2189,11 @@ $app_strings = array(
 
     // footer
     'LBL_SUITE_TOP' => 'Back to top',
-    'LBL_SUITE_SUPERCHARGED' => 'Supercharged by ICTCRM',
+    'LBL_SUITE_SUPERCHARGED' => 'Supercharged by SuiteCRM',
     'LBL_SUITE_POWERED_BY' => 'Powered By SugarCRM',
-    'LBL_SUITE_DESC1' => 'ICTCRM has been written and assembled by <a href="https://salesagility.com">SalesAgility</a>. The Program is provided AS IS, without warranty. Licensed under AGPLv3.',
+    'LBL_SUITE_DESC1' => 'SuiteCRM has been written and assembled by <a href="https://salesagility.com">SalesAgility</a>. The Program is provided AS IS, without warranty. Licensed under AGPLv3.',
     'LBL_SUITE_DESC2' => 'This program is free software; you can redistribute it and/or modify it under the terms of the GNU Affero General Public License version 3 as published by the Free Software Foundation, including the additional permission set forth in the source code header.',
-    'LBL_SUITE_DESC3' => 'ICTCRM is a trademark of SalesAgility Ltd. All other company and product names may be trademarks of the respective companies with which they are associated.',
+    'LBL_SUITE_DESC3' => 'SuiteCRM is a trademark of SalesAgility Ltd. All other company and product names may be trademarks of the respective companies with which they are associated.',
     'LBL_GENERATE_PASSWORD_BUTTON_TITLE' => 'Reset Password',
     'LBL_SEND_CONFIRM_OPT_IN_EMAIL' => 'Send Confirm Opt In Email',
     'LBL_CONFIRM_OPT_IN_ONLY_FOR_PERSON' => 'Confirm Opt In Email sending only for Accounts/Contacts/Leads/Prospects',
@@ -2845,7 +2886,7 @@ $app_list_strings['timezone_dom'] = array(
 );
 
 $app_list_strings['eapm_list'] = array(
-    'Sugar' => 'ICTCRM',
+    'Sugar' => 'SuiteCRM',
     'WebEx' => 'WebEx',
     'GoToMeeting' => 'GoToMeeting',
     'IBMSmartCloud' => 'IBM SmartCloud',
@@ -2946,7 +2987,7 @@ $app_list_strings['contact_portal_user_type_dom'] =
         'Account' => 'Account user',
     );
 $app_list_strings['dom_email_distribution_for_auto_create'] = array(
-    'AOPDefault' => 'Use AOP Default',
+    'AOPDefault' => 'System Default',
     'singleUser' => 'Single User',
     'roundRobin' => 'Round-Robin',
     'leastBusy' => 'Least-Busy',
@@ -3181,6 +3222,7 @@ $app_list_strings['aow_date_type_list']['hour'] = 'Hours';
 $app_list_strings['aow_date_type_list']['day'] = 'Days';
 $app_list_strings['aow_date_type_list']['week'] = 'Weeks';
 $app_list_strings['aow_date_type_list']['month'] = 'Months';
+$app_list_strings['aow_date_type_list']['year'] = 'Years';
 $app_list_strings['aow_date_type_list']['business_hours'] = 'Business Hours';
 $app_list_strings['aow_date_options']['now'] = 'Now';
 $app_list_strings['aow_date_options']['today'] = 'Today';
@@ -3506,8 +3548,11 @@ $app_strings['LBL_RESCHEDULE_COUNT'] = 'Call Attempts';
 //SecurityGroups
 $app_list_strings['moduleList']['SecurityGroups'] = 'Security Suite Management';
 $app_strings['LBL_SECURITYGROUP'] = 'Security Group';
+$app_strings['LBL_ROLE'] = 'Role';
 
 $app_list_strings['moduleList']['OutboundEmailAccounts'] = 'Outbound Email Accounts';
+$app_list_strings['moduleList']['ExternalOAuthConnection'] = 'External OAuth Connection';
+$app_list_strings['moduleList']['ExternalOAuthProvider'] = 'External OAuth Provider';
 
 //social
 $app_strings['FACEBOOK_USER_C'] = 'Facebook';
@@ -3520,7 +3565,7 @@ $app_strings['LBL_COLLECTION_TYPE'] = 'Type';
 
 $app_strings['LBL_ADD_TAB'] = 'Add Tab';
 $app_strings['LBL_EDIT_TAB'] = 'Edit Tabs';
-$app_strings['LBL_SUITE_DASHBOARD'] = 'ICTCRM DASHBOARD';
+$app_strings['LBL_SUITE_DASHBOARD'] = 'SUITECRM DASHBOARD';
 $app_strings['LBL_ENTER_DASHBOARD_NAME'] = 'Enter Dashboard Name:';
 $app_strings['LBL_NUMBER_OF_COLUMNS'] = 'Number of Columns:';
 $app_strings['LBL_DELETE_DASHBOARD1'] = 'Are you sure you want to delete the';
@@ -3688,7 +3733,7 @@ $app_strings['MSG_BROWSER_NOTIFICATIONS_ENABLED'] = 'Desktop notifications are n
 $app_strings['MSG_BROWSER_NOTIFICATIONS_DISABLED'] = 'Desktop notifications are disabled for this web browser. Use your browser preferences to enable them again.';
 $app_strings['MSG_BROWSER_NOTIFICATIONS_UNSUPPORTED'] = 'This browser does not support desktop notifications.';
 
-$app_strings['LBL_GOOGLE_SYNC_ERR'] = 'ICTCRM Google Sync - ERROR';
+$app_strings['LBL_GOOGLE_SYNC_ERR'] = 'SuiteCRM Google Sync - ERROR';
 $app_strings['LBL_THERE_WAS_AN_ERR'] = 'There was an error: ';
 $app_strings['LBL_CLICK_HERE'] = 'Click here';
 $app_strings['LBL_TO_CONTINUE'] = ' to continue.';
@@ -3713,3 +3758,25 @@ $app_strings['LBL_SEARCH_PREV'] = 'Previous';
 $app_strings['LBL_SEARCH_NEXT'] = 'Next';
 $app_strings['LBL_SEARCH_PAGE'] = 'Page ';
 $app_strings['LBL_SEARCH_OF'] = ' of ';
+$app_strings['LBL_USE_ADVANCED_SEARCH'] = 'Use Advanced Search';
+$app_strings['LBL_USE_BASIC_SEARCH'] = 'Use Basic Search';
+
+// PDF Engines
+$app_strings['LBL_LEGACY_MPDF_ENGINE'] = 'Legacy MPDF Engine';
+$app_strings['LBL_TCPDF_ENGINE'] = 'TCPDF Engine';
+
+
+$app_strings['ERR_INVALID_FILE_NAME'] = 'Invalid file name:';
+$app_strings['LBL_LOGGER_VALID_FILENAME_CHARACTERS'] = 'This can only be alphanumeric characters, plus \'.\' , \'-\' and \'_\'';
+$app_strings['LBL_LOGGER_INVALID_FILENAME'] = 'Invalid import file name';
+
+$app_strings['LBL_PASSWORD_SET_NEW_VALUE_TO_RESET'] = 'Password set. Enter value to set new password.';
+$app_strings['LBL_VALUE_SET_PLACEHOLDER'] = 'Value set. Enter new value to override current one.';
+
+$app_strings['ERR_IMAP_OAUTH_CONNECTION_ERROR'] = 'Not able to connect using OAuth login with Inbound Email server. For connection: ';
+$app_strings['WARN_OAUTH_TOKEN_SESSION_EXPIRED'] = 'Your IMAP OAuth session has expired, please login again in the connection: ';
+
+$app_strings['LBL_KEY'] = 'Key';
+$app_strings['LBL_VALUE'] = 'Value';
+$app_strings['LBL_OPTIONAL'] = 'Optional';
+$app_strings['LBL_OPTIONAL_CONNECTION_STRING'] = 'Optional. Set to use a specific connection string';

@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 if (!defined('sugarEntry') || !sugarEntry) {
@@ -69,6 +69,7 @@ class ListViewSmarty extends ListViewDisplay
     public $showMassupdateFields = true;
     public $menu_location = 'top';
     public $templateMeta = array();
+    public $displayEmptyDataMessages = null;
 
     /**
      * Constructor, Smarty object immediately available after
@@ -311,7 +312,11 @@ class ListViewSmarty extends ListViewDisplay
             'of' => $app_strings['LBL_LIST_OF']);
         $this->ss->assign('navStrings', $navStrings);
 
-        $displayEmptyDataMessages = true;
+        if ($this->displayEmptyDataMessages === null) {
+            $displayEmptyDataMessages = true;
+        } else {
+            $displayEmptyDataMessages = $this->displayEmptyDataMessages;
+        }
         //TODO: Cleanup, better logic for which modules are exempt from the new messaging.
         $modulesExemptFromEmptyDataMessages = array('WorkFlow','ContractTypes', 'OAuthKeys', 'TimePeriods');
         if ((isset($GLOBALS['moduleTabMap'][$currentModule]) && $GLOBALS['moduleTabMap'][$currentModule] == 'Administration')

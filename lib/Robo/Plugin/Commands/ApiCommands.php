@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2019 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,20 +33,20 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
-namespace ICTCRM\Robo\Plugin\Commands;
+namespace SuiteCRM\Robo\Plugin\Commands;
 
 use Api\Core\Config\ApiConfig;
 use DateTime;
 use DBManager;
 use OAuth2Clients;
 use Robo\Tasks;
-use ICTCRM\Robo\Traits\RoboTrait;
-use ICTCRM\Robo\Traits\CliRunnerTrait;
+use SuiteCRM\Robo\Traits\RoboTrait;
+use SuiteCRM\Robo\Traits\CliRunnerTrait;
 use Api\V8\BeanDecorator\BeanManager;
 use DBManagerFactory;
 use User;
@@ -85,7 +85,7 @@ class ApiCommands extends Tasks
     }
 
     /**
-     * Configures the ICTCRM V8 API with all defaults
+     * Configures the SuiteCRM V8 API with all defaults
      * @param string $name
      * @param string $password
      * @throws \Exception
@@ -196,7 +196,7 @@ class ApiCommands extends Tasks
     }
 
     /**
-     * Creates a ICTCRM user for the V8 API
+     * Creates a SuiteCRM user for the V8 API
      * @param string $name
      * @param string $password
      * @return void
@@ -231,10 +231,10 @@ class ApiCommands extends Tasks
         $opts = ['postmanENV' => __DIR__ . '/../../../../Api/docs/postman/V8_API_Postman_Environment.json']
     ) {
         $rows = [
-            'name' => 'ICTCRM V8 API Environment',
+            'name' => 'SuiteCRM V8 API Environment',
             'values' => [
                 [
-                    'key' => 'ictcrm.url',
+                    'key' => 'suitecrm.url',
                     'value' => '{instance}/Api',
                     'description' => 'Used for API Operations.',
                     'enabled' => true
@@ -264,7 +264,7 @@ class ApiCommands extends Tasks
 
         $clientArray = [
             'grantType' => 'Password Credentials',
-            'accessToken' => '{{ictcrm.url}}/Api/access_token',
+            'accessToken' => '{{suitecrm.url}}/Api/access_token',
             'clientID' => $clientBean->id,
             'clientSecret' => $client['clientSecret']
         ];

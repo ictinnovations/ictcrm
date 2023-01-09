@@ -7,7 +7,7 @@ if (!defined('sugarEntry') || !sugarEntry) {
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -36,9 +36,9 @@ if (!defined('sugarEntry') || !sugarEntry) {
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 
@@ -94,19 +94,7 @@ class Task extends SugarBean
         parent::__construct();
     }
 
-    /**
-     * @deprecated deprecated since version 7.6, PHP4 Style Constructors are deprecated and will be remove in 7.8, please update your code, use __construct instead
-     */
-    public function Task()
-    {
-        $deprecatedMessage = 'PHP4 Style Constructors are deprecated and will be remove in 7.8, please update your code';
-        if (isset($GLOBALS['log'])) {
-            $GLOBALS['log']->deprecated($deprecatedMessage);
-        } else {
-            trigger_error($deprecatedMessage, E_USER_DEPRECATED);
-        }
-        self::__construct();
-    }
+
 
 
     public $new_schema = true;
@@ -274,7 +262,7 @@ class Task extends SugarBean
 
     public function get_list_view_data()
     {
-        global $action, $currentModule, $focus, $current_module_strings, $app_list_strings, $timedate;
+        global $mod_strings, $app_list_strings, $timedate;
 
         $override_date_for_subpanel = false;
         if (!empty($_REQUEST['module']) && $_REQUEST['module'] !='Calendar' && $_REQUEST['module'] !='Tasks' && $_REQUEST['module'] !='Home') {
@@ -329,7 +317,8 @@ class Task extends SugarBean
         $task_fields['CONTACT_PHONE']= $this->contact_phone;
         $task_fields['TITLE'] = '';
         if (!empty($task_fields['CONTACT_NAME'])) {
-            $task_fields['TITLE'] .= $current_module_strings['LBL_LIST_CONTACT'].": ".$task_fields['CONTACT_NAME'];
+            $title = !empty($mod_strings['LBL_LIST_CONTACT']) ? $mod_strings['LBL_LIST_CONTACT'] . ': ' : '';
+            $task_fields['TITLE'] .= $title . $task_fields['CONTACT_NAME'];
         }
         if (!empty($this->parent_name)) {
             $task_fields['TITLE'] .= "\n".$app_list_strings['parent_type_display'][$this->parent_type].": ".$this->parent_name;
@@ -357,7 +346,7 @@ class Task extends SugarBean
         }
 
         $xtpl->assign("TASK_STATUS", (isset($task->status)?$app_list_strings['task_status_dom'][$task->status]:""));
-        $xtpl->assign("TASK_DESCRIPTION", $task->description);
+        $xtpl->assign("TASK_DESCRIPTION", nl2br($task->description));
 
         return $xtpl;
     }

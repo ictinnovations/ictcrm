@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 if (!defined('sugarEntry') || !sugarEntry) {
@@ -147,22 +147,6 @@ class SugarView
     }
 
     /**
-     * @deprecated deprecated since version 7.6, PHP4 Style Constructors are deprecated and will be remove in 8.0
-     * please update your code, use __construct instead
-     */
-    public function SugarView()
-    {
-        $deprecatedMessage =
-            'PHP4 Style Constructors are deprecated and will be remove in 7.8, please update your code';
-        if (isset($GLOBALS['log'])) {
-            $GLOBALS['log']->deprecated($deprecatedMessage);
-        } else {
-            trigger_error($deprecatedMessage, E_USER_DEPRECATED);
-        }
-        self::__construct();
-    }
-
-    /**
      * @param SugarBean $bean
      * @param array $view_object_map
      */
@@ -213,18 +197,18 @@ class SugarView
                 echo $this->_getModLanguageJS();
             }
         }
-        
+
         if ($this->_getOption('show_header')) {
             $this->displayHeader();
         } else {
             $this->renderJavascript();
         }
-        
+
         $this->_buildModuleList();
         $this->preDisplay();
         $this->displayErrors();
         $this->display();
-        
+
         if (!empty($this->module)) {
             $GLOBALS['logic_hook']->call_custom_logic($this->module, 'after_ui_frame');
         } else {
@@ -406,6 +390,7 @@ class SugarView
         $ss->assign("THEME_IE6COMPAT", $themeObject->ie6compat ? 'true' : 'false');
         $ss->assign("MODULE_NAME", $this->module);
         $ss->assign("langHeader", get_language_header());
+        $ss->assign("BROWSER_TITLE", $this->getBrowserTitle());
 
 
         // set ab testing if exists
@@ -519,7 +504,7 @@ class SugarView
                 $ss->assign("LOGOUT_LABEL", key($value['linkinfo']));//key value for first element.
                 continue;
             }
-            
+
             foreach ($value as $linkattribute => $attributevalue) {
                 // get the main link info
                 if ($linkattribute == 'linkinfo') {
@@ -528,7 +513,7 @@ class SugarView
                         "URL" => current($attributevalue),
                         "SUBMENU" => array(),
                     );
-                    
+
                     if (substr($gcls[$key]["URL"], 0, 11) == "javascript:") {
                         $gcls[$key]["ONCLICK"] = substr($gcls[$key]["URL"], 11);
                         $gcls[$key]["URL"] = "javascript:void(0)";
@@ -577,7 +562,7 @@ class SugarView
             $favorites = BeanFactory::getBean('Favorites');
             $favorite_records = $favorites->getCurrentUserSidebarFavorites();
             $ss->assign("favoriteRecords", $favorite_records);
-        
+
             $tracker = BeanFactory::getBean('Trackers');
             $history = $tracker->get_recently_viewed($current_user->id);
             $ss->assign("recentRecords", $this->processRecentRecords($history));

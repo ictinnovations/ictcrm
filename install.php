@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2020 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 if (!defined('sugarEntry')) {
@@ -62,10 +62,10 @@ if (isset($_POST['smtp_tab_selected'])) {
  * If less than minimum we refuse to install.
  */
 if (check_php_version() === -1) {
-    $msg = 'The recommended PHP version to install ICTCRM is ';
-    $msg .= constant('ICTCRM_PHP_REC_VERSION').'<br />';
+    $msg = 'The recommended PHP version to install SuiteCRM is ';
+    $msg .= constant('SUITECRM_PHP_REC_VERSION').'<br />';
     $msg .= 'Although the minimum PHP version required is ';
-    $msg .= constant('ICTCRM_PHP_MIN_VERSION').', ';
+    $msg .= constant('SUITECRM_PHP_MIN_VERSION').', ';
     $msg .= 'is not recommended due to the large number of fixed bugs, including security fixes, ';
     $msg .= 'released in the more modern versions.<br />';
     $msg .= 'You are using PHP version  '. constant('PHP_VERSION').', which is EOL: <a href="http://php.net/eol.php">http://php.net/eol.php</a>.<br />';
@@ -82,7 +82,7 @@ define('SUGARCRM_IS_INSTALLING', $GLOBALS['installing']);
 $GLOBALS['sql_queries'] = 0;
 require_once('include/SugarLogger/LoggerManager.php');
 require_once('sugar_version.php');
-require_once('ictcrm_version.php');
+require_once('suitecrm_version.php');
 require_once('install/install_utils.php');
 require_once('install/install_defaults.php');
 require_once('include/TimeDate.php');
@@ -111,7 +111,7 @@ setPhpIniSettings();
 $locale = new Localization();
 
 $GLOBALS['log'] = LoggerManager::getLogger();
-$setup_sugar_version = $ictcrm_version;
+$setup_sugar_version = $suitecrm_version;
 $install_script = true;
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -119,7 +119,7 @@ $install_script = true;
 $css = 'install/install.css';
 $icon = 'include/images/sugar_icon.ico';
 $sugar_md = 'include/images/sugar_md_open.png';
-$loginImage = 'include/images/ictcrm_login.png';
+$loginImage = 'include/images/suitecrm_login.png';
 $common = 'install/installCommon.js';
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -208,7 +208,7 @@ EOQ;
         die();
     }
     LoggerManager::getLogger()->fatal('Install file not found: ' . $the_file);
-    die('ICTCRM Installation has been Disabled');
+    die('SuiteCRM Installation has been Disabled');
 }
 
 

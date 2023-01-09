@@ -2,15 +2,15 @@
   "swagger": "3.0",
   "info": {
     "version": "8.0.0",
-    "title": "ICTCRM REST API (JSON API v1.0.0)",
+    "title": "SuiteCRM REST API (JSON API v1.0.0)",
     "contact": {
       "name": "Support",
-      "url": "https://ictcrm.com/forum"
+      "url": "https://suitecrm.com/forum"
     },
     "description": "",
     "license": {
       "name": "GNU AFFERO GENERAL PUBLIC LICENSE VERSION 3",
-      "url": "https://github.com/salesagility/ICTCRM/blob/master/LICENSE.txt"
+      "url": "https://github.com/salesagility/SuiteCRM/blob/master/LICENSE.txt"
     }
   },
   "paths": {
@@ -135,7 +135,7 @@
     }
   },
   "securityDefinitions": {
-    "ictcrm_api_auth": {
+    "suitecrm_api_auth": {
       "type": "oauth2",
       "flow": {
         "password": {

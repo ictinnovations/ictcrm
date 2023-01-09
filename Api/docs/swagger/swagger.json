@@ -5,11 +5,11 @@
     "version": "8.1",
     "contact": {
       "name": "Support",
-      "url": "https://ictcrm.com/forum"
+      "url": "https://suitecrm.com/forum"
     },
     "license": {
       "name": "GNU AFFERO GENERAL PUBLIC LICENSE VERSION 3",
-      "url": "https://github.com/salesagility/ICTCRM/blob/master/LICENSE.txt"
+      "url": "https://github.com/salesagility/SuiteCRM/blob/master/LICENSE.txt"
     }
   },
   "servers": [

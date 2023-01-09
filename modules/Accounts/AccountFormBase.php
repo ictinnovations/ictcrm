@@ -1,13 +1,10 @@
 <?php
-if (!defined('sugarEntry') || !sugarEntry) {
-    die('Not A Valid Entry Point');
-}
 /**
  *
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -36,9 +33,9 @@ if (!defined('sugarEntry') || !sugarEntry) {
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 /*********************************************************************************
@@ -48,6 +45,10 @@ if (!defined('sugarEntry') || !sugarEntry) {
  * All Rights Reserved.
  * Contributor(s): ______________________________________..
  ********************************************************************************/
+
+if (!defined('sugarEntry') || !sugarEntry) {
+    die('Not A Valid Entry Point');
+}
 
 class AccountFormBase
 {
@@ -62,12 +63,11 @@ class AccountFormBase
     {
         require_once('include/formbase.php');
 
-        $focus = BeanFactory::newBean('Accounts');
         $query = '';
 
-        $name = $_POST[$prefix.'name'];
-        $shippingAddressCity = $_POST[$prefix.'shipping_address_city'];
-        $billingAddressCity = $_POST[$prefix.'billing_address_city'];
+        $name = !empty($_POST[$prefix . 'name']) ? $_POST[$prefix . 'name'] : '';
+        $shippingAddressCity = !empty($_POST[$prefix . 'shipping_address_city']) ? $_POST[$prefix . 'shipping_address_city'] : '';
+        $billingAddressCity = !empty($_POST[$prefix . 'billing_address_city']) ? $_POST[$prefix . 'billing_address_city'] : '';
 
         $baseQuery = 'SELECT id, name, website, billing_address_city FROM accounts WHERE deleted != 1 AND ';
 
@@ -81,14 +81,13 @@ class AccountFormBase
 
             if (!empty($billingAddressCity)) {
                 $billingAddressCityQuoted = $this->db->quoted($billingAddressCity . '%');
-                $tempQuery += (empty($temp_query)) ?: 'OR ';
-                $tempQuery = "billing_address_city LIKE " . $billingAddressCityQuoted;
+                $tempQuery .= "billing_address_city LIKE " . $billingAddressCityQuoted;
             }
 
             if (!empty($shippingAddressCity)) {
                 $shippingAddressCityQuoted = $this->db->quoted($shippingAddressCity . '%');
-                $tempQuery += (empty($temp_query)) ?: 'OR ';
-                $tempQuery = "shipping_address_city LIKE " . $shippingAddressCityQuoted;
+                $tempQuery .= (empty($tempQuery)) ?: ' OR ';
+                $tempQuery .= "shipping_address_city LIKE " . $shippingAddressCityQuoted;
             }
 
             $query .= (empty($query)) ? $baseQuery : ' AND ';

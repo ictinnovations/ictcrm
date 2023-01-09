@@ -3,8 +3,8 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
- * Copyright (C) 2011 - 2018 SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * Copyright (C) 2011 - 2021 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Affero General Public License version 3 as published by the
@@ -32,19 +32,19 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
-namespace ICTCRM\Search\UI;
+namespace SuiteCRM\Search\UI;
 
 if (!defined('sugarEntry') || !sugarEntry) {
     die('Not A Valid Entry Point');
 }
 
-use ICTCRM\Search\SearchQuery;
-use ICTCRM\Search\UI\MVC\Controller;
+use SuiteCRM\Search\SearchQuery;
+use SuiteCRM\Search\UI\MVC\Controller;
 
 /**
  * Controller for the search form (search bar, button and options).
@@ -58,18 +58,23 @@ class SearchFormController extends Controller
      *
      * @param SearchQuery $query
      */
-    public function __construct($query)
+    public function __construct(SearchQuery $query)
     {
         parent::__construct(new SearchFormView());
         $this->query = $query;
     }
 
-    public function display()
+    public function display(): void
     {
-        $this->view->getTemplate()->assign('searchQueryString', htmlspecialchars($this->query->getSearchString(), ENT_COMPAT | ENT_XHTML, 'UTF-8'));
-        $this->view->getTemplate()->assign('searchQuerySize', $this->query->getSize());
-        $this->view->getTemplate()->assign('searchQueryFrom', $this->query->getFrom());
-        $this->view->getTemplate()->assign('searchQueryEngine', $this->query->getEngine());
+        $smarty = $this->view->getTemplate();
+
+        $smarty->assign(
+            'searchQueryString',
+            htmlspecialchars($this->query->getSearchString(), ENT_COMPAT | ENT_XHTML, 'UTF-8')
+        );
+        $smarty->assign('searchQuerySize', $this->query->getSize());
+        $smarty->assign('searchQueryFrom', $this->query->getFrom());
+        $smarty->assign('searchQueryEngine', $this->query->getEngine());
 
         parent::display();
     }

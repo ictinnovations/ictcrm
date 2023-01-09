@@ -7,7 +7,7 @@ if (!defined('sugarEntry') || !sugarEntry) {
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -36,9 +36,9 @@ if (!defined('sugarEntry') || !sugarEntry) {
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 
@@ -148,16 +148,16 @@ class DropDownHelper
                 //only if the value has changed or does not exist do we want to add it this way
                 if (!isset($my_list_strings[$dropdown_name][$key]) || strcmp($my_list_strings[$dropdown_name][$key], $value) != 0) {
                     //clear out the old value
-                    $pattern_match = '/\s*\$app_list_strings\s*\[\s*\''.$dropdown_name.'\'\s*\]\[\s*\''.$key.'\'\s*\]\s*=\s*[\'\"]{1}.*?[\'\"]{1};\s*/ism';
-                    $contents = preg_replace($pattern_match, "\n", $contents);
+                    $contents = preg_replace(self::getPatternMatchGlobal($dropdown_name), "\n", $contents);
+                    $contents = preg_replace(self::getPatternMatch($dropdown_name), "\n", $contents);
                     //add the new ones
                     $contents .= "\n\$app_list_strings['$dropdown_name']['$key']=" . var_export_helper($value) . ";";
                 }
             }
         } else {
             //clear out the old value
-            $pattern_match = '/\s*\$app_list_strings\s*\[\s*\''.$dropdown_name.'\'\s*\]\s*=\s*array\s*\([^\)]*\)\s*;\s*/ism';
-            $contents = preg_replace($pattern_match, "\n", $contents);
+            $contents = preg_replace(self::getPatternMatchGlobal($dropdown_name), "\n", $contents);
+            $contents = preg_replace(self::getPatternMatch($dropdown_name), "\n", $contents);
             //add the new ones
             $contents .= "\n\$app_list_strings['$dropdown_name']=" . var_export_helper($dropdown) . ";";
         }
@@ -173,5 +173,16 @@ class DropDownHelper
         $repairAndClear->show_output = false;
         $repairAndClear->clearJsLangFiles();
         // ~~~~~~~~
+    }
+
+    public static function getPatternMatchGlobal($dropdown_name)
+    {
+        return '/\s*\$GLOBALS\s*\[\s*\'app_list_strings\s*\'\s*\]\[\s*\''
+            . $dropdown_name.'\'\s*\]\s*=\s*array\s*\([^\)]*\)\s*;\s*/ism';
+    }
+
+    public static function getPatternMatch($dropdown_name)
+    {
+        return '/\s*\$app_list_strings\s*\[\s*\''.$dropdown_name.'\'\s*\]\s*=\s*array\s*\([^\)]*\)\s*;\s*/ism';
     }
 }

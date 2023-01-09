@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
@@ -45,19 +45,19 @@ use Slim\Exception\ContainerValueNotFoundException;
  * @param ContainerInterface $container
  * @throws ContainerException
  * @throws ContainerValueNotFoundException
- * @return ICTCRM\API\JsonApi\v1\Filters\Interfaces\OperatorInterface[]
+ * @return SuiteCRM\API\JsonApi\v1\Filters\Interfaces\OperatorInterface[]
  */
 $container['FilterOperators'] = function ($container) {
     return array(
-        new \ICTCRM\API\JsonApi\v1\Filters\Operators\Comparators\EqualsOperator($container),
-        new \ICTCRM\API\JsonApi\v1\Filters\Operators\Comparators\NotEqualsOperator($container),
-        new \ICTCRM\API\JsonApi\v1\Filters\Operators\Comparators\GreaterThanOrEqualsOperator($container),
-        new \ICTCRM\API\JsonApi\v1\Filters\Operators\Comparators\GreaterThanOperator($container),
-        new \ICTCRM\API\JsonApi\v1\Filters\Operators\Comparators\LessThanOrEqualsOperator($container),
-        new \ICTCRM\API\JsonApi\v1\Filters\Operators\Comparators\LessThanOperator($container),
-        new \ICTCRM\API\JsonApi\v1\Filters\Operators\Comparators\InOperator($container),
-        new \ICTCRM\API\JsonApi\v1\Filters\Operators\Comparators\NotInOperator($container),
-        new \ICTCRM\API\JsonApi\v1\Filters\Operators\Strings\LikeOperator($container),
-        new \ICTCRM\API\JsonApi\v1\Filters\Operators\Strings\NotLikeOperator($container),
+        new \SuiteCRM\API\JsonApi\v1\Filters\Operators\Comparators\EqualsOperator($container),
+        new \SuiteCRM\API\JsonApi\v1\Filters\Operators\Comparators\NotEqualsOperator($container),
+        new \SuiteCRM\API\JsonApi\v1\Filters\Operators\Comparators\GreaterThanOrEqualsOperator($container),
+        new \SuiteCRM\API\JsonApi\v1\Filters\Operators\Comparators\GreaterThanOperator($container),
+        new \SuiteCRM\API\JsonApi\v1\Filters\Operators\Comparators\LessThanOrEqualsOperator($container),
+        new \SuiteCRM\API\JsonApi\v1\Filters\Operators\Comparators\LessThanOperator($container),
+        new \SuiteCRM\API\JsonApi\v1\Filters\Operators\Comparators\InOperator($container),
+        new \SuiteCRM\API\JsonApi\v1\Filters\Operators\Comparators\NotInOperator($container),
+        new \SuiteCRM\API\JsonApi\v1\Filters\Operators\Strings\LikeOperator($container),
+        new \SuiteCRM\API\JsonApi\v1\Filters\Operators\Strings\NotLikeOperator($container),
     );
 };

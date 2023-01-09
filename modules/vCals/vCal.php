@@ -7,7 +7,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -36,9 +36,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 
@@ -78,22 +78,6 @@
             parent::__construct();
             $this->disable_row_level_security = true;
         }
-
-        /**
-         * @deprecated deprecated since version 7.6, PHP4 Style Constructors are deprecated and will be remove in 7.8,
-         *     please update your code, use __construct instead
-         */
-        public function vCal()
-        {
-            $deprecatedMessage = 'PHP4 Style Constructors are deprecated and will be remove in 7.8, please update your code';
-            if (isset($GLOBALS['log'])) {
-                $GLOBALS['log']->deprecated($deprecatedMessage);
-            } else {
-                trigger_error($deprecatedMessage, E_USER_DEPRECATED);
-            }
-            self::__construct();
-        }
-
 
         public function get_summary_text()
         {
@@ -139,7 +123,7 @@
         public function create_sugar_freebusy($user_bean, $start_date_time, $end_date_time)
         {
             $ical_array = array();
-            global $DO_USER_TIME_OFFSET, $timedate, $current_user;
+            global $DO_USER_TIME_OFFSET, $timedate;
 
             $DO_USER_TIME_OFFSET = true;
             if (empty($GLOBALS['current_user']) || empty($GLOBALS['current_user']->id)) {
@@ -154,11 +138,11 @@
             // loop thru each activity, get start/end time in UTC, and return FREEBUSY strings
             foreach ($acts_arr as $act) {
                 if (empty($act->start_time)) {
-                    $startTime = $timedate->fromUser($act->sugar_bean->date_start, $user_bean);
+                    $act->start_time = $timedate->fromUser($act->sugar_bean->date_start, $user_bean);
                 }
 
                 if (empty($act->end_time)) {
-                    $endTime = $timedate->fromUser($act->sugar_bean->date_finish, $user_bean);
+                    $act->end_time = $timedate->fromUser($act->sugar_bean->date_finish, $user_bean);
                 }
 
                 $ID = $act->sugar_bean->id;

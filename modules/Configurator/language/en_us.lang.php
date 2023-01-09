@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2019 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 if (!defined('sugarEntry') || !sugarEntry) {
@@ -115,7 +115,7 @@ $mod_strings = array(
     'LOG_MEMORY_USAGE' => 'Log memory usage',
     'LOG_SLOW_QUERIES' => 'Log slow queries',
     'CURRENT_LOGO' => 'Current Logo:',
-    'CURRENT_LOGO_HELP' => 'This logo is displayed in the centre of the login screen of the ICTCRM application.',
+    'CURRENT_LOGO_HELP' => 'This logo is displayed in the centre of the login screen of the SuiteCRM application.',
     'NEW_LOGO' => 'Select Logo:',
     'NEW_LOGO_HELP' => 'The image file format can be either .png or .jpg. The maximum height is 170px, and the maximum width is 450px. Any image uploaded that is larger in any direction will be scaled to these max dimensions.',
     'NEW_LOGO_HELP_NO_SPACE' => 'The image file format can be either .png or .jpg. The maximum height is 170px, and the maximum width is 450px. Any image uploaded that is larger in any direction will be scaled to these max dimensions.',
@@ -125,7 +125,7 @@ $mod_strings = array(
     'VERIFY_CLIENT_IP' => 'Validate user IP address',
     'LOCK_HOMEPAGE' => 'Prevent user customizable Homepage layout',
     'LOCK_SUBPANELS' => 'Prevent user customizable subpanel layout',
-    'MAX_DASHLETS' => 'Maximum number of ICTCRM Dashlets on Homepage',
+    'MAX_DASHLETS' => 'Maximum number of SuiteCRM Dashlets on Homepage',
     'SYSTEM_NAME' => 'System Name:',
     'SYSTEM_NAME_WIZARD' => 'Name:',
     'SYSTEM_NAME_HELP' => 'This is the name that displays in the title bar of your browser.',
@@ -149,7 +149,7 @@ $mod_strings = array(
     'LBL_LDAP_GROUP_USER_ATTR_DESC' => 'The unique identifier of the person that will be used to check if they are a member of the group Example: <em>uid</em>',
     'LBL_LDAP_GROUP_ATTR_DESC' => 'The attribute of the Group that will be used to filter against the User Attribute Example: <em>memberUid</em>',
     'LBL_LDAP_GROUP_ATTR' => 'Group Attribute:',
-    'LBL_LDAP_USER_FILTER_DESC' => 'Any additional filter params to apply when authenticating users e.g.<em>is_ictcrm_user=1 or (is_ictcrm_user=1)(is_sales=1)</em>',
+    'LBL_LDAP_USER_FILTER_DESC' => 'Any additional filter params to apply when authenticating users e.g.<em>is_suitecrm_user=1 or (is_suitecrm_user=1)(is_sales=1)</em>',
     'LBL_LDAP_LOGIN_ATTRIBUTE' => 'Login Attribute:',
     'LBL_LDAP_BIND_ATTRIBUTE' => 'Bind Attribute:',
     'LBL_LDAP_BIND_ATTRIBUTE_DESC' => 'For Binding the LDAP User Examples:[<b>AD:</b>&nbsp;userPrincipalName] [<b>openLDAP:</b>&nbsp;dn] [<b>Mac&nbsp;OS&nbsp;X:</b>&nbsp;uid] ',
@@ -157,14 +157,14 @@ $mod_strings = array(
     'LBL_LDAP_SERVER_HOSTNAME_DESC' => 'Example: ldap.example.com or ldaps://ldap.example.com for SSL',
     'LBL_LDAP_SERVER_PORT_DESC' => 'Example: <em>389 or 636 for SSL</em>',
     'LBL_LDAP_GROUP_NAME' => 'Group Name:',
-    'LBL_LDAP_GROUP_NAME_DESC' => 'Example <em>cn=ictcrm</em>',
+    'LBL_LDAP_GROUP_NAME_DESC' => 'Example <em>cn=suitecrm</em>',
     'LBL_LDAP_USER_DN_DESC' => 'Example: <em>ou=people,dc=example,dc=com</em>',
-    'LBL_LDAP_AUTO_CREATE_USERS_DESC' => 'If an authenticated user does not exist, one will be created in ICTCRM.',
+    'LBL_LDAP_AUTO_CREATE_USERS_DESC' => 'If an authenticated user does not exist, one will be created in SuiteCRM.',
     'LBL_LDAP_ENC_KEY' => 'Encryption Key:',
     'DEVELOPER_MODE' => 'Developer Mode',
 
     'SHOW_DOWNLOADS_TAB' => 'Display Downloads Tab',
-    'SHOW_DOWNLOADS_TAB_HELP' => 'When selected, the Download tab will appear in the User settings and provide users with access to ICTCRM plug-ins and other available files',
+    'SHOW_DOWNLOADS_TAB_HELP' => 'When selected, the Download tab will appear in the User settings and provide users with access to SuiteCRM plug-ins and other available files',
     'LBL_LDAP_ENC_KEY_DESC' => 'For SOAP authentication when using LDAP.',
     'LDAP_ENC_KEY_NO_FUNC_DESC' => 'The php_mcrypt extension must be enabled in your php.ini file.',
     'LDAP_ENC_KEY_NO_FUNC_OPENSSL_DESC' => 'The openssl extension must be enabled in your php.ini file.',
@@ -189,6 +189,7 @@ $mod_strings = array(
     'LBL_LOGGER_FILENAME' => 'Log File Name',
     'LBL_LOGGER_FILE_EXTENSION' => 'Extension',
     'LBL_LOGGER_MAX_LOG_SIZE' => 'Maximum log size',
+    'LBL_STACK_TRACE' => 'Enable stack trace',
     'LBL_LOGGER_DEFAULT_DATE_FORMAT' => 'Default date format',
     'LBL_LOGGER_LOG_LEVEL' => 'Log Level',
     'LBL_LEAD_CONV_OPTION' => 'Lead Conversion Options',
@@ -201,143 +202,6 @@ $mod_strings = array(
     'LBL_IMPORT_MAX_RECORDS' => 'Import - Maximum Number of Rows:',
     'LBL_IMPORT_MAX_RECORDS_HELP' => 'Specify how many rows are allowed within import files.<br>If the number of rows in an import file exceeds this number, the user will be alerted.<br>If no number is entered, an unlimited number of rows are allowed.',
     'vCAL_HELP' => 'Use this setting to determine the number of months in advance of the current date that Free/Busy information for calls and meetings is published.<BR>To turn Free/Busy publishing off, enter "0". The minimum is 1 month; the maximum is 12 months.',
-    'LBL_PDFMODULE_NAME' => 'PDF Settings',
-    'SUITEPDF_BASIC_SETTINGS' => 'Document Properties',
-    'SUITEPDF_ADVANCED_SETTINGS' => 'Advanced Settings',
-    'SUITEPDF_LOGO_SETTINGS' => 'Images',
-
-    'PDF_AUTHOR' => 'Author',
-    'PDF_AUTHOR_INFO' => 'The Author appears in the document properties.',
-
-    'PDF_HEADER_LOGO' => 'For Quotes PDF Documents',
-    'PDF_HEADER_LOGO_INFO' => 'This image appears in the default Header in Quotes PDF Documents.',
-
-    'PDF_NEW_HEADER_LOGO' => 'Select New Image for Quotes',
-    'PDF_NEW_HEADER_LOGO_INFO' => 'The file format can be either .jpg or .png. (Only .jpg for EZPDF)<BR>The recommended size is 867x60 px.',
-
-    'PDF_SMALL_HEADER_LOGO' => 'For Reports PDF Documents',
-    'PDF_SMALL_HEADER_LOGO_INFO' => 'This image appears in the default Header in Reports PDF Documents.<br> This image also appears in the top left-hand corner of the ICTCRM application.',
-
-    'PDF_NEW_SMALL_HEADER_LOGO' => 'Select New Image for Reports',
-    'PDF_NEW_SMALL_HEADER_LOGO_INFO' => 'The file format can be either .jpg or .png. (Only .jpg for EZPDF)<BR>The recommended size is 212x40 px.',
-
-    'PDF_FILENAME' => 'Default Filename',
-    'PDF_FILENAME_INFO' => 'Default filename for the generated PDF files',
-
-    'PDF_TITLE' => 'Title',
-    'PDF_TITLE_INFO' => 'The Title appears in the document properties.',
-
-    'PDF_SUBJECT' => 'Subject',
-    'PDF_SUBJECT_INFO' => 'The Subject appears in the document properties.',
-
-    'PDF_KEYWORDS' => 'Keyword(s)',
-    'PDF_KEYWORDS_INFO' => 'Associate Keywords with the document, generally in the form "keyword1 keyword2..."',
-
-    'PDF_COMPRESSION' => 'Compression',
-    'PDF_COMPRESSION_INFO' => 'Activates or deactivates page compression. <br>When activated, the internal representation of each page is compressed, which leads to a compression ratio of about 2 for the resulting document.',
-
-    'PDF_JPEG_QUALITY' => 'JPEG Quality (1-100)',
-    'PDF_JPEG_QUALITY_INFO' => 'Set the default JPEG compression quality (1-100)',
-
-    'PDF_PDF_VERSION' => 'PDF Version',
-    'PDF_PDF_VERSION_INFO' => 'Set the PDF version (check PDF reference for valid values).',
-
-    'PDF_PROTECTION' => 'Document Protection',
-    'PDF_PROTECTION_INFO' => 'Set document protection<br>- copy: copy text and images to the clipboard<br>- print: print the document<br>- modify: modify it (except for annotations and forms)<br>- annot-forms: add annotations and forms<br>Note: the protection against modification is for people who have the full Acrobat product.',
-
-    'PDF_USER_PASSWORD' => 'User Password',
-    'PDF_USER_PASSWORD_INFO' => 'If you don\\\'t set any password, the document will open as usual. <br>If you set a user password, the PDF viewer will ask for it before displaying the document. <br>The master password, if different from the user one, can be used to get full access.',
-
-    'PDF_OWNER_PASSWORD' => 'Owner Password',
-    'PDF_OWNER_PASSWORD_INFO' => 'If you don\\\'t set any password, the document will open as usual. <br>If you set a user password, the PDF viewer will ask for it before displaying the document. <br>The master password, if different from the user one, can be used to get full access.',
-
-    'PDF_ACL_ACCESS' => 'Access Control',
-    'PDF_ACL_ACCESS_INFO' => 'Default Access Control for the PDF generation.',
-
-    'K_CELL_HEIGHT_RATIO' => 'Cell Height Ratio',
-    'K_CELL_HEIGHT_RATIO_INFO' => 'If the height of a cell is smaller than (Font Height x Cell Height Ratio), then (Font Height x Cell Height Ratio) is used as the cell height.<br>(Font Height x Cell Height Ratio) is also used as the height of the cell when no height is define.',
-
-    'K_SMALL_RATIO' => 'Small Font Factor',
-    'K_SMALL_RATIO_INFO' => 'Reduction factor for small font.',
-
-    'PDF_IMAGE_SCALE_RATIO' => 'Image scale ratio',
-    'PDF_IMAGE_SCALE_RATIO_INFO' => 'Ratio used to scale the images',
-
-    'PDF_UNIT' => 'Unit',
-    'PDF_UNIT_INFO' => 'document unit of measure',
-    'PDF_GD_WARNING' => 'You do not have the GD library installed for PHP. Without the GD library installed, only JPEG logos can be displayed in PDF documents.',
-    'ERR_EZPDF_DISABLE' => 'Warning : The EZPDF class is disabled from the config table and it set as the PDF class. Please "Save" this form to set TCPDF as the PDF Class and return in a stable state.',
-    'LBL_IMG_RESIZED' => "(resized for display)",
-
-
-    'LBL_FONTMANAGER_BUTTON' => 'PDF Font Manager',
-    'LBL_FONTMANAGER_TITLE' => 'PDF Font Manager',
-    'LBL_FONT_BOLD' => 'Bold',
-    'LBL_FONT_ITALIC' => 'Italic',
-    'LBL_FONT_BOLDITALIC' => 'Bold/Italic',
-    'LBL_FONT_REGULAR' => 'Regular',
-
-    'LBL_FONT_TYPE_CID0' => 'CID-0',
-    'LBL_FONT_TYPE_CORE' => 'Core',
-    'LBL_FONT_TYPE_TRUETYPE' => 'TrueType',
-    'LBL_FONT_TYPE_TYPE1' => 'Type1',
-    'LBL_FONT_TYPE_TRUETYPEU' => 'TrueTypeUnicode',
-
-    'LBL_FONT_LIST_NAME' => 'Name',
-    'LBL_FONT_LIST_FILENAME' => 'Filename',
-    'LBL_FONT_LIST_TYPE' => 'Type',
-    'LBL_FONT_LIST_STYLE' => 'Style',
-    'LBL_FONT_LIST_STYLE_INFO' => 'Style of the font',
-    'LBL_FONT_LIST_ENC' => 'Encoding',
-    'LBL_FONT_LIST_EMBEDDED' => 'Embedded',
-    'LBL_FONT_LIST_EMBEDDED_INFO' => 'Check to embed the font into the PDF file',
-    'LBL_FONT_LIST_CIDINFO' => 'CID Information',
-    'LBL_FONT_LIST_CIDINFO_INFO' => 'Examples :
-<ul><li>.
-Chinese Traditional :<br>.
-<pre>\$enc=\'UniCNS-UTF16-H\';<br>.
-\$cidinfo=array(\'Registry\'=>\'Adobe\', \'Ordering\'=>\'CNS1\',\'Supplement\'=>0);<br>.
-include(\'include/tcpdf/fonts/uni2cid_ac15.php\');</pre>.
-</li><li>.
-Chinese Simplified :<br>.
-<pre>\$enc=\'UniGB-UTF16-H\';<br>.
-\$cidinfo=array(\'Registry\'=>\'Adobe\', \'Ordering\'=>\'GB1\',\'Supplement\'=>2);<br>.
-include(\'include/tcpdf/fonts/uni2cid_ag15.php\');</pre>.
-</li><li>.
-Korean :<br>.
-<pre>\$enc=\'UniKS-UTF16-H\';<br>.
-\$cidinfo=array(\'Registry\'=>\'Adobe\', \'Ordering\'=>\'Korea1\',\'Supplement\'=>0);<br>.
-include(\'include/tcpdf/fonts/uni2cid_ak12.php\');</pre>.
-</li><li>.
-Japanese :<br>.
-<pre>\$enc=\'UniJIS-UTF16-H\';<br>.
-\$cidinfo=array(\'Registry\'=>\'Adobe\', \'Ordering\'=>\'Japan1\',\'Supplement\'=>5);<br>.
-include(\'include/tcpdf/fonts/uni2cid_aj16.php\');</pre>.
-</li></ul>.
-More help : www.tcpdf.org',
-    'LBL_FONT_LIST_FILESIZE' => 'Font Size (KB)',
-    'LBL_ADD_FONT' => 'Add a font',
-    'LBL_BACK' => 'Back',
-    'LBL_REMOVE' => 'Remove',
-    'LBL_JS_CONFIRM_DELETE_FONT' => 'Are you sure that you want to delete this font?',
-
-    'LBL_ADDFONT_TITLE' => 'Add a PDF Font',
-    'LBL_PDF_ENCODING_TABLE' => 'Encoding Table',
-    'LBL_PDF_ENCODING_TABLE_INFO' => 'Name of the encoding table.<br>This option is ignored for TrueType Unicode, OpenType Unicode and symbolic fonts.<br>The encoding defines the association between a code (from 0 to 255) and a character contained in the font.<br>The first 128 are fixed and correspond to ASCII.',
-    'LBL_PDF_FONT_FILE' => 'Font File',
-    'LBL_PDF_FONT_FILE_INFO' => '.ttf or .otf or .pfb file',
-    'LBL_PDF_METRIC_FILE' => 'Metric File',
-    'LBL_PDF_METRIC_FILE_INFO' => '.afm or .ufm file',
-    'LBL_ADD_FONT_BUTTON' => 'Add',
-    'JS_ALERT_PDF_WRONG_EXTENSION' => 'This file do not have a good file extension.',
-
-    'ERR_MISSING_CIDINFO' => 'The field CID Information cannot be empty.',
-    'LBL_ADDFONTRESULT_TITLE' => 'Result of the add font process',
-    'LBL_STATUS_FONT_SUCCESS' => 'SUCCESS : The font has been added to ICTCRM.',
-    'LBL_STATUS_FONT_ERROR' => 'ERROR : The font has not been added. Look at the log below.',
-
-// Font manager
-    'ERR_PDF_NO_UPLOAD' => 'Error during the upload of the font or metric file.',
 
 // Wizard
     //Wizard Scenarios
@@ -347,17 +211,17 @@ More help : www.tcpdf.org',
 
     'LBL_WIZARD_TITLE' => 'Admin Wizard',
     'LBL_WIZARD_WELCOME_TAB' => 'Welcome',
-    'LBL_WIZARD_WELCOME_TITLE' => 'Welcome to ICTCRM!',
-    'LBL_WIZARD_WELCOME' => 'Click <b>Next</b> to brand, localize and configure ICTCRM now. If you wish to configure ICTCRM later, click <b>Skip</b>.',
+    'LBL_WIZARD_WELCOME_TITLE' => 'Welcome to SuiteCRM!',
+    'LBL_WIZARD_WELCOME' => 'Click <b>Next</b> to brand, localize and configure SuiteCRM now. If you wish to configure SuiteCRM later, click <b>Skip</b>.',
     'LBL_WIZARD_NEXT_BUTTON' => 'Next >',
     'LBL_WIZARD_BACK_BUTTON' => '< Back',
     'LBL_WIZARD_SKIP_BUTTON' => 'Skip',
     'LBL_WIZARD_CONTINUE_BUTTON' => 'Continue',
     'LBL_WIZARD_FINISH_TITLE' => 'Basic system configuration is complete',
     'LBL_WIZARD_SYSTEM_TITLE' => 'Branding',
-    'LBL_WIZARD_SYSTEM_DESC' => 'Provide your organization\'s name and logo in order to brand your ICTCRM.',
-    'LBL_WIZARD_LOCALE_DESC' => 'Specify how you would like data in ICTCRM to be displayed, based on your geographical location. The settings you provide here will be the default settings. Users will be able set their own preferences.',
-    'LBL_WIZARD_SMTP_DESC' => 'Provide the email account that will be used to send emails, such as the assignment notifications and new user passwords. Users will receive emails from ICTCRM, as sent from the specified email account.',
+    'LBL_WIZARD_SYSTEM_DESC' => 'Provide your organization\'s name and logo in order to brand your SuiteCRM.',
+    'LBL_WIZARD_LOCALE_DESC' => 'Specify how you would like data in SuiteCRM to be displayed, based on your geographical location. The settings you provide here will be the default settings. Users will be able set their own preferences.',
+    'LBL_WIZARD_SMTP_DESC' => 'Provide the email account that will be used to send emails, such as the assignment notifications and new user passwords. Users will receive emails from SuiteCRM, as sent from the specified email account.',
     'LBL_LOADING' => 'Loading...' /*for 508 compliance fix*/,
     'LBL_DELETE' => 'Delete' /*for 508 compliance fix*/,
     'LBL_WELCOME' => 'Welcome' /*for 508 compliance fix*/,

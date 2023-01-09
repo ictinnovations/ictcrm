@@ -3,7 +3,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -32,21 +32,21 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 /** @noinspection PhpIllegalStringOffsetInspection */
 
-namespace ICTCRM\Modules\Administration\Search\ElasticSearch;
+namespace SuiteCRM\Modules\Administration\Search\ElasticSearch;
 
 if (!defined('sugarEntry') || !sugarEntry) {
     die('Not A Valid Entry Point');
 }
 
 use LoggerManager;
-use ICTCRM\Modules\Administration\Search\MVC\View as AbstractView;
+use SuiteCRM\Modules\Administration\Search\MVC\View as AbstractView;
 
 class View extends AbstractView
 {
@@ -58,7 +58,7 @@ class View extends AbstractView
         parent::__construct(__DIR__ . '/view.tpl');
     }
 
-    public function preDisplay()
+    public function preDisplay(): void
     {
         parent::preDisplay();
 
@@ -67,9 +67,9 @@ class View extends AbstractView
         if (!isset($sugar_config['search']['ElasticSearch']) || $sugar_config['search']['ElasticSearch']) {
             LoggerManager::getLogger()->warn('Configuration does not contains Elasticsearch default settings.');
         }
-        
+
         $elasticsearchConfig = isset($sugar_config['search']['ElasticSearch']) ? $sugar_config['search']['ElasticSearch'] : null;
-        
+
         $this->smarty->assign('config', $elasticsearchConfig);
     }
 }

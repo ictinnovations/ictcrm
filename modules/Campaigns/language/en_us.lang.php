@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2019 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 if (!defined('sugarEntry') || !sugarEntry) {
@@ -106,6 +106,7 @@ $mod_strings = array(
     'LBL_TRACKED_URLS_SUBPANEL_TITLE' => 'Tracker URLs',
     'LBL_CAMPAIGN_ACCOUNTS_SUBPANEL_TITLE' => 'Accounts',
     'LBL_PROSPECT_LIST_SUBPANEL_TITLE' => 'Target List',
+    'LBL_HISTORY_SUBPANEL_TITLE' => 'History',
     'LBL_EMAIL_MARKETING_SUBPANEL_TITLE' => 'Email Marketing',
     'LNK_NEW_EMAIL_TEMPLATE' => 'Create Email Template',
     'LNK_EMAIL_TEMPLATE_LIST' => 'View Email Templates',
@@ -151,7 +152,7 @@ $mod_strings = array(
     'LBL_NEWSLETTERS' => 'View Newsletters',
     'LBL_NEWSLETTER' => 'Newsletter',
     'LBL_SURVEY' => 'Survey',
-    'LBL_NEWSLETTER_FORENTRY'=>'NewsLetter',
+    'LBL_NEWSLETTER_FORENTRY' => 'NewsLetter',
     'LBL_CREATE_NEWSLETTER' => 'Create Newsletter',
     'LBL_LIST_NAME' => 'Name',
     'LBL_INBOUND_EMAIL_SETTINGS' => 'Inbound Email Settings',
@@ -373,7 +374,7 @@ $mod_strings = array(
     'LBL_OPPORTUNITIES_SUBPANEL_TITLE' => 'Opportunities',
 
     'LBL_LEAD_FORM_WIZARD' => 'Lead Form Wizard',
-    'LBL_CAMPAIGN_INFORMATION' => 'OVERVIEW',
+    'LBL_CAMPAIGN_INFORMATION' => 'OVERVIEW', //No need to be translated in all caps. Translation used just in menu action items when using the SuiteP template
     'LBL_EDIT_BUTTON' => 'Launch Wizard',
     'LBL_YEAR' => "Year",
     'LBL_DAY' => "Day",
@@ -414,6 +415,7 @@ $mod_strings = array(
     'LBL_ATTACHMENTS' => 'Attachments',
     'ERR_MISSING_REQUIRED_FIELDS' => 'Missing required field',
     'LBL_SUITE_DOCUMENT' => 'Document',
+    'LBL_UPLOAD_FILE' => 'Upload File',
     'LBL_EMAIL_ATTACHMENT' => 'Email Attachment',
     'LBL_PROCESS_BOUNCED_EMAILS' => 'Process Bounced Emails',
     'LBL_PROCESS_CAMPAIGN_EMAILS' => 'Process Campaign Emails',
@@ -465,8 +467,4 @@ $mod_strings = array(
     'LBL_PROSPECT_LISTS' => 'Prospect Lists',
     'LBL_SURVEYRESPONSES_CAMPAIGNS_FROM_SURVEYRESPONSES_TITLE' => 'Survey Responses',
     'LBL_CAMPAIGN_SURVEY' => "Survey",
-    'LBL_EMAIL_HREF' => 'http://ictdialeripaddress/#/pages/campaigns/campaigns/sendemail/new',
-    'LBL_SMS_HREF' => 'http://ictdialeripaddress/#/pages/campaigns/campaigns/sendsms/new',
-    'LBL_VOICE_HREF' => 'http://ictdialeripaddress/#/pages/campaigns/campaigns/voicemessage/new',
-    'LBL_FAX_HREF' => 'http://ictdialeripaddress/#/pages/campaigns/campaigns/sendfax/new'
 );

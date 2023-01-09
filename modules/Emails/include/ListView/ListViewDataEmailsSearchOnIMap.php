@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 if (!defined('sugarEntry') || !sugarEntry) {
@@ -122,7 +122,7 @@ class ListViewDataEmailsSearchOnIMap extends ListViewDataEmailsSearchAbstract
         $emailServerEmails = $inboundEmail->checkWithPagination($offset, $limitPerPage, $order, $filter, $filter_fields);
 
         $total = $emailServerEmails['mailbox_info']['Nmsgs']; // + count($importedEmails['data']);
-        if ($page === "end") {
+        if ($request['Emails2_EMAIL_offset'] === "end") {
             $offset = $total - $limitPerPage;
         }
 
@@ -202,10 +202,6 @@ class ListViewDataEmailsSearchOnIMap extends ListViewDataEmailsSearchAbstract
             $nextOffset = $offset + $limitPerPage;
         }
 
-        if ($nextOffset >= $total) {
-            $nextOffset = $total;
-        }
-
         if ($page > 0) {
             $prevOffset = $offset - $limitPerPage;
             if ($prevOffset < 0) {
@@ -219,20 +215,33 @@ class ListViewDataEmailsSearchOnIMap extends ListViewDataEmailsSearchAbstract
         }
 
         if ($total > 0) {
-            $endOffset = $total / $limitPerPage;
+            $endOffset = ceil($total / $limitPerPage);
+        }
+
+        if ($nextOffset >= $total) {
+            $nextOffset = -1;
+            $endOffset = $offset;
         }
 
         $pageData['offsets']['current'] = $offset;
         $pageData['offsets']['total'] = $total;
         $pageData['offsets']['next'] = $nextOffset;
         $pageData['offsets']['prev'] = $prevOffset;
-        $pageData['offsets']['end'] = ceil($endOffset);
+        $pageData['offsets']['end'] = $endOffset;
 
-        $queries = array('baseUrl', 'endPage', 'nextPage', 'orderBy');
+        $queries = array('baseUrl', 'orderBy');
 
         if ((int)$pageData['offsets']['current'] >= $limitPerPage) {
             $queries[] = 'prevPage';
             $queries[] = 'startPage';
+        }
+
+        if ($nextOffset !== -1) {
+            $queries[] =  'nextPage';
+        }
+
+        if ($endOffset !== -1) {
+            $queries[] =  'endPage';
         }
 
         foreach ($queries as $query) {
@@ -281,13 +290,16 @@ class ListViewDataEmailsSearchOnIMap extends ListViewDataEmailsSearchAbstract
 
         if (!isset($pageData['ordering'])) {
             $pageData['ordering'] = array(
-                'orderBy' => 'date_entered',
-                'sortOrder'=> 'ASC'
+                'orderBy' => 'date_sent_received',
+                'sortOrder'=> 'DESC'
             );
         }
 
-        // TODO: TASK: UNDEFINED - HANDLE in second filter after IMap
-        $endOffset = floor(($total - 1) / $limit) * $limit;
+        if ($endOffset !== -1) {
+            // TODO: TASK: UNDEFINED - HANDLE in second filter after IMap
+            $endOffset = floor(($total - 1) / $limit) * $limit;
+        }
+
 
         if (!isset($pageData['ordering']) || !isset($pageData['ordering']['sortOrder'])) {
             LoggerManager::getLogger()->warn('ListViewDataEmailsSearchOnIMap::search: sort order is not set. Using null by default.');

@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "ICTCRM/V8",
+			"name": "SuiteCRM/V8",
 			"description": "",
 			"item": [
 				{
@@ -93,9 +93,9 @@
 							"raw": "{\n\t\n}"
 						},
 						"url": {
-							"raw": "{{ictcrm.url}}/V8/module/Accounts/{ID}?fields[Accounts]=name,account_type",
+							"raw": "{{suitecrm.url}}/V8/module/Accounts/{ID}?fields[Accounts]=name,account_type",
 							"host": [
-								"{{ictcrm.url}}"
+								"{{suitecrm.url}}"
 							],
 							"path": [
 								"V8",
@@ -198,9 +198,9 @@
 							"raw": "{\n\t\n}"
 						},
 						"url": {
-							"raw": "{{ictcrm.url}}/V8/module/Accounts?fields[Accounts]=name,account_type&page[size]=4&page[number]=4&sort=name&filter[operator]=and&filter[account_type][eq]=Customer",
+							"raw": "{{suitecrm.url}}/V8/module/Accounts?fields[Accounts]=name,account_type&page[size]=4&page[number]=4&sort=name&filter[operator]=and&filter[account_type][eq]=Customer",
 							"host": [
-								"{{ictcrm.url}}"
+								"{{suitecrm.url}}"
 							],
 							"path": [
 								"V8",
@@ -327,9 +327,9 @@
 							"raw": "{\n  \"data\": {\n    \"type\": \"Accounts\",\n    \"id\": \"{ID}\",\n    \"attributes\": {\n      \"name\": \"Muhahaha\"\n    }\n  }\n}"
 						},
 						"url": {
-							"raw": "{{ictcrm.url}}/V8/module",
+							"raw": "{{suitecrm.url}}/V8/module",
 							"host": [
-								"{{ictcrm.url}}"
+								"{{suitecrm.url}}"
 							],
 							"path": [
 								"V8",
@@ -423,9 +423,9 @@
 							"raw": "{\n  \"data\": {\n    \"type\": \"Accounts\",\n    \"id\": \"{ID}\",\n    \"attributes\": {\n      \"name\": \"hapff111fff\"\n    }\n  }\n}"
 						},
 						"url": {
-							"raw": "{{ictcrm.url}}/V8/module",
+							"raw": "{{suitecrm.url}}/V8/module",
 							"host": [
-								"{{ictcrm.url}}"
+								"{{suitecrm.url}}"
 							],
 							"path": [
 								"V8",
@@ -519,9 +519,9 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{ictcrm.url}}/V8/module/Accounts/{ID}",
+							"raw": "{{suitecrm.url}}/V8/module/Accounts/{ID}",
 							"host": [
-								"{{ictcrm.url}}"
+								"{{suitecrm.url}}"
 							],
 							"path": [
 								"V8",
@@ -617,9 +617,9 @@
 							"raw": "{\n\t\n}"
 						},
 						"url": {
-							"raw": "{{ictcrm.url}}/V8/module/Accounts/{ID}/relationships/contacts",
+							"raw": "{{suitecrm.url}}/V8/module/Accounts/{ID}/relationships/contacts",
 							"host": [
-								"{{ictcrm.url}}"
+								"{{suitecrm.url}}"
 							],
 							"path": [
 								"V8",
@@ -717,9 +717,9 @@
 							"raw": "{\n  \"data\": {\n    \"type\": \"Contacts\",\n    \"id\": \"{ID}\"\n  }\n}"
 						},
 						"url": {
-							"raw": "{{ictcrm.url}}/V8/module/Accounts/{ID}/relationships",
+							"raw": "{{suitecrm.url}}/V8/module/Accounts/{ID}/relationships",
 							"host": [
-								"{{ictcrm.url}}"
+								"{{suitecrm.url}}"
 							],
 							"path": [
 								"V8",
@@ -816,9 +816,9 @@
               "raw": "{\n  \"data\": {\n    \"type\": \"Contacts\",\n    \"id\": \"{ID}\"\n  }\n}"
             },
             "url": {
-              "raw": "{{ictcrm.url}}/V8/module/Accounts/{ID}/relationships/{linkName}",
+              "raw": "{{suitecrm.url}}/V8/module/Accounts/{ID}/relationships/{linkName}",
               "host": [
-                "{{ictcrm.url}}"
+                "{{suitecrm.url}}"
               ],
               "path": [
                 "V8",
@@ -916,9 +916,9 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{ictcrm.url}}/V8/module/Accounts/{ID}/relationships/contacts/{ID}",
+							"raw": "{{suitecrm.url}}/V8/module/Accounts/{ID}/relationships/contacts/{ID}",
 							"host": [
-								"{{ictcrm.url}}"
+								"{{suitecrm.url}}"
 							],
 							"path": [
 								"V8",
@@ -1017,9 +1017,9 @@
 							"raw": "{\n\t\n}"
 						},
 						"url": {
-							"raw": "{{ictcrm.url}}/V8/logout",
+							"raw": "{{suitecrm.url}}/V8/logout",
 							"host": [
-								"{{ictcrm.url}}"
+								"{{suitecrm.url}}"
 							],
 							"path": [
 								"V8",

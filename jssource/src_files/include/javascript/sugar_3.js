@@ -3,7 +3,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -32,9 +32,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 
@@ -1098,7 +1098,7 @@ function validate_form(formname, startsWith) {
                   var result = validate[formname][i][callbackIndex](formname, validate[formname][i][nameIndex]);
                   if (result == false) {
                     isError = true;
-                    add_error_style(formname, validate[formname][i][nameIndex], requiredTxt + " " + validate[formname][i][msgIndex]);
+                    add_error_style(formname, validate[formname][i][nameIndex], invalidTxt + " " + validate[formname][i][msgIndex]);
                   }
                 }
                 break;
@@ -2993,7 +2993,7 @@ SUGAR.util = function () {
               // Bug #49205 : Subpanels fail to load when selecting subpanel tab
               // Create a YUI instance using the io-base module.
               (function (srcResult) {
-                $.ajax({ 
+                $.ajax({
                   url: srcResult,
                   async: false,
                   method: 'GET'
@@ -3652,6 +3652,7 @@ SUGAR.savedViews = function () {
         }
         // Firefox needs this to be set after all the option nodes are created.
         document.getElementById('orderBySelect').selectedIndex = selectedIndex;
+
       };
       SUGAR.tabChooser.movementCallback(document.getElementById('display_tabs_td').getElementsByTagName('select')[0]);
 
@@ -3668,6 +3669,25 @@ SUGAR.savedViews = function () {
       // handle direction
       if (SUGAR.savedViews.selectedSortOrder == 'DESC') document.getElementById('sort_order_desc_radio').checked = true;
       else document.getElementById('sort_order_asc_radio').checked = true;
+      var sortableColumnsCount = 0;
+
+      var columnDefs = SUGAR.savedViews.columnsMeta;
+      if(columnDefs && typeof columnDefs === 'object' && Object.keys(columnDefs))  {
+        Object.keys(columnDefs).forEach(function (columnKey) {
+          var column = columnDefs[columnKey];
+          if (!column || !column.sortable) {
+            return;
+          }
+
+          if (column.sortable === true) {
+            sortableColumnsCount++;
+          }
+        })
+      }
+
+      if (sortableColumnsCount < 1 ) {
+        $('.saved-search-sort-column-config-row').hide();
+      }
     }
   };
 }();
@@ -4861,7 +4881,7 @@ SUGAR.append(SUGAR.util, {
                 ajaxStatus.showStatus(SUGAR.language.get('app_strings', 'LBL_SAVING'));
                 var args = "action=save&id=" + id + "&record=" + id + "&status=" + new_status + "&module=" + module;
 
-                //ICTCRM bug #618
+                //SuiteCRM bug #618
                 //The bug fix above (42361) has been taken out as the 'search_form' element it tries to find
                 //is never found in the dashlet.  This means that the entire page was always reloaded whenever
                 //a meeting or call was removed.  The callback below will only refresh the entire page if the

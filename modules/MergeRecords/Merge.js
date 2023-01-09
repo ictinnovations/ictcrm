@@ -3,7 +3,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -32,11 +32,10 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
- */
-var lbl_remove=SUGAR.language.get('app_strings','LBL_REMOVE');function remove_filter(spanfieldid){var selspan=document.getElementById(spanfieldid);selspan.setAttribute("style","visibility:hidden");selspan.innerHTML='';var ops=object_refs['field_avail_list'].options;var newoption=new Option(selspan.getAttribute("Value"),selspan.getAttribute("ValueId"),false,true);ops.add(newoption);}
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
+ */var lbl_remove=SUGAR.language.get('app_strings','LBL_REMOVE');function remove_filter(spanfieldid){var selspan=document.getElementById(spanfieldid);selspan.setAttribute("style","visibility:hidden");selspan.innerHTML='';var ops=object_refs['field_avail_list'].options;var newoption=new Option(selspan.getAttribute("Value"),selspan.getAttribute("ValueId"),false,true);ops.add(newoption);}
 function ajax_fetch_sync(url,post_data){global_xmlhttp=getXMLHTTPinstance();var method='GET';if(typeof(post_data)!='undefined'){method='POST';}
 try{global_xmlhttp.open(method,url,false);}
 catch(error){alert('message:'+error.message+":url:"+url);}

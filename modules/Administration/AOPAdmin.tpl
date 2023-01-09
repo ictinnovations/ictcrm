@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 *}
 <form id="ConfigureSettings" name="ConfigureSettings" enctype='multipart/form-data' method="POST"
@@ -189,13 +189,23 @@
         <tr>
             <td  scope="row" width="200">{$MOD.LBL_SUPPORT_FROM_ADDRESS}: </td>
             <td  >
-                <input type="text" name="support_from_address" id="support_from_address" value="{$config.support_from_address}">
-            </td>
+                <input type="text" name="support_from_address" id="support_from_address" value="{$config.support_from_address}">            </td>
         </tr>
         <tr>
             <td  scope="row" width="200">{$MOD.LBL_SUPPORT_FROM_NAME}: </td>
             <td  >
                 <input type="text" name="support_from_name" id="support_from_name" value="{$config.support_from_name}">
+            </td>
+        </tr>
+        <tr>
+            <td  scope="row" width="200">{$MOD.LBL_CASE_MACRO}: </td>
+            <td  >
+                <input type="text" name="inbound_email_case_macro" id="inbound_email_case_macro" value="{$inbound_email_case_macro}">
+                <span>
+                    {$MOD.LBL_CASE_MACRO_DESC}
+                    <br />
+                    <i>{$MOD.LBL_CASE_MACRO_DESC2}</i>
+                </span>
             </td>
         </tr>
         <tr id="user_email_template_row">

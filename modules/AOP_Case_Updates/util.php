@@ -4,7 +4,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -33,9 +33,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 /**
@@ -67,6 +67,55 @@ function getAOPAssignField($assignField, $value)
         $display = '';
     }
     $field .= "<select type='text' style='display:$display' name='$assignField" . '[2]' . "' id='$assignField" . '[2]' . "' title='' tabindex='116'>" . get_select_options_with_id($roles, isset($value[2]) ? $value[2] : null) . '</select>&nbsp;&nbsp;';
+
+    return $field;
+}
+
+/**
+ * @param mixed $value
+ * @return string
+ */
+function getAOPAssignFieldDetailView($value)
+{
+    global $app_list_strings, $app_strings;
+
+    if (empty($value)){
+        return '';
+    }
+
+    if (is_string($value)){
+        return $value;
+    }
+
+    $roles = get_bean_select_array(true, 'ACLRole', 'name', '', 'name', true);
+    $securityGroups = get_bean_select_array(true, 'SecurityGroup', 'name', '', 'name', true);
+
+    $field = '';
+    $type = $value[0] ?? null;
+    $field .= $app_list_strings['aow_assign_options'][$type] ?? '';
+
+    if (file_exists('modules/SecurityGroups/SecurityGroup.php'))  {
+        $display = 'none';
+        if (isset($value[0]) && $value[0] === 'security_group') {
+            $display = '';
+        }
+        if ($display !== 'none') {
+            $securityGroup = $value[1] ?? null;
+            $field .= ' | ' . $app_strings['LBL_SECURITYGROUP'] . ': ' . $securityGroups[$securityGroup] ?? '';
+        }
+
+    }
+
+    $display = 'none';
+    if (isset($value[0]) && ($value[0] === 'role' || $value[0] === 'security_group')) {
+        $display = '';
+    }
+
+    if ($display !== 'none') {
+        $role = $value[2] ?? null;
+
+        $field .= ' | ' . $app_strings['LBL_ROLE'] . ': ' .  $roles[$role] ?? '';
+    }
 
     return $field;
 }
@@ -142,12 +191,9 @@ function aop_parse_template($string, $bean_arr)
             }
         }
 
-        if (isset($this) && isset($this->module_dir) && $this->module_dir === 'EmailTemplates') {
-            $string = $this->parse_template_bean($string, $bean_name, $focus);
-        } else {
-            $emailTemplate = BeanFactory::newBean('EmailTemplates');
-            $string = $emailTemplate->parse_template_bean($string, $bean_name, $focus);
-        }
+        $emailTemplate = BeanFactory::newBean('EmailTemplates');
+        $string = $emailTemplate->parse_template_bean($string, $bean_name, $focus);
+
     }
 
     return $string;

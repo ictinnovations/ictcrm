@@ -5,7 +5,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -34,9 +34,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 if (!defined('sugarEntry') || !sugarEntry) {
     die('Not A Valid Entry Point');
@@ -48,7 +48,7 @@ require_once __DIR__ . '/GoogleSyncHelper.php';
 /**
  * Implements Google Calendar Syncing
  *
- * @license https://raw.githubusercontent.com/salesagility/ICTCRM/master/LICENSE.txt
+ * @license https://raw.githubusercontent.com/salesagility/SuiteCRM/master/LICENSE.txt
  * GNU Affero General Public License version 3
  * @author Benjamin Long <ben@offsite.guru>
  */
@@ -63,11 +63,11 @@ class GoogleSync extends GoogleSyncBase
      * Gets the combined titles of a Meeting/Event pair for Logging
      *
      * @param Meeting $meeting The CRM Meeting
-     * @param \Google_Service_Calendar_Event $event The Google Event
+     * @param \Google\Service\Calendar\Event $event The Google Event
      *
      * @return string The combined title
      */
-    protected function getTitle(Meeting $meeting = null, Google_Service_Calendar_Event $event = null)
+    protected function getTitle(Meeting $meeting = null, Google\Service\Calendar\Event $event = null)
     {
         $meetingTitle = isset($meeting) ? $meeting->name : null;
         $eventTitle = isset($event) ? $event->getSummary() : null;
@@ -89,13 +89,13 @@ class GoogleSync extends GoogleSyncBase
      *
      * @param string $action The action to take with the two events
      * @param Meeting $meeting The CRM Meeting
-     * @param \Google_Service_Calendar_Event $event The Google Event
+     * @param \Google\Service\Calendar\Event $event The Google Event
      *
      * @return bool Success/Failure
      * @throws GoogleSyncException if $action is invalid.
      * @throws GoogleSyncException if something else fails.
      */
-    protected function doAction($action, Meeting $meeting = null, Google_Service_Calendar_Event $event = null)
+    protected function doAction($action, Meeting $meeting = null, Google\Service\Calendar\Event $event = null)
     {
         $title = $this->getTitle($meeting, $event);
 
@@ -135,7 +135,7 @@ class GoogleSync extends GoogleSyncBase
     /**
      * Perform the sync for a user
      *
-     * @param string $id The ICTCRM user id
+     * @param string $id The SuiteCRM user id
      *
      * @return bool true, unless an exception is thrown by called function
      */
@@ -145,7 +145,7 @@ class GoogleSync extends GoogleSyncBase
 
         $meetings = $this->getUserMeetings($id);
 
-        // First, we look for ICTCRM meetings that are not on Google
+        // First, we look for SuiteCRM meetings that are not on Google
         foreach ($meetings as $meeting) {
             $gevent = null;
             if (!empty($meeting->gsync_id)) {
@@ -171,8 +171,8 @@ class GoogleSync extends GoogleSyncBase
      *
      * The user id is used as the key
      *
-     * @param string $id : the ICTCRM user id
-     * @param string $name : the ICTCRM user name.
+     * @param string $id : the SuiteCRM user id
+     * @param string $name : the SuiteCRM user name.
      *  Not really used for anything other than reference.
      *
      * @return bool Success/Failure
@@ -194,12 +194,12 @@ class GoogleSync extends GoogleSyncBase
      * Used when an event w/ a matching ID is on both ends of the sync.
      * At least one of the params is required.
      *
-     * @param Meeting|null $meeting (optional) Meeting Bean or Google_Service_Calendar_Event Object
-     * @param \Google_Service_Calendar_Event|null $event (optional) Google_Service_Calendar_Event Object
+     * @param Meeting|null $meeting (optional) Meeting Bean or Google\Service\Calendar\Event Object
+     * @param \Google\Service\Calendar\Event|null $event (optional) Google\Service\Calendar\Event Object
      *
      * @return string|bool 'push(_delete)', 'pull(_delete)', 'skip', false (on error)
      */
-    protected function pushPullSkip(Meeting $meeting = null, Google_Service_Calendar_Event $event = null)
+    protected function pushPullSkip(Meeting $meeting = null, Google\Service\Calendar\Event $event = null)
     {
         if (empty($meeting) && empty($event)) {
             throw new GoogleSyncException('Missing Parameter, You must pass at least one event');

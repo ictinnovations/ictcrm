@@ -7,11 +7,11 @@
  * @link        https://github.com/thephpleague/oauth2-server
  */
 
-namespace ICTCRM\API\OAuth2\Repositories;
+namespace SuiteCRM\API\OAuth2\Repositories;
 
 use League\OAuth2\Server\Entities\RefreshTokenEntityInterface;
 use League\OAuth2\Server\Repositories\RefreshTokenRepositoryInterface;
-use ICTCRM\API\OAuth2\Entities\RefreshTokenEntity;
+use SuiteCRM\API\OAuth2\Entities\RefreshTokenEntity;
 
 class RefreshTokenRepository implements RefreshTokenRepositoryInterface
 {

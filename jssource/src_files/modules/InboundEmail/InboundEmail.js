@@ -3,7 +3,7 @@
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
- * ICTCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
  * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -32,9 +32,9 @@
  *
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
- * SugarCRM" logo and "Supercharged by ICTCRM" logo. If the display of the logos is not
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
- * display the words "Powered by SugarCRM" and "Supercharged by ICTCRM".
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 
@@ -115,7 +115,7 @@ function getEncryptedPassword(login, password, mailbox) {
 	return words;
 } // fn
 
-function ie_test_open_popup_with_submit(module_name, action, pageTarget, width, height, mail_server, protocol, port, login, password, mailbox, ssl, personal, formName, ie_id)
+function ie_test_open_popup_with_submit(module_name, action, pageTarget, width, height, mail_server, protocol, port, login, password, mailbox, ssl, personal, formName, ie_id, connectionString)
 {
 	if (!formName) formName = "testSettingsView";
 	var words = getEncryptedPassword(login, password, mailbox);
@@ -144,6 +144,10 @@ function ie_test_open_popup_with_submit(module_name, action, pageTarget, width, 
 		+ '&ssl=' + ssl
 		+ '&ie_id=' + ie_id
 		+ '&personal=' + isPersonal;
+
+  if(connectionString) {
+    URL += '&connection_string=' + encodeURIComponent(connectionString);
+  }
 
 	var SI = SUGAR.inboundEmail;
 	if (!SI.testDlg) {
@@ -220,7 +224,7 @@ function isDataValid(formName, validateMonitoredFolder) {
 
 } // fn
 
-function getFoldersListForInboundAccount(module_name, action, pageTarget, width, height, mail_server, protocol, port, login, password, mailbox, ssl, personal, searchFieldValue, formName) {
+function getFoldersListForInboundAccount(module_name, action, pageTarget, width, height, mail_server, protocol, port, login, password, mailbox, ssl, personal, searchFieldValue, formName, extraParams) {
 	if (!formName) formName = "testSettingsView";
 
 	var words = getEncryptedPassword(login, password, mailbox);
@@ -242,6 +246,12 @@ function getFoldersListForInboundAccount(module_name, action, pageTarget, width,
         + '&ssl=' + ssl
         + '&personal=' + isPersonal
 		+ '&searchField='+ searchFieldValue;
+
+  if(extraParams && typeof extraParams === 'object' && Object.keys(extraParams).length) {
+    Object.keys(extraParams).forEach(function (key) {
+      URL += '&' + key + '=' + (extraParams[key] || '');
+    })
+  }
 
 	var SI = SUGAR.inboundEmail;
     if (!SI.listDlg) {
