@@ -2467,4 +2467,36 @@ EOQ;
 
         return $sameUser || is_admin($current_user);
     }
+
+    public function ict_broadcast_api($method, $arguments = array()) {
+      global $current_user;
+      $ictbroadcast_url = $current_user->ictbroadcast_url_c;
+      $ictbroadcast_url .= '/rest';
+      $ictbroadcast_accesskey=$current_user->ictbroadcast_accesskey_c;
+
+      // update following with proper access info
+      $api_token   = $ictbroadcast_accesskey;
+      $service_url = $ictbroadcast_url;
+      $post_data = array();
+
+      foreach($arguments as $key => $value) {
+        if(is_array($value)){
+          $post_data[$key] = json_encode($value);
+        } else {
+          $post_data[$key] = $value;
+        }
+      }
+
+      $api_url = "$service_url/$method";
+      $curl = curl_init($api_url);
+      curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+      curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $api_token));
+      curl_setopt($curl, CURLOPT_POST, true);
+      curl_setopt($curl, CURLOPT_POSTFIELDS, $post_data);
+      curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+      $curl_response = curl_exec($curl);
+      curl_close($curl);
+      return json_decode($curl_response);
+    }
+
 }
