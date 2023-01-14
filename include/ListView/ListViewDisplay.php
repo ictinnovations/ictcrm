@@ -413,8 +413,13 @@ class ListViewDisplay
     protected function buildExportLink($loc = 'top')
     {
         global $app_strings;
-        return "<a href='javascript:void(0)' class=\"parent-dropdown-action-handler\" id=\"export_listview_". $loc ." \" onclick=\"return sListView.send_form(true, '{$this->seed->module_dir}', 'index.php?entryPoint=export','{$app_strings['LBL_LISTVIEW_NO_SELECTED']}')\">{$app_strings['LBL_EXPORT']}</a>";
+        if (in_array($_REQUEST['module'], ['Contacts', 'Leads'])) {
+          return "<a class='email-link' href='javascript:void(0)'  onclick=\"$(document).openCampaignViewModal(this);\" data-module data-record-id data-module-name data-email-address>{$app_strings['LBL_EXPORT']}</a>";
+        } else {
+          return "<a href='javascript:void(0)' class=\"parent-dropdown-action-handler\" id=\"export_listview_". $loc ." \" onclick=\"return sListView.send_form(true, '{$this->seed->module_dir}', 'index.php?entryPoint=export','{$app_strings['LBL_LISTVIEW_NO_SELECTED']}')\">{$app_strings['LBL_EXPORT']}</a>";
+        }
     }
+
 
     /**
      * Builds the massupdate link

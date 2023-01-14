@@ -173,6 +173,7 @@ class Opportunity extends SugarBean
         $query = "SELECT
                                 opportunities.*,
                                 accounts.name as account_name,
+                                accounts.phone_office as account_phone,
                                 users.user_name as assigned_user_name ";
         $query .= $custom_join['select'];
         $query .= " FROM opportunities ";
