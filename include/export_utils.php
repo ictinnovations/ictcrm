@@ -328,9 +328,9 @@ function export($type, $records = null, $members = false, $sample=false)
 
             // Export it in ICTBroadcast specific Campaign
             if (in_array($_REQUEST['module'], ['Contacts', 'Leads'])) {
-              $remote_id = $new_arr['id'];
+              $remote_id  = $new_arr['id'];
               $campaignID = $_COOKIE['ictCampaignid'];
-              $contact   = array('first_name' => $new_arr['first_name'],
+              $contact    = array('first_name' => $new_arr['first_name'],
                                  'last_name'  => $new_arr['last_name'],
                                  'phone'      => $new_arr['phone_mobile'],
                                  'address'    => $new_arr['primary_address_city'].' '.$new_arr['primary_address_country'],
@@ -341,17 +341,35 @@ function export($type, $records = null, $members = false, $sample=false)
                                  'email'      => $new_arr['email_address']
                          );
               $remote  = array('remote_id' => $remote_id, 'remote_module' => $_REQUEST['module']);
-              $api_res = $current_user->ict_broadcast_api('Campaign_Contact_Create', array('contact'=>$contact, 'campaign_id'=> $campaignID, 'schedule_time'=> '', 'expiry' => '', 'remote' => $remote, 'do_not_call' => $new_arr['do_not_call']));
-            }
-            if ($_REQUEST['module'] == 'Opportunities') {
-              $remote_id = $new_arr['id'];
+              $api_res = $current_user->ict_broadcast_api('Campaign_Contact_Create', 
+                                                           array('contact'=>$contact, 'campaign_id'=> $campaignID,
+                                                                 'schedule_time'=> '', 'expiry' => '', 
+                                                                 'remote' => $remote, 'do_not_call' => $new_arr['do_not_call']
+                                                            )
+                                                         );
+            } else if ($_REQUEST['module'] == 'Opportunities') {
+              $remote_id  = $new_arr['id'];
               $campaignID = $_COOKIE['ictCampaignid'];
-              $contact   = array('first_name' => $new_arr['name'],
-                                 'phone'      => $new_arr['account_phone'],
-                                 'custom5'    => $new_arr['account_name'],
+              $contact    = array('first_name' => $new_arr['name'],
+                                 'phone'       => $new_arr['account_phone'],
+                                 'custom5'     => $new_arr['account_name'],
                          );
-              $remote  = array('remote_id' => $remote_id, 'remote_module' => $_REQUEST['module']);
-              $api_res = $current_user->ict_broadcast_api('Campaign_Contact_Create', array('contact'=>$contact, 'campaign_id'=> $campaignID, 'schedule_time'=> '', 'expiry' => '', 'remote' => $remote));
+              $remote  = array('remote_id' => $remote_id, 
+                               'remote_module' => $_REQUEST['module']
+                         );
+              $api_res = $current_user->ict_broadcast_api('Campaign_Contact_Create', 
+                                                           array('contact'=>$contact, 'campaign_id'=> $campaignID,
+                                                                 'schedule_time'=> '', 'expiry' => '', 
+                                                                 'remote' => $remote
+                                                           )
+                                                         );
+            } else if ($_REQUEST['module'] == 'dispo_Dispositions') {
+              $disposition = array('remote_disp_id' => $new_arr['id'],
+                                   'name'        => $new_arr['name'],
+                                   'description' => $new_arr['description'],
+                                   'is_deleted'  => $new_arr['deleted']
+                             );
+              $api_res = $current_user->ict_broadcast_api('Disposition_Create', array('disposition' => $disposition));
             }
             // End Export it in ICTBroadcast specific Campaigns
 
