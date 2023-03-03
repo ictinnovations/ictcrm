@@ -332,12 +332,16 @@ function export($type, $records = null, $members = false, $sample=false)
               $campaignID = $_COOKIE['ictCampaignid'];
               $contact    = array('first_name' => $new_arr['first_name'],
                                  'last_name'  => $new_arr['last_name'],
-                                 'phone'      => $new_arr['phone_mobile'],
+                                 'phone'      => str_replace( array( '+', '(', ')', '-', ' '), 
+                                                              array( '', '', '', '', ''), 
+                                                              $new_arr['phone_work']
+                                                            ),
                                  'address'    => $new_arr['primary_address_city'].' '.$new_arr['primary_address_country'],
-                                 'custom1'    => $new_arr['phone_work'],
-                                 'custom2'    => $new_arr['phone_home'],
-                                 'custom3'    => $new_arr['phone_other'],
-                                 'custom4'    => $new_arr['phone_fax'],
+                                 // disable custom fields because of some restriction
+                                 // 'custom1'    => $new_arr['phone_mobile'],
+                                 // 'custom2'    => $new_arr['phone_home'],
+                                 // 'custom3'    => $new_arr['phone_other'],
+                                 // 'custom4'    => $new_arr['phone_fax'],
                                  'email'      => $new_arr['email_address']
                          );
               $remote  = array('remote_id' => $remote_id, 'remote_module' => $_REQUEST['module']);
@@ -351,7 +355,10 @@ function export($type, $records = null, $members = false, $sample=false)
               $remote_id  = $new_arr['id'];
               $campaignID = $_COOKIE['ictCampaignid'];
               $contact    = array('first_name' => $new_arr['name'],
-                                 'phone'       => $new_arr['account_phone'],
+                                 'phone'       => str_replace( array( '+', '(', ')', '-', ' '), 
+                                                               array( '', '', '', '', ''), 
+                                                               $new_arr['account_phone']
+                                                             ),
                                  'custom5'     => $new_arr['account_name'],
                          );
               $remote  = array('remote_id' => $remote_id, 
