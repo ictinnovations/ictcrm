@@ -2,11 +2,9 @@
 
 ICTCRM https://www.ictcrm.com is a modern CRM software integerated with CTI to manage your organization's daily buisness and communications needs, It is suiteable for small, medium and large companies . You can manage your telamarketing campaigns either through sms, voice, email or fax .
 
-ICTCRM has been promoted by ICT Innovations http://www.ictinnovations.com, It is customized version of renown open source CRM SuiteCRM https://suitecrm.com/ with unified communications integerations using open source unified communications framework ICTCore http://www.ictcore.com . we have enhanced its functionality by adding computer telephony integeration (CTI ) functionality by adding both personal as well as mass communications capability either through sms, voice , email or fax based technologies by integerating this modern CRM and ERP solution with unified communications platform ICTCore http://www.ictcore.org.
 
-## ICTCore
-
-ICTCore http://www.ictcore.org is open source unified communications framework for developers and integrators to rapidly develop ICT based applications using their existing development skills. By using ICTCore, developer can create communication based applications such as Auto attendant, Fax to Email, Click to Call etc. They can program custom business logic that can control incoming and outgoing communication instances.
+WELCOME TO ICT CRM
+ICTCRM is the modern Customer Relationship management (CRM) solution comprising of renown open source and free SuiteCRM with advanced contact center and unified communications ICTContact software for managing and interacting  your customers with advanced contact center software  .  ICTCRM solution comprises of latest version of renown open source CRM named SuiteCRM https://suitecrm.com/  integrated with communications framework ICTContact https://www.ictcontact.com. ICTContact is contact center and telemarketing software developed over open source communications engine asterisk https://www.asterisk.org/.       ICTCRM features complete business process automation and integration of communication technologies like voice calls and text messaging to connect Staff conduct voice calls based questions and make real time surveys, broadcasting important notifications or invitations, connecting Business and Customers in such a way that never imagined before.
 
 ## CTI Features
 
