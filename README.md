@@ -1,13 +1,13 @@
+<a href="https://ictcrm.org">
+  <img width="180px" height="41px" src="http://ictcrm.org/wp-content/uploads/2021/08/ict-crm-logo.png" align="right" />
+</a>
+
 # ICTCRM 2.0.2
 [Website](https://suitecrm.com) | [ICTInnovations](https://ictinnovations.com/) | [ICTContact](https://www.ictcontact.com/) | [ICTBroadcast](https://www.ictbroadcast.com/)
 
 
 Renown Open Source CRM software SuiteCRM with integration of Advanced contact center & communications framework ICTContact Integrated also We do offer integration  of ICTContact contact center with your existing CRM.
 ICTCRM solution is multitenant , turn key, and white label software solution for all type of business especially internet services providers, Carriers and telecommunications operators, Also we do offer  integration  of ICTContact contact center https://www.ictcontact.com with your existing CRM to empower your CRM with unified communications and contact center features .
-
-<a href="https://ictcrm.org">
-  <img width="180px" height="41px" src="[https://suitecrm.com/wp-content/uploads/2017/12/logo.png](http://ictcrm.org/wp-content/uploads/2021/08/ict-crm-logo.png)" align="right" />
-</a>
 
 # SuiteCRM 7.13.0
 
