@@ -3,7 +3,7 @@
 </a>
 
 # ICTCRM 2.0.2
-[Website](https://ictcrm.com) | [ICTInnovations](https://ictinnovations.com/) | [ICTContact](https://www.ictcontact.com/) | [ICTBroadcast](https://www.ictbroadcast.com/)
+[ICTCRM](https://ictcrm.com) | [ICTInnovations](https://ictinnovations.com/) | [ICTContact](https://www.ictcontact.com/) | [ICTBroadcast](https://www.ictbroadcast.com/)
 
 
 The Open Source CRM software SuiteCRM is enhanced to have communications capabilities. SuiteCRM is customized and integrated with ICTContact, the Asterisk-based advanced contact center software. It enables CRM users to make and receive calls directly from CRM, also export leads/contacts to the contact center, and run campaigns through ICTContact to connect with their customers with ease.
