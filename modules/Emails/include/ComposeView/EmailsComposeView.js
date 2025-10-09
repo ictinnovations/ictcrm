@@ -392,7 +392,7 @@
         $(htmlSignature).appendTo(signatureElement);
       }
 
-      if (tinymce.editors.length < 1) {
+      if (tinymce.get().length < 1) {
         console.warn('unable to find tinymce editor');
         return false;
       }
@@ -1158,7 +1158,7 @@
         .appendTo($(self));
 
       if (typeof tinymce === "undefined") {
-        console.error('EmailsComposeView - Missing Dependency: Cannot find tinyMCE.');
+        console.error('EmailsComposeView - Missing Dependency: Cannot find tinymce.');
 
         // copy plain to html
         $(self).find('#description_html').closest('.edit-view-row-item').addClass('hidden');
@@ -1170,7 +1170,7 @@
 
         var intervalCheckTinymce = window.setInterval(function () {
           var isFromPopulated = $('#from_addr_name').prop("tagName").toLowerCase() === 'select';
-          if (tinymce.editors.length > 0 && isFromPopulated === true) {
+          if (tinymce.get().length > 0 && isFromPopulated === true) {
             self.updateSignature();
             clearInterval(intervalCheckTinymce);
           }
@@ -1226,9 +1226,9 @@
       // TODO: Find a better way only display one tiny mce
       // Remove the hanging tinyMCE div
       $('.mce-panel').remove();
-      var length = tinyMCE.editors.length;
+      var length = tinymce.get().length;
       for (var i = length; i > 0; i--) {
-        tinyMCE.editors[i - 1].remove();
+        tinymce.get()[i - 1].remove();
       }
       $('.emails-qtip').remove();
       return true;
@@ -1387,7 +1387,8 @@
   $.fn.EmailsComposeView.defaults = {
     "tinyMceOptions": {
       menubar: false,
-      toolbar: ['fontselect | fontsizeselect | bold italic underline | forecolor backcolor | styleselect | outdent indent'],
+      plugins: ['link', 'lists'],
+      toolbar: 'bold italic underline strikethrough | bullist numlist | alignleft aligncenter alignright alignjustify | link unlink | forecolor backcolor | fontfamily fontsize',
       formats: {
         bold: {inline: 'b'},
         italic: {inline: 'i'},
@@ -1396,6 +1397,8 @@
       convert_urls: true,
       relative_urls: false,
       remove_script_host: false,
+      license_key: 'gpl',
+      promotion: false,
     }
   };
 }(jQuery));
