@@ -96,7 +96,7 @@ class SugarTinyMCE
      * Maps legacy config names to semantic config names for backward compatibility
      */
     private $configAliases = [
-        'email_compose_light' => 'minimal',
+        'email_compose_light' => 'standard',
         'default' => 'standard',
     ];
 
