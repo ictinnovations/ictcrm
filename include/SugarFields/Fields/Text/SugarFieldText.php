@@ -127,7 +127,9 @@ class SugarFieldText extends SugarFieldBase
                     $initiate .= 'tinymce.init(tinyConfig);';
                     $initiate .= '</script>';
                 } catch (Throwable $e) {
-                    $log?->error("[SugarFieldText][setup][tinymce_init_failed] Failed to initialize TinyMCE: " . $e->getMessage());
+                    if (isset($log)) {
+                        $log->error("[SugarFieldText][setup][tinymce_init_failed] Failed to initialize TinyMCE: " . $e->getMessage());
+                    }
                 }
             }
         }

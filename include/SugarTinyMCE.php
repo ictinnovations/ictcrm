@@ -128,7 +128,9 @@ class SugarTinyMCE
         $validTypes = ['extended', 'standard', 'minimal'];
 
         if (!in_array($type, $validTypes)) {
-            $log?->warn("[SugarTinyMCE][validateConfigType] Invalid config type: $type, falling back to 'standard'");
+            if (isset($log)) {
+                $log->warn("[SugarTinyMCE][validateConfigType] Invalid config type: $type, falling back to 'standard'");
+            }
             return 'standard';
         }
 
@@ -169,7 +171,9 @@ class SugarTinyMCE
         $type = $this->resolveConfigType($type);
         $type = $this->validateConfigType($type);
 
-        $log?->info("[SugarTinyMCE][getConfigArray] Generating config array for type: $type");
+        if (isset($log)) {
+            $log->info("[SugarTinyMCE][getConfigArray] Generating config array for type: $type");
+        }
 
         return $this->buildConfig($type);
     }
@@ -190,7 +194,9 @@ class SugarTinyMCE
         $type = $this->resolveConfigType($type);
         $type = $this->validateConfigType($type);
 
-        $log?->info("[SugarTinyMCE][getInstance] Generating TinyMCE instance for targets: $targets, type: $type");
+        if (isset($log)) {
+            $log->info("[SugarTinyMCE][getInstance] Generating TinyMCE instance for targets: $targets, type: $type");
+        }
 
         $config = $this->buildConfig($type);
         $config['directionality'] = SugarThemeRegistry::current()->directionality;
@@ -253,7 +259,9 @@ eoq;
         $type = $this->resolveConfigType($type);
         $type = $this->validateConfigType($type);
 
-        $log?->info("[SugarTinyMCE][getConfig] Generating config for type: $type");
+        if (isset($log)) {
+            $log->info("[SugarTinyMCE][getConfig] Generating config for type: $type");
+        }
 
         $config = $this->buildConfig($type);
         $jsConfig = $json->encode($config);

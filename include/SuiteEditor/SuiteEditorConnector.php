@@ -62,7 +62,7 @@ class SuiteEditorConnector
 {
     public static function getSuiteSettings($html, $width)
     {
-        return array(
+        $settings = [
             'contents' => $html,
             'textareaId' => 'body_text',
             'elementId' => 'email_template_editor',

@@ -186,14 +186,18 @@ class EmailsViewCompose extends ViewEdit
             $emailTinyConfig = json_encode($tiny->getConfigArray());
 
             if (empty($emailTinyConfig)) {
-                $log?->error("[EmailsViewCompose][setupTinyMCEConfig] Empty TinyMCE configuration returned");
+                if (isset($log)) {
+                    $log->error("[EmailsViewCompose][setupTinyMCEConfig] Empty TinyMCE configuration returned");
+                }
                 return;
             }
 
             $this->ev->ss->assign('EMAIL_TINYMCE_CONFIG', $emailTinyConfig);
 
         } catch (Throwable $e) {
-            $log?->error("[EmailsViewCompose][setupTinyMCEConfig] Failed to initialize TinyMCE: " . $e->getMessage());
+            if (isset($log)) {
+                $log->error("[EmailsViewCompose][setupTinyMCEConfig] Failed to initialize TinyMCE: " . $e->getMessage());
+            }
         }
     }
 }

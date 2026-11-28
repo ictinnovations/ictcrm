@@ -82,7 +82,9 @@ class SugarFieldWysiwyg extends SugarFieldBase {
 
             $this->ss->assign("tiny", $initiate);
         } catch (Throwable $e) {
-            $log?->error("[SugarFieldWysiwyg][getEditViewSmarty][tinymce_init_failed] Failed to initialize TinyMCE: " . $e->getMessage());
+            if (isset($log)) {
+                $log->error("[SugarFieldWysiwyg][getEditViewSmarty][tinymce_init_failed] Failed to initialize TinyMCE: " . $e->getMessage());
+            }
         }
 
         return parent::getEditViewSmarty($parentFieldArray, $vardef, $displayParams, $tabindex);

@@ -247,7 +247,9 @@ HTML;
             $standardTinyConfig = json_encode($tiny->getConfigArray());
 
             if (empty($extendedTinyConfig)) {
-                $log?->error("[AOS_PDF_Templates][displayTMCE] Empty TinyMCE configuration returned");
+                if (isset($log)) {
+                    $log->error("[AOS_PDF_Templates][displayTMCE] Empty TinyMCE configuration returned");
+                }
                 return '';
             }
 
@@ -295,7 +297,9 @@ HTML;
             echo $js;
 
         } catch (Throwable $e) {
-            $log?->error("[AOS_PDF_Templates][displayTMCE] Failed to initialize TinyMCE: " . $e->getMessage());
+            if (isset($log)) {
+                $log->error("[AOS_PDF_Templates][displayTMCE] Failed to initialize TinyMCE: " . $e->getMessage());
+            }
             throw $e;
         }
     }
