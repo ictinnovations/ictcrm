@@ -153,12 +153,23 @@ var plgBackground = {
 (function($){
     $.fn.mozaik = function(options) {
 
+        /**
+         * TinyMCE configuration for Mozaik drag-and-drop email template builder
+         *
+         * This configuration is intentionally different from standard editors because:
+         * - undo/redo: Required for drag-drop template building operations
+         * - emoticons: Allows template personalization with emojis
+         * - media: Enables video/audio embedding in email templates
+         * - print/preview: Essential for template preview before use
+         * - Split toolbars: Better organization for template building context
+         *
+         * DO NOT standardize this config with other TinyMCE instances
+         */
         var tinyMCESettings = {
             plugins: [
-                'advlist autolink lists link image charmap print preview hr anchor pagebreak',
-                'searchreplace wordcount visualblocks visualchars code fullscreen',
-                'insertdatetime media nonbreaking save table contextmenu directionality',
-                'emoticons template paste textcolor colorpicker textpattern imagetools'
+                'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview', 'anchor', 'pagebreak',
+                'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen',
+                'insertdatetime', 'media', 'nonbreaking', 'save', 'table', 'directionality', 'emoticons'
             ],
             toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
             toolbar2: 'print preview media | forecolor backcolor | image | emoticons | table | link | fontsizeselect',
@@ -384,7 +395,9 @@ var plgBackground = {
                     var config = settings.tinyMCE;
                     config.selector = sels;
                     config.inline = true;
-                    tinyMCE.init(config);
+                    config.license_key = 'gpl';
+                    config.license_policy = 'gpl';
+                    tinymce.init(config);
                 });
 
                 // initialize toolbar
@@ -404,7 +417,7 @@ var plgBackground = {
                     return false;
                 });
                 $mozaik.find('.mozaik-elem:last-child .mozaik-tool-source').bind('click', function(){
-                    var html = tinyMCE.activeEditor.getContent();
+                    var html = tinymce.activeEditor.getContent();
                     mozaik.ace.setValue(html);
                     $('#mozaik-ace').show();
                 });

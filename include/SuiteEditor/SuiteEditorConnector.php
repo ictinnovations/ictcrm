@@ -50,6 +50,7 @@ include_once get_custom_file_if_exists('include/SuiteEditor/SuiteEditorSettingsF
 include_once get_custom_file_if_exists('include/SuiteEditor/SuiteEditorTinyMCE.php');
 include_once get_custom_file_if_exists('include/SuiteEditor/SuiteEditorSettingsForMozaik.php');
 include_once get_custom_file_if_exists('include/SuiteEditor/SuiteEditorMozaik.php');
+include_once get_custom_file_if_exists('include/SugarTinyMCE.php');
 
 /**
  * Class SuiteEditor
@@ -61,25 +62,28 @@ class SuiteEditorConnector
 {
     public static function getSuiteSettings($html, $width)
     {
-        return array(
+        $settings = [
             'contents' => $html,
             'textareaId' => 'body_text',
             'elementId' => 'email_template_editor',
             'width' => $width,
-            'clickHandler' => "function(e){
-                onClickTemplateBody();
-            }",
-            'tinyMCESetup' => "{
-                setup: function(editor) {
-                    editor.on('focus', function(e){
-                        onClickTemplateBody();
-                    });
-                },
-                height : '480',
-                plugins: ['code', 'table', 'link', 'image'],
-                toolbar: ['fontselect | fontsizeselect | bold italic underline | forecolor backcolor | styleselect | outdent indent | link image'],
-            }"
-        );
+            'clickHandler' => "function(e){ onClickTemplateBody(); }",
+        ];
+
+        $tinyMCE = new SugarTinyMCE();
+        $tinyMCE->defaultConfig['height'] = 480;
+        $extendedConfig = $tinyMCE->getConfigArray();
+
+        $extendedConfig['setup'] = "function(editor) { ";
+        $extendedConfig['setup'] .= "editor.on('focus', function(e){ onClickTemplateBody(); });";
+        if ($_REQUEST["module"] === "Campaigns") {
+            $extendedConfig['setup'] .= " editor.on('init', function(e){ loadtemplate(); });";
+        }
+        $extendedConfig['setup'] .= " },";
+
+        $settings['tinyMCESetup'] = json_encode($extendedConfig);
+
+        return $settings;
     }
 
     /**

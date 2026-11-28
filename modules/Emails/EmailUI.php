@@ -133,7 +133,7 @@ class EmailUI
             'out' => array(),
         );
 
-        $this->_generateComposeConfigData('email_compose');
+        $this->_generateComposeConfigData();
 
 
         //Check quick create module access
@@ -355,7 +355,7 @@ eoq;
     {
         $this->preflightUserCache();
 
-        $this->_generateComposeConfigData('email_compose_light');
+        $this->_generateComposeConfigData("minimal");
         $javascriptOut = $this->smarty->fetch("modules/Emails/templates/_baseConfigData.tpl");
 
         $divOut = $this->smarty->fetch("modules/Emails/templates/overlay.tpl");
@@ -691,7 +691,7 @@ HTML;
      * @param String $type Drives which tinyMCE options will be included.
      * @throws RuntimeException
      */
-    public function _generateComposeConfigData($type = "email_compose_light")
+    public function _generateComposeConfigData(string $type = "standard"): void
     {
         global $app_list_strings, $current_user, $app_strings, $mod_strings, $current_language, $locale;
 

@@ -97,10 +97,10 @@ function toDecimal(original,precision){precision=(precision==null)?2:precision;n
 return temp+'.00';if((temp*10)%10==0)
 return temp+'0';return temp}
 function isInteger(s){if(typeof num_grp_sep!='undefined'&&typeof dec_sep!='undefined'){s=unformatNumberNoParse(s,num_grp_sep,dec_sep).toString();}
-return /^[+-]?[0-9]*$/.test(s);}
+return/^[+-]?[0-9]*$/.test(s);}
 function isDecimal(s){if(typeof s=="string"&&s=="")
 return true;if(typeof num_grp_sep!='undefined'&&typeof dec_sep!='undefined'){s=unformatNumberNoParse(s,num_grp_sep,dec_sep).toString();}
-return /^[+-]?[0-9]*\.?[0-9]*$/.test(s);}
+return/^[+-]?[0-9]*\.?[0-9]*$/.test(s);}
 function isNumeric(s){return isDecimal(s);}
 if(typeof date_reg_positions!="object")var date_reg_positions={'Y':1,'m':2,'d':3};if(typeof date_reg_format!="string")var date_reg_format='([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})';function isDate(dtStr){if(dtStr.length==0){return true;}
 myregexp=new RegExp(date_reg_format)
@@ -134,7 +134,7 @@ return false
 return true}
 function isFloat(floatStr){if(floatStr.length==0){return true;}
 if(!(typeof(num_grp_sep)=='undefined'||typeof(dec_sep)=='undefined')){floatStr=unformatNumberNoParse(floatStr,num_grp_sep,dec_sep).toString();}
-return /^(-)?[0-9\.]+$/.test(floatStr);}
+return/^(-)?[0-9\.]+$/.test(floatStr);}
 function isDBName(str){if(str.length==0){return true;}
 if(!/^[a-zA-Z][a-zA-Z\_0-9]*$/.test(str))
 return false
@@ -181,7 +181,8 @@ function validate_form(formname,startsWith){requiredTxt=SUGAR.language.get('app_
 if(typeof(validate[formname])=='undefined'){disableOnUnloadEditView(document.forms[formname]);return true;}
 var form=document.forms[formname];var isError=false;var errorMsg="";var _date=new Date();if(_date.getTime()<(lastSubmitTime+2000)&&startsWith==oldStartsWith){return false;}
 lastSubmitTime=_date.getTime();oldStartsWith=startsWith;clear_all_errors();inputsWithErrors=new Array();for(var i=0;i<validate[formname].length;i++){if(validate[formname][i][nameIndex].indexOf(startsWith)==0){if(typeof form[validate[formname][i][nameIndex]]!='undefined'&&typeof form[validate[formname][i][nameIndex]].value!='undefined'){var bail=false;if(!validate[formname][i][requiredIndex]&&trim(form[validate[formname][i][nameIndex]].value)==''&&(typeof(validate[formname][i][jstypeIndex])!='undefined'&&validate[formname][i][jstypeIndex]!='binarydep'&&validate[formname][i][jstypeIndex]!='callback')){continue;}
-if(validate[formname][i][requiredIndex]&&!isFieldTypeExceptFromEmptyCheck(validate[formname][i][typeIndex])){if(typeof form[validate[formname][i][nameIndex]]=='undefined'||trim(form[validate[formname][i][nameIndex]].value)==""){add_error_style(formname,validate[formname][i][nameIndex],requiredTxt+' '+validate[formname][i][msgIndex]);isError=true;}}
+if(validate[formname][i][requiredIndex]&&!isFieldTypeExceptFromEmptyCheck(validate[formname][i][typeIndex])){var fieldName=validate[formname][i][nameIndex];var fieldValue=form[fieldName].value;if(typeof tinymce!=='undefined'&&tinymce.get(fieldName)){fieldValue=tinymce.get(fieldName).getContent({format:'text'});}
+if(typeof form[fieldName]=='undefined'||trim(fieldValue)===''){add_error_style(formname,fieldName,requiredTxt+' '+validate[formname][i][msgIndex]);isError=true;}}
 if(!bail){switch(validate[formname][i][typeIndex]){case'email':if(!isValidEmail(trim(form[validate[formname][i][nameIndex]].value))){isError=true;add_error_style(formname,validate[formname][i][nameIndex],invalidTxt+" "+validate[formname][i][msgIndex]);}
 break;case'time':if(!isTime(trim(form[validate[formname][i][nameIndex]].value))){isError=true;add_error_style(formname,validate[formname][i][nameIndex],invalidTxt+" "+validate[formname][i][msgIndex]);}
 break;case'date':if(!isDate(trim(form[validate[formname][i][nameIndex]].value))){isError=true;add_error_style(formname,validate[formname][i][nameIndex],invalidTxt+" "+validate[formname][i][msgIndex]);}

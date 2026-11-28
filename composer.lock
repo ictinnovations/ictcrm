@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d8cb72702dc60a0def058ee5f10415b7",
+    "content-hash": "ab184f0b71171b32ddc9a833103e855a",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -5654,39 +5654,41 @@
         },
         {
             "name": "tinymce/tinymce",
-            "version": "5.10.7",
+            "version": "8.9.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "f078d8eb7de81f20d34b2ae4326870d20e22d4ff"
+                "reference": "a85d8cad504d6bbf6affa63e98615e8f0a42ad28"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/f078d8eb7de81f20d34b2ae4326870d20e22d4ff",
-                "reference": "f078d8eb7de81f20d34b2ae4326870d20e22d4ff",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/a85d8cad504d6bbf6affa63e98615e8f0a42ad28",
+                "reference": "a85d8cad504d6bbf6affa63e98615e8f0a42ad28",
                 "shasum": ""
             },
             "type": "component",
             "extra": {
                 "component": {
-                    "scripts": [
-                        "tinymce.js",
-                        "plugins/*/plugin.js",
-                        "themes/*/theme.js",
-                        "themes/*/icons.js"
-                    ],
                     "files": [
                         "tinymce.min.js",
                         "plugins/*/plugin.min.js",
                         "themes/*/theme.min.js",
+                        "models/*/model.min.js",
                         "skins/**",
                         "icons/*/icons.min.js"
+                    ],
+                    "scripts": [
+                        "tinymce.js",
+                        "plugins/*/plugin.js",
+                        "themes/*/theme.js",
+                        "models/*/model.js",
+                        "icons/*/icons.js"
                     ]
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "LGPL-2.1-only"
+                "SEE LICENSE IN license.md"
             ],
             "description": "Web based JavaScript HTML WYSIWYG editor control.",
             "homepage": "https://www.tiny.cloud/",
@@ -5705,9 +5707,9 @@
                 "wysiwyg"
             ],
             "support": {
-                "source": "https://github.com/tinymce/tinymce-dist/tree/5.10.7"
+                "source": "https://github.com/tinymce/tinymce-dist/tree/8.9.3"
             },
-            "time": "2022-12-07T03:50:54+00:00"
+            "time": "2026-10-06T03:49:45+00:00"
         },
         {
             "name": "tuupola/slim-jwt-auth",
