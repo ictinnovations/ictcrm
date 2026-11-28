@@ -96,7 +96,7 @@ class SugarFieldText extends SugarFieldBase
         global $log;
 
         parent::setup($parentFieldArray, $vardef, $displayParams, $tabindex, $twopass);
-        $editor = "";
+        $initiate = "";
 
         if (isset($vardef['editor']) && $vardef['editor'] == "html") {
             if (!isset($displayParams['htmlescape'])) {
@@ -134,6 +134,6 @@ class SugarFieldText extends SugarFieldBase
             }
         }
 
-        $this->ss->assign("tinymce", $editor);
+        $this->ss->assign("tinymce", $initiate);
     }
 }
